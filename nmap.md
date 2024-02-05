@@ -15,22 +15,38 @@ ls -l /usr/share/nmap/scripts | grep ftp-*  # (or smb, http, etc.)
 
 **Verbosity:** Increase the verbosity of the output with `-v`, and more with `-vv`
 
+**Status:** Hit `ENTER` while nmap is doing its thing to see the status (percentage done).
+
 ## Host Discovery
 
 Standard:
 ```
-nmap -sn 192.168.0.1/24
+nmap -sn  -v -T4 [target ip subnet]/[CIDR]
 ```
-- The `-sn` tells nmap to **_noit_** perform a port scan ("scan no" option: `-sn`) because we don't want to scan the devices on the network right now, we want to FIND them. 
-- This is often known as a "ping scan" or a "ping sweep."  
-- Hit `ENTER` while it's doing it's thing to see the status (percentage done).
+- `-sn` : (scan no) host discovery, no port scans (because we don't want to scan the devices on the network right now, we want to FIND them)
+- `-v` : verbosity
+- `-T4` : increase speed (1-5, with 5 as highest)
 
-Variant: Scan for open ports on the whole subnet... 
+Scan for open ports on the whole subnet:
 ```
 nmap --open -T4 [target ip subnet]/[CIDR]
 nmap --open -T4 10.4.20.0/20
 ```
 - `--open` : Only show hosts that have open ports, and only show the open ports for those.
+
+Do a TCP SYN ping scan: 
+```
+nmap -sn -PS 21,22,25,80,445,3389,8080 -T4 [target ip subnet]/[CIDR]
+```
+- `-PS [port list]` : TCP SYN Ping
+- Add the most common ports for Linux and Windows to save time
+
+Do a UDP ping scan: 
+```
+nmap -sn -PS21,22,25,80,445,3389,8080 -PU137,138 -T4 [target ip subnet]/[CIDR]
+```
+- `-PU [port list]` : UDP Ping Scan.  It sends a UDP packet (usually empty) to the given ports.
+- Upon hitting a closed port on the target machine, the UDP probe should elicit an ICMP port unreachable packet in return. This signifies to Nmap that the machine is up and available.
 
 ## Port Scans
 
