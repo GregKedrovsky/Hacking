@@ -48,6 +48,22 @@ nmap -sn -PS21,22,25,80,445,3389,8080 -PU137,138 -T4 [target ip subnet]/[CIDR]
 - `-PU [port list]` : UDP Ping Scan.  It sends a UDP packet (usually empty) to the given ports.
 - Upon hitting a closed port on the target machine, the UDP probe should elicit an ICMP port unreachable packet in return. This signifies to Nmap that the machine is up and available.
 
+Do an ICMP ping scan: 
+
+This is a host discovery scan than only sends ICMP Echo Requests (just like when we used the ping command). 
+
+```
+nmap -sn -PE  [target ip subnet]/[CIDR]
+```
+- `-sn` :  Ping Scan - disable port scan
+- `-PE` :  Nmap sends an ICMP type 8 (echo request) packet to the target IP addresses, expecting a type 0 (echo reply) in return from available hosts.
+
+Problem: Most firewalls today block these kinds of requests. So, you could try a variant...
+```
+nmap -sn -PE [target ip subnet]/[CIDR] --send-ip
+```
+- `--send-ip` : send packets via raw IP sockets rather than sending lower level Ethernet frames
+
 ## Port Scans
 
 Default scan, Ping no: 
