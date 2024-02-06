@@ -30,3 +30,11 @@ What we are looking for when we gather information on a website:
     - **WappAlyzer**: Technology profiler
 6. Kali tool: `whatweb` (run `whatweb` with no options to get usage help)
 7. Download the whole website with **HTTrack** (from httrack.com)
+
+## WhoIs 
+
+You use **whois** lookups to find information about a particular domain.
+- When the domain was obtained, the owner, the NameServers being used, etc.
+- Linux command: `whois`
+- Websites, for example: **who.is**
+- Test site to play with: [ZoneTransfer.me](zonetransfer.me)
