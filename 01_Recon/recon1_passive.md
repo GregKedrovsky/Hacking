@@ -3,14 +3,14 @@
 > Passive Information Gathering: gathering info w/o actively engaging the target systems (OSINT). 
 
 ## Contents
-- [Techniques](https://github.com/GregKedrovsky/Hacking/edit/main/01_Recon/recon1_passive.md#techniques)
-  - [Search Target's Website](https://github.com/GregKedrovsky/Hacking/edit/main/01_Recon/recon1_passive.md#search-targets-website)
-  - [WhoIs](https://github.com/GregKedrovsky/Hacking/edit/main/01_Recon/recon1_passive.md#WhoIs)
-  - [DNS Recon](https://github.com/GregKedrovsky/Hacking/edit/main/01_Recon/recon1_passive.md#DNS_Recon)
-- [Tools](https://github.com/GregKedrovsky/Hacking/edit/main/01_Recon/recon1_passive.md#Tools)
-  - [DNSRecon](https://github.com/GregKedrovsky/Hacking/edit/main/01_Recon/recon1_passive.md#DNSRecon)
-  - [DNSDumpster.com](https://github.com/GregKedrovsky/Hacking/edit/main/01_Recon/recon1_passive.md#DNSDumpster.com)
-  - [wafw00f](https://github.com/GregKedrovsky/Hacking/edit/main/01_Recon/recon1_passive.md#wafw00f)
+- [Techniques](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#techniques)
+  - [Search Target's Website](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#search-targets-website)
+  - [WhoIs](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#WhoIs)
+  - [DNS Recon](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#dns-recon)
+- [Tools](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#Tools)
+  - [DNSRecon](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#DNSRecon)
+  - [DNSDumpster.com](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#dnsdumpstercom)
+  - [wafw00f](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#wafw00f-kali-page)
 
 ## Techniques
 
