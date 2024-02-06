@@ -37,4 +37,63 @@ You use **whois** lookups to find information about a particular domain.
 - When the domain was obtained, the owner, the NameServers being used, etc.
 - Linux command: `whois`
 - Websites, for example: **who.is**
-- Test site to play with: [ZoneTransfer.me](zonetransfer.me)
+- Test site to play with: [ZoneTransfer.me](https://digi.ninja/projects/zonetransferme.php)
+
+## Netcraft: Website Footprinting
+
+**Netcraft:** another website passive recon tool... Site used to gather information about a target domain.
+https://www.netcraft.com/
+https://www.netcraft.com/tools/
+https://sitereport.netcraft.com/  (What's that site running?)
+
+You get most of the same stuff as a **whois** but very prettified. 
+- It also provides other goodies like SSL/TLS information (when a certificate expires... that might important).
+- It will also give you information on SSL vulnerabilities a site might have. 
+
+## DNS Recon
+
+Still passive recon therefore we are not interacting directly with the DNS server. 
+
+Find the DNS records associated with a particular domain. Info like: 
+- A Records (IPv4)
+- AAAA Records (IPv6)
+- NameServers
+- Mail Server
+
+TOOLS: 
+
+1. Kali: [dnsrecon](https://www.kali.org/tools/dnsrecon/)
+- DNSRecon is a Python script that provides the ability to perform:
+  - Check all NS Records for Zone Transfers.
+  - Enumerate General DNS Records for a given Domain (MX, SOA, NS, A, AAAA, SPF and TXT).
+  - Perform common SRV Record Enumeration.
+  - Top Level Domain (TLD) Expansion.
+  - Check for Wildcard Resolution.
+  - Brute Force subdomain and host A and AAAA records given a domain and a wordlist.
+  - Perform a PTR Record lookup for a given IP Range or CIDR.
+  - Check a DNS Server Cached records for A, AAAA and CNAME
+  - Records provided a list of host records in a text file to check.
+  - Enumerate Hosts and Subdomains using Google
+- Usage: `dnsrecon --help` 
+- Example: `dnsrecon -d hackersploit.org`
+
+2. Site: [DNSDumpster.com](https://dnsdumpster.com/) (dns recon & research, find & lookup dns records)
+- DNSdumpster.com is a FREE domain research tool that can discover hosts related to a domain. Finding visible hosts from the attackers perspective is an important part of the security assessment process.
+- Type in your domain into the search box.
+- Hover over icons in search results to see if active or passive, and what it does.
+
+## wafw00f
+
+WAF = Web Application Firewall
+
+Tool: [wafw00f](https://github.com/EnableSecurity/wafw00f) | [Kali Page](https://www.kali.org/tools/wafw00f/)
+- Detect & Fingerprint web application firewalls (WAFs)
+- Sends a *normal* HTTP request and analyses the response; this identifies a number of WAF solutions.
+- If that is not successful, it sends a number of (potentially malicious) HTTP requests and uses simple logic to deduce which WAF it is.
+- If that is also not successful, it analyses the responses previously returned and uses another simple algorithm to guess if a WAF or security solution is actively responding to our attacks.
+
+Usage & Syntax: 
+```
+wafw00f -h for usage;  wafw00f -a [sitename with or without https]
+```
+
