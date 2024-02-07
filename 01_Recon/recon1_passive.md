@@ -11,6 +11,7 @@
   - [DNSRecon](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#DNSRecon)
   - [DNSDumpster.com](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#dnsdumpstercom)
   - [wafw00f](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#wafw00f-kali-page)
+  - [Netcraft](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#netcraft)
 
 ## Techniques
 
@@ -109,3 +110,8 @@ wafw00f -h                       # for help
 wafw00f -a [sitename with or without https]
 ```
 
+### [Netcraft](https://www.netcraft.com/)
+
+> Website Footprinting. Passive recon tool that can be used to gather information about a target domain. And it presents that information in a very prettified mode.
+- [Site](https://www.netcraft.com/) | [Tools](https://www.netcraft.com/tools/) | [Site Report](https://sitereport.netcraft.com/) (What's this site running?)
+- You get most of the same stuff as a `whois` but it also provides other goodies like SSL/TLS information (when a certificate expires... that might important). It will also give you information on SSL vulnerabilities a site might have. 
