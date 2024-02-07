@@ -10,8 +10,9 @@
 - [Tools](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#Tools)
   - [DNSRecon](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#DNSRecon)
   - [DNSDumpster.com](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#dnsdumpstercom)
-  - [wafw00f](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#wafw00f-kali-page)
   - [Netcraft](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#netcraft)
+  - [Sublist3r](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#sublist3r)
+  - [wafw00f](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#wafw00f-kali-page)
 
 ## Techniques
 
@@ -98,6 +99,19 @@ dnsrecon -d hackersploit.org  # example
 - Type in your domain into the search box.
 - Hover over icons in search results to see if active or passive, and what it does.
 
+### [Netcraft](https://www.netcraft.com/)
+
+> Website Footprinting. Passive recon tool that can be used to gather information about a target domain. And it presents that information in a very prettified mode.
+- [Site](https://www.netcraft.com/) | [Tools](https://www.netcraft.com/tools/) | [Site Report](https://sitereport.netcraft.com/) (What's this site running?)
+- You get most of the same stuff as a `whois` but it also provides other goodies like SSL/TLS information (when a certificate expires... that might important). It will also give you information on SSL vulnerabilities a site might have. 
+
+### [Sublist3r](https://github.com/aboul3la/Sublist3r)
+> Sublist3r is a python tool designed to enumerate subdomains of websites using OSINT. It helps penetration testers and bug hunters collect and gather subdomains for the domain they are targeting. Sublist3r enumerates subdomains using many search engines such as Google, Yahoo, Bing, Baidu and Ask. Sublist3r also enumerates subdomains using Netcraft, Virustotal, ThreatCrowd, DNSdumpster and ReverseDNS.
+- Still a passive recon. Kali tool. It basically automates [Google Dorks](stillNeedLink).
+- You CAN use this tool to brute-force information (`subbrute`), but that would be an **active** search.
+- Using the tool's passive search capacity, you utilize publicly available search engines to gather information.
+- [Usage & Examples](https://github.com/aboul3la/Sublist3r#usage) | [Examples from Kali](https://www.kali.org/tools/sublist3r/)
+
 ### [wafw00f](https://github.com/EnableSecurity/wafw00f) ([Kali Page](https://www.kali.org/tools/wafw00f/))
 > WAF = Web Application Firewall
 - Detect & Fingerprint web application firewalls (WAFs)
@@ -110,8 +124,8 @@ wafw00f -h                       # for help
 wafw00f -a [sitename with or without https]
 ```
 
-### [Netcraft](https://www.netcraft.com/)
 
-> Website Footprinting. Passive recon tool that can be used to gather information about a target domain. And it presents that information in a very prettified mode.
-- [Site](https://www.netcraft.com/) | [Tools](https://www.netcraft.com/tools/) | [Site Report](https://sitereport.netcraft.com/) (What's this site running?)
-- You get most of the same stuff as a `whois` but it also provides other goodies like SSL/TLS information (when a certificate expires... that might important). It will also give you information on SSL vulnerabilities a site might have. 
+
+
+
+
