@@ -5,7 +5,7 @@
 ## Types
 
 - [Passive Info Gathering](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#passive-recon): gathering info w/o actively engaging the target systems (OSINT).
-- [Active Info Gathering](link): gathering info by actively engaging the target systems (need permission).
+- [Active Info Gathering](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_active.md): gathering info by actively engaging the target systems (need permission).
 
 ## Examples
 
