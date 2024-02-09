@@ -1,6 +1,6 @@
-#NetDiscover
+# NetDiscover
 
-NetDiscover looks for hosts by sending ARP requests.
+> NetDiscover looks for hosts by sending ARP requests.
 - Linux command line tool.
 - It was show IP and MAC addresses (much like Nmap).
 - Requires root privileges
