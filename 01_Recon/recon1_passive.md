@@ -10,6 +10,7 @@
 - [Tools](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#Tools)
   - [DNSRecon](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#DNSRecon)
   - [DNSDumpster.com](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#dnsdumpstercom)
+  - [Google Dorks](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#google-dorks)
   - [Netcraft](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#netcraft)
   - [Sublist3r](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#sublist3r)
   - [wafw00f](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#wafw00f-kali-page)
@@ -103,7 +104,7 @@ dnsrecon -d hackersploit.org  # example
 > Also called "Google Hacking." Mainly refers to pulling sensitive information from Google using advanced search terms that help users search the index of a specific website, specific file type, and some exciting information from unsecured Websites.
 - [GHDB](https://www.exploit-db.com/google-hacking-database) | [Cheat Sheet](https://gist.github.com/sundowndev/283efaddbcf896ab405488330d1bbc06) | [1000 Best List](https://gbhackers.com/latest-google-dorks-list)
 - Use specific filters in the Google search box (followed by a colon, no space, then term provided)
-- Examples
+- Examples:
   - Find subdomains: `site:*.ine.com`
   - Find subdomains related to admins: `site:*.ine.com inurl:admin` OR  `site:*.ine.com intitle:admin`
   - Find pdfs one a site: `site:ine.com filetype:pdf`
