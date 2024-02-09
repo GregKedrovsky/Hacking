@@ -3,8 +3,8 @@
 > Passive Information Gathering: gathering info w/o actively engaging the target systems (OSINT). 
 
 ## Contents
-- [Techniques](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#techniques)
-  - [Search Target's Website](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#search-targets-website)
+- [Techniques](#techniques)
+  - [Search Target's Website](#search-targets-website)
   - [WhoIs](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#WhoIs)
   - [Nslookup](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#nslookup)
   - [DNS Recon](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#dns-recon)
@@ -19,6 +19,24 @@
   - [Sublist3r](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#sublist3r)
   - [theHarvester](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#theharvester)
   - [wafw00f](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#wafw00f-kali-page)
+
+## Contents
+- [Techniques](#techniques)
+  - [Search Target's Website](#search-targets-website)
+  - [WhoIs](#WhoIs)
+  - [Nslookup](#nslookup)
+  - [DNS Recon](#dns-recon)
+- [Tools](#Tools)
+  - [breach-parse](#breach-parse)
+  - [DNSRecon](#DNSRecon)
+  - [DNSDumpster.com](#dnsdumpstercom)
+  - [FOCA](#foca)
+  - [Google Dorks](#google-dorks)
+  - [Leaked Password Databases](#leaked-password-databases)
+  - [Netcraft](#netcraft)
+  - [Sublist3r](#sublist3r)
+  - [theHarvester](#theharvester)
+  - [wafw00f](#wafw00f-kali-page)
 
 ## Techniques
 
