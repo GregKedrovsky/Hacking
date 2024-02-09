@@ -9,7 +9,7 @@ NOTE: Windows blocks ICMP traffic by default.
   - [Windows One-Liner](https://github.com/GregKedrovsky/Hacking/blob/main/02_Host_Discovery/ping_sweeps.md#windows-one-liner)
   - [Linux One-Liner](https://github.com/GregKedrovsky/Hacking/blob/main/02_Host_Discovery/ping_sweeps.md#linux-one-liner)
 - [fping](https://github.com/GregKedrovsky/Hacking/blob/main/02_Host_Discovery/ping_sweeps.md#fping)
-- [Bash Ping Sweep](https://github.com/GregKedrovsky/Hacking/blob/main/02_Host_Discovery/ping_sweeps.md#bash-ping-sweep)
+- [Bash Ping Sweep](#bash-ping-sweep)
 
 ## ping
 
