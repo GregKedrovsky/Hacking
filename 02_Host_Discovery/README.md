@@ -2,8 +2,8 @@
 > In penetration testing host discovery is a crucial phase to identify live hosts on a network before further exploration and vulnerability assessment. Various techniques can be employed for host discovery, and the choice of technique depends on factors such as network characteristics, stealth requirements, and the goals of the penetration test.
 
 ## Content
-- [Techniques](https://github.com/GregKedrovsky/Hacking/tree/main/02_Host_Discovery#techniques)
-- [Choosing Techniques](https://github.com/GregKedrovsky/Hacking/tree/main/02_Host_Discovery#choosing-techniques)
+- [Techniques](#techniques)
+- [Choosing Techniques](#choosing-techniques)
 
 ## Techniques
 
