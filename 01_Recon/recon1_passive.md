@@ -6,10 +6,13 @@
 - [Techniques](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#techniques)
   - [Search Target's Website](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#search-targets-website)
   - [WhoIs](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#WhoIs)
+  - [Nslookup](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#nslookup)
   - [DNS Recon](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#dns-recon)
 - [Tools](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#Tools)
+  - [breach-parse](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#breach-parse)
   - [DNSRecon](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#DNSRecon)
   - [DNSDumpster.com](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#dnsdumpstercom)
+  - [FOCA](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#foca)
   - [Google Dorks](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#google-dorks)
   - [Leaked Password Databases](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#leaked-password-databases)
   - [Netcraft](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#netcraft)
@@ -54,6 +57,22 @@ You use **whois** lookups to find information about a particular domain.
 - Linux command: `whois`
 - Websites, for example: **who.is**
 - Test site to play with: [ZoneTransfer.me](https://digi.ninja/projects/zonetransferme.php)
+- **Problem:** A major problem with whois lookups today is that the amount of visible data has been greatly reduced in an effort to provide better privacy and protection.
+- **Work-Around:** There are services that provide historical whois lookups (kind of like a WayBack Machine for DNS/WhoIs stuff). Examples:
+  - [WhoIsMind.com](https://whoismind.com/)
+
+### [NSLookUp](https://linux.die.net/man/1/nslookup)
+> Nslookup is a program to query Internet domain name servers. It is similar to whois but a bit more flexible and focused.
+- Basic: 
+```
+whois google.com
+nslookup google.com
+```
+Reverse:
+```
+whois 172.250.191.174
+nslookup 172.250.191.174
+```
 
 ### Netcraft: Website Footprinting
 
@@ -77,6 +96,10 @@ Find the DNS records associated with a particular domain. Info like:
 - Mail Server
 
 ## Tools
+
+### [breach-parse](https://github.com/hmaverickadams/breach-parse)
+> A tool for parsing breached passwords
+- You have to download a 45GB dump of text files containing email/pwd combos.
 
 ### [DNSRecon](https://www.kali.org/tools/dnsrecon/)
 - DNSRecon is a Python script that provides the ability to perform:
@@ -102,6 +125,21 @@ dnsrecon -d hackersploit.org  # example
 - Type in your domain into the search box.
 - Hover over icons in search results to see if active or passive, and what it does.
 
+### [FOCA](https://github.com/ElevenPaths/FOCA)
+> FOCA: Fingerprinting Organizations with Collected Archives
+- [GitHub ReadMe](https://github.com/ElevenPaths/FOCA/blob/master/README.md). This is a Windows-only program.
+- You first need to install the Express version of MicroSoft's SQL server.Go [here](https://www.microsoft.com/en-us/sql-server/sql-server-downloads), scroll down to “Or, download a free specialized edition” and click on the Express version Download Now button.
+- Download and unzip the [current release](https://github.com/ElevenPaths/FOCA/releases) of FOCA.It is self-contained so you'll run FOCA.exe from the folder you get when you unzip the download.
+- Run FOCA.exe
+- When FOCA opens up, click on “Project Name” and set the Project Name, Domain website, and Folder where to save documents. Click “Create.”
+- In the next window click on settings
+  - Deselect all but FOCA in the Module filter
+  - Check (select) all options in the Search engines and Extensions option lists.
+- Click on “Search All” and let it do its thing.
+- Once it's finished, you need to “Download All” the discovered files (highlight, right click).
+- Then, highlight all the files, right click, and choose “Extract All Metadata.”
+- This will dump all the metadata into Metadata Summary and Document Analysis. Have fun!
+ 
 ### [Google Dorks](https://www.googleguide.com/advanced_operators_reference.html)
 > Also called "Google Hacking." Mainly refers to pulling sensitive information from Google using advanced search terms that help users search the index of a specific website, specific file type, and some exciting information from unsecured Websites.
 - [GHDB](https://www.exploit-db.com/google-hacking-database) | [Cheat Sheet](https://gist.github.com/sundowndev/283efaddbcf896ab405488330d1bbc06) | [1000 Best List](https://gbhackers.com/latest-google-dorks-list)
