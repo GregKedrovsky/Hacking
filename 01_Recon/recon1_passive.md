@@ -113,6 +113,11 @@ dnsrecon -d hackersploit.org  # example
   - Search for directories with exposed passwords: `inurl:auth_user_file.txt`  OR  `inurl:password.txt` (or passwd.txt, etc-passwd.txt)
   - WordPress config files: `inurl:wp-config.bak`
 
+### [Leaked Password Databases](https://www.google.com/search?q=Leaked+Password+Databases)
+> Objective: Find a leaked password for a user and do a "password spraying" attack to see if he used the same password for multiple sites.
+- Site Example: [Have I Been Pwned](https://haveibeenpwned.com/). Aggregator for most all data breach sets.
+- After you get a bunch of target employee email addresses, you just plug them into this search one by one to see if they have been compromised. 
+
 ### [Netcraft](https://www.netcraft.com/)
 > Website Footprinting. Passive recon tool that can be used to gather information about a target domain. And it presents that information in a very prettified mode.
 - [Site](https://www.netcraft.com/) | [Tools](https://www.netcraft.com/tools/) | [Site Report](https://sitereport.netcraft.com/) (What's this site running?)
@@ -124,6 +129,11 @@ dnsrecon -d hackersploit.org  # example
 - You CAN use this tool to brute-force information (`subbrute`), but that would be an **active** search.
 - Using the tool's passive search capacity, you utilize publicly available search engines to gather information.
 - [Usage & Examples](https://github.com/aboul3la/Sublist3r#usage) | [Examples from Kali](https://www.kali.org/tools/sublist3r/)
+
+### [theHarvester](https://github.com/laramies/theHarvester)
+> theHarvester is a tool for gathering subdomain names, e-mail addresses, virtual hosts, open ports/ banners, and employee names from different public sources (search engines, pgp key servers). It is similar to Sublist3r (gather subdomains, etc.).
+- [Kali Info Page](https://www.kali.org/tools/theharvester/)
+- You can then use harvested emails for phishing, malicious attachments, usernames for brute-forcing, etc. 
 
 ### [wafw00f](https://github.com/EnableSecurity/wafw00f) ([Kali Page](https://www.kali.org/tools/wafw00f/))
 > WAF = Web Application Firewall
