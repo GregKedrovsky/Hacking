@@ -99,8 +99,20 @@ dnsrecon -d hackersploit.org  # example
 - Type in your domain into the search box.
 - Hover over icons in search results to see if active or passive, and what it does.
 
-### [Netcraft](https://www.netcraft.com/)
+### [Google Dorks](https://www.googleguide.com/advanced_operators_reference.html)
+> Also called "Google Hacking." Mainly refers to pulling sensitive information from Google using advanced search terms that help users search the index of a specific website, specific file type, and some exciting information from unsecured Websites.
+- [GHDB](https://www.exploit-db.com/google-hacking-database) | [Cheat Sheet](https://gist.github.com/sundowndev/283efaddbcf896ab405488330d1bbc06) | [1000 Best List](https://gbhackers.com/latest-google-dorks-list)
+- Use specific filters in the Google search box (followed by a colon, no space, then term provided)
+- Examples
+  - Find subdomains: `site:*.ine.com`
+  - Find subdomains related to admins: `site:*.ine.com inurl:admin` OR  `site:*.ine.com intitle:admin`
+  - Find pdfs one a site: `site:ine.com filetype:pdf`
+  - Search for a keyword (e.g., employees) on a specific site: `site:ine.com employees`
+  - Check for directory listings: `intitle:"index of"`
+  - Search for directories with exposed passwords: `inurl:auth_user_file.txt`  OR  `inurl:password.txt` (or passwd.txt, etc-passwd.txt)
+  - WordPress config files: `inurl:wp-config.bak`
 
+### [Netcraft](https://www.netcraft.com/)
 > Website Footprinting. Passive recon tool that can be used to gather information about a target domain. And it presents that information in a very prettified mode.
 - [Site](https://www.netcraft.com/) | [Tools](https://www.netcraft.com/tools/) | [Site Report](https://sitereport.netcraft.com/) (What's this site running?)
 - You get most of the same stuff as a `whois` but it also provides other goodies like SSL/TLS information (when a certificate expires... that might important). It will also give you information on SSL vulnerabilities a site might have. 
