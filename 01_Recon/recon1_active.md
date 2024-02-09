@@ -4,8 +4,8 @@
 Active information gathering will feed the rest of the pentest. It is essesntial. You need to be as thorough as possible.
 
 ## Contents
-- [Network Mapping]()
-- [Tool: nmap]()
+- [Network Mapping](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_active.md#network-mapping)
+- [Tool: nmap](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_active.md#tool-nmap)
 
 ## Network Mapping
 
