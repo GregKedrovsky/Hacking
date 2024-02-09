@@ -11,8 +11,10 @@
   - [DNSRecon](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#DNSRecon)
   - [DNSDumpster.com](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#dnsdumpstercom)
   - [Google Dorks](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#google-dorks)
+  - [Leaked Password Databases](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#leaked-password-databases)
   - [Netcraft](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#netcraft)
   - [Sublist3r](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#sublist3r)
+  - [theHarvester](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#theharvester)
   - [wafw00f](https://github.com/GregKedrovsky/Hacking/blob/main/01_Recon/recon1_passive.md#wafw00f-kali-page)
 
 ## Techniques
