@@ -133,4 +133,3 @@ nmap -Pn -sV -O -sC -T5 [target IP address] -v
 ```
 nmap -Pn -sV -O -sC -T5 [target IP address] -v -oN output.txt
 ```
-
