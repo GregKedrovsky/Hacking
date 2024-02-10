@@ -265,7 +265,7 @@ enum4linux -r -u "admin" -p [password] [target IP]
 > run 
 ```  
 
-### [Hydra](hydra.md)
+### [Hydra](../hydra.md)
 > Hydra is a tool to guess/crack valid login/password pairs.
 - First you need may need to unzip the RockYou wordlist:
 ```
