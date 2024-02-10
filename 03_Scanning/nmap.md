@@ -1,10 +1,19 @@
 # NMap
 
 ## Contents
-- [](#)
-- [](#)
-- [](#)
-- [](#)
+- [General Syntax](#)
+- [Standard Go-To](#)
+- [Default Port Scan](#)
+- [Fast Scan](#)
+- [Specify Ports to Scan](#)
+- [TCP Connect Scan](#)
+- [UDP Port Scan](#)
+- [Version Scan](#)
+- [Operating System Scan](#)
+- [Default Script Scan](#)
+- [Aggressive Scan](#)
+- [Timing Templates](#)
+- [Output to File](#)
 
 ## General Syntax
 ```
