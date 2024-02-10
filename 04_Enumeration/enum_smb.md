@@ -9,7 +9,7 @@
 
 ## Contents
 - [Windows Net Use](#windows-net-use)
-- [Nmap Scripts](#)
+- [Nmap Scripts](#nmap-scripts)
   - [smb-protocols](#smb-protocols)
   - [smb-security-mode](#smb-security-mode)
   - [smb-enum-sessions](#smb-enum-sessions)
@@ -55,12 +55,6 @@ net use g: \\10.3.31.125\C$ [password] /user:[username]  # mount the share
 ## Nmap Scripts
 > If after your initial scan you know an SMB server exists on a machine, you need to enumerate it (to find something to exploit). And you can do that with nmap scripts.
 - [Nmap Scripts](https://nmap.org/nsedoc/scripts): `ctrl-f` on that page and search for "smb-" to see the SMB scripts
-
-### smb-enum-shares
-> Enumerating all available shares.
-```
-nmap -p445 --script smb-enum-shares 10.0.17.200
-```
 
 ### smb-protocols
 > List the supported protocols and dialects of an SMB server.
