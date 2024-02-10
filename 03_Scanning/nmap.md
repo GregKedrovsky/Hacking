@@ -12,7 +12,9 @@
 - [Operating System Scan](#operating-system-scan)
 - [Default Script Scan](#default-script-scan)
 - [Aggressive Scan](#aggressive-scan)
-- [Timing Templates](#timing-templates)
+- [Timing & Performance](#timing--performance)
+  - [Templates](#templates)
+  - [Additional Options](#additional-options)
 - [Output to File](#output-to-file)
 
 ## General Syntax
