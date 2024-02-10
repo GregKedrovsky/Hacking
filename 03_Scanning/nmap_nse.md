@@ -5,10 +5,10 @@
 - [Reference](https://nmap.org/nsedoc/scripts/)
 
 ## Contents
-- [General Usage & Syntax](#)
-- [Useful NSE Scripts](#)
-- [NSE CLI Args](#)
-- [Script Categories](#)
+- [General Usage & Syntax](#general-usage--syntax)
+- [Useful NSE Scripts](#useful-nse-scripts)
+- [NSE CLI Args](#nse-cli-args)
+- [Script Categories](#script-categories)
 
 ## General Usage & Syntax
 - From [Nmap 30 Most Common Commands](nmap_common.md#nmap-scripting-engine)
