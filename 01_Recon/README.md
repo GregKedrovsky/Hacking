@@ -6,7 +6,7 @@
 
 - [Passive Info Gathering](recon1_passive.md): gathering info w/o actively engaging the target systems (OSINT).
 - [Active Info Gathering](recon2_active.md): gathering info by actively engaging the target systems (need permission).
-- [Social Engineering](recon3_social_engineering): hacking humans.
+- [Social Engineering](recon3_social_engineering.md): hacking humans.
 
 ## Examples
 
