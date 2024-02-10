@@ -9,6 +9,16 @@
 
 ## Contents
 - [Windows Net Use](#windows-net-use)
+- [Nmap Scripts](#)
+  - [smb-protocols](#smb-protocols)
+  - [smb-security-mode](#smb-security-mode)
+  - [smb-enum-sessions](#smb-enum-sessions)
+  - [smb-enum-shares](#smb-enum-shares)
+  - [smb-enum-users](#smb-enum-users)
+  - [smb-server-stats](#smb-server-stats)
+  - [smb-enum-domains](#smb-enum-domains)
+  - [smb-enum-groups](#smb-enum-groups)
+  - [smb-enum-services](#smb-enum-services)
 - [SMBMap](#smbmap)
   - [Null Session](#null-session)
   - [Login with Creds](#login-with-creds)
@@ -41,6 +51,110 @@ net use z: \\10.3.31.125\C$                              # mount a target on a s
 net use * \\10.3.31.125\C$                               # mount a target on whatever letter
 net use g: \\10.3.31.125\C$ [password] /user:[username]  # mount the share
 ```
+
+## Nmap Scripts
+> If after your initial scan you know an SMB server exists on a machine, you need to enumerate it (to find something to exploit). And you can do that with nmap scripts.
+- [Nmap Scripts](https://nmap.org/nsedoc/scripts): `ctrl-f` on that page and search for "smb-" to see the SMB scripts
+
+### smb-enum-shares
+> Enumerating all available shares.
+```
+nmap -p445 --script smb-enum-shares 10.0.17.200
+```
+
+### smb-protocols
+> List the supported protocols and dialects of an SMB server.
+```
+nmap -p445 --script smb-protocols 10.0.17.200
+```
+
+### [smb-security-mode](https://nmap.org/nsedoc/scripts/smb-security-mode.html)
+> Information about the SMB security level.
+```
+nmap -p445 --script smb-security-mode 10.0.17.200
+```
+
+### smb-enum-sessions
+> Enumerating the users logged into a system through an SMB share. 
+- First, we won’t use any credentials to see the output.
+```
+nmap -p445 --script smb-enum-sessions 10.0.17.200
+```
+
+- If the guest login is not enabled we can always use valid credentials of the target machine to discover the same information.
+```
+nmap -p445 --script smb-enum-sessions --script-args smbusername=[username],smbpassword=[password] 10.0.17.200
+```
+
+### smb-enum-shares
+> Scan target for shares. 
+- If guest login allowed, you should get a list: 
+```
+nmap -p445 --script smb-enum-shares 10.0.17.200
+```
+
+- Scan all shares using valid credentials to check the permissions: 
+```
+nmap -p445 --script smb-enum-shares --script-args smbusername=[username],smbpassword=[password] 10.0.17.200
+```
+
+- Enumerate all the shared folders and drives then run the `ls` command on all the shared folders.
+```
+nmap -p445 --script smb-enum-shares,smb-ls --script-args smbusername=[username],smbpassword=[password] 10.0.17.200
+```
+
+### smb-enum-users
+> Enumerate the windows users on a target machine.
+```
+nmap -p445 --script smb-enum-users --script-args smbusername=[username],smbpassword=[password] 10.0.17.200
+```
+
+### smb-server-stats
+> Get information about the server statistics. It uses port 445 and port 139 to fetch the details.
+```
+nmap -p445 --script smb-server-stats --script-args smbusername=[username],smbpassword=[password] 10.0.17.200
+```
+
+### smb-enum-domains
+> Enumerating available domains on a target machine.
+```
+nmap -p445 --script smb-enum-domains --script-args smbusername=[username],smbpassword=[password] 10.0.17.200
+```
+
+### smb-enum-groups
+> Enumerating available user groups on a target machine.
+```
+nmap -p445 --script smb-enum-groups --script-args smbusername=[username],smbpassword=[password] 10.0.17.200
+```
+
+### smb-enum-services
+> Enumerating services on a target machine.
+```
+nmap -p445 --script smb-enum-services --script-args smbusername=[username],smbpassword=[password] 10.0.17.200
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## SMBMap
 > Samba Share Enumerator
