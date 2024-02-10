@@ -2,11 +2,27 @@
 > SMB (Server Message Block) is a Windows implementation of a file sharing service.  The Linux version of SMB is called Samba
 
 ## Contents
-- [](*)
-- [](*)
-- [](*)
-- [](*)
-- [](*)
+- [SMBMap](#smbmap)
+  - [Null Session](#null-session)
+  - [Login with Creds](#login-with-creds)
+  - [Run a Command](#run-a-command)
+  - [List Drives on the Share](#list-drives-on-the-share)
+  - [Connect to a Drive](#connect-to-a-drive)
+  - [Upload a File](#upload-a-file)
+  - [Download a File](#download-a-file)
+- [nmblookup](#nmblookup)
+- [smbclient](#smbclient)
+  - [General Syntax](#general-syntax)
+  - [Connect](#connect)
+- [rpcclient](#rpcclient)
+  - [General Syntax](#general-syntax-1)
+- [enum4linux](#enum4linux)
+  - [Get O/S Info](#get-os-info)
+  - [Get Share Info](#get-share-info)
+  - [Get Groups & Members](#get-groups--members)
+  - [Get (Printer) Information:](#get-printer-information)
+  - [Get SIDs (Linux)](#get-sids-linux)
+- [Hydra](#hydra)
 
 ## SMBMap
 > Samba Share Enumerator
@@ -132,31 +148,3 @@ enum4linux -r -u "admin" -p [password] [target IP]
 ## Hydra
 
 Dictionary Attacks. [See here](hydra.md).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
