@@ -25,6 +25,7 @@ nmap [Scan Type(s)] [Options] {target specification}
 - If you are dealing with a Windows system and you get a "**_filtered_**" STATE in your response, you can be assured the target system has a **_firewall_**.
 - If you are dealing with a Windows system and you get a "**_closed_**" STATE in your response, then Windows Firewall is **_not active_** or there are **_not rules_** for particular port that are intercepting traffic.
 - `-v` provides some verbosity. `-vv` provides more verbosity.
+- `--reason` : display the reason a port is in a particular state
 
 ## Standard Go-To
 ```
