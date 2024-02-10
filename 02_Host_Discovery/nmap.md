@@ -4,7 +4,9 @@
 - [List Scan](#list-scan)
 - [Ping Sweep](#ping-sweep)
 - [Scan for Open Ports](#scan-for-open-ports)
+- [TCP ACK Ping](#tcp-ack-ping)
 - [TCP SYN Ping](#tcp-syn-ping)
+- [ICMP Specific Ping Scan](#icmp-specific-ping-scan)
 
 ## List Scan
 > A list scan doesn’t send traffic to any hosts but rather attempts a reverse DNS lookup to determine if a hostname can be found for the target. Occasionally, this will provide useful information.
