@@ -120,7 +120,9 @@ nmap -sV -O -sC [target IP address]
   - `-O` : Operating System Scan
   - `-sC` : Default Script Scan
 
-## Timing Templates
+## Timing & Performance
+
+### Templates
 > Speed up a scan: Use  Nmap's timing templates... (higher is faster)
 - `T0` : Paranoid
 - `T1` : Sneaky
@@ -131,6 +133,18 @@ nmap -sV -O -sC [target IP address]
 ```
 nmap -Pn -sV -O -sC -T5 [target IP address] -v
 ```
+
+### Additional Options
+```
+nmap -sS -sV -F --scan-delay 5s [target ip]
+```
+- `--scan-delay time` or `--max-scan-delay time` :  Adjust delay between probes.
+- You can append `ms` (milliseconds), `s` (seconds), `m` (minutes), or `h` (, or hours). 
+
+You can also add `--host-timeout [time]` to give up on slow target hosts.
+- The time parameter is specified in seconds by default.
+- You can append `ms` (milliseconds), `s` (seconds), `m` (minutes), or `h` (, or hours).
+- TIP: Set it to `30s` if you are working on a large network and/or with a large group of IPs.
 
 ## Output to File
 > Output your scan results to a file so you don't have to go back and do it again.
