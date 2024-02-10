@@ -127,7 +127,7 @@
 ```
 locate *.nse
 # or
-find /usr/share/nmap/ "*.nse!
+find /usr/share/nmap/ "*.nse"
 ```
 
 - The syntax for enabling scripts is as follows:
