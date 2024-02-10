@@ -2,16 +2,17 @@
 
 ## Contents
 - [Common Switches](#common-switches)
-- [Most Common Commands](#)
-  - [Target Selection](#)
-  - [Port Selection](#)
-  - [Scan Types](#)
-  - [Service and OS Detection](#)
-  - [Output Formats](#)
-- [Nmap Scripting Engine](#)
-  - [General Usage & Syntax](#)
-  - [Useful NSE Scripts](#)
-  - [Examples & Reference](#)
+- [Most Common Commands](#most-common-commands)
+  - [Target Selection](#target-selection)
+  - [Port Selection](#port-selection)
+  - [Scan Types](#scan-types)
+  - [Service and OS Detection](#service-and-os-detection)
+  - [Output Formats](#output-formats)
+- [Nmap Scripting Engine](#nmap-scripting-engine)
+  - [General Usage & Syntax](#general-usage--syntax)
+  - [Useful NSE Scripts](#useful-nse-scripts)
+  - [Script Categories](#script-categories)
+  - [Examples & Reference](#examples--reference)
 
 ## Common Switches
 
