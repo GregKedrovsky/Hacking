@@ -7,7 +7,7 @@ Active information gathering will feed the rest of the pentest. It is essesntial
 - [Network Mapping](#network-mapping)
 - [Tools](#tools)
     - [Nmap](#nmap)
-    - [URL Enum](url-enum)
+    - [URL Enum](#url-enum)
     - [DNS Enum](#dns-enum)
     - [SMTP](#smtp)
     - [SNMP](#snmp)
