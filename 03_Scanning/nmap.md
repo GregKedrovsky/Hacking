@@ -125,11 +125,11 @@ nmap -Pn -sV -O -sC -T5 [target IP address] -v
 
 ## Output to File
 > Output your scan results to a file so you don't have to go back and do it again.
-- -oN: output normal
-- -oX: output XML (allows you to import your output into a framework like MetaSploit).
-- -oS: output ScriptKiddie
-- -oG: output Grepable
-- -oA: output All (all formats)
+- `-oN` : output normal
+- `-oX` : output XML (allows you to import your output into a framework like MetaSploit).
+- `-oS` : output ScriptKiddie
+- `-oG` : output Grepable
+- `-oA` : output All (all formats)
 ```
 nmap -Pn -sV -O -sC -T5 [target IP address] -v -oN output.txt
 ```
