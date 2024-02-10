@@ -5,7 +5,12 @@ Active information gathering will feed the rest of the pentest. It is essesntial
 
 ## Contents
 - [Network Mapping](#network-mapping)
-- [Tool: nmap](#tool-nmap)
+- [Tools](#tools)
+    - [Nmap](#nmap)
+    - [URL Enum](url-enum)
+    - [DNS Enum](#dns-enum)
+    - [SMTP](#smtp)
+    - [SNMP](#snmp)
 
 ## Network Mapping
 
@@ -48,15 +53,59 @@ Active information gathering will feed the rest of the pentest. It is essesntial
 - Discovering firewalls, intrusion prevention systems, and other security measures in place. 
 - This helps pentesters understand the network's defenses and plan their approach accordingly. 
 
-## Tool: nmap
+## Tools
 
-### The Tool for Network Mapping: Nmap
+### nmap
+
+#### The Tool for Network Mapping: Nmap
 - Nmap, or Network Mapper, is an open-source scanning tool used for discovering hosts and services on a computer network, finding open ports, and identifying potential vulnerabilities.
 - It is a powerful and versatile tool that has become a standard in the tool kit of security professionals, network admins, and pentesters.
 - Nmap offers a range of features and functionalities that make it a valuable tool in various network security contexts.
 
-### Nmap Funcationality
+#### Nmap Funcationality
 - **Host Discovery:** Nmap can identify live hosts on a network using techniques such as ICMP echo requests, ARP requests, or TCP/UDP probes.
 - **Port Scanning:** Nmap can perform various types of port scans to discover open ports on target hosts.
 - **Service Version Detection:** Nmap can determine the versions of sewrvices running on open ports. This information helps in understanding the software stack and potential  vulnerabilities associated with specific versions.
 - **Operating System Fingerprinting:** Nmap can attempt to identify the operating systems of target hosts based on characteristics observed during the scanning process. 
+
+### URL Enum
+> URL enumeration makes a list of URLs in a domain, often showing hidden files and directories.
+- This is especially important in web application pentesting.
+- NOTE: This is an aggressive process.
+- Tool: [FFUF](https://www.kali.org/tools/ffuf/) (Fuzz Faster U Fool)
+
+### DNS Enum
+> DNS enumeration is like an aggressive DNS lookup (think whois on steroids).
+- This is active recon and it will take a long time.
+- It barfs out a butt-ton of information.
+- Tool: [dnsenum](https://www.kali.org/tools/dnsenum/)
+- Example syntax:
+```
+dnsenum –enum google.com
+```
+
+### SMTP
+> Simple Mail Transfer Protocol (SMTP): A vintage email sending protocol. Runs on port 25. No much built in security.
+- You can gather info on SMTP by telnetting to the service port (25) and grabbing the banner information and then using [VRFY and/or EXPN](https://cr.yp.to/smtp/vrfy.html) to gather more info.
+- Example sytax:
+```
+telnet example.server.com 25
+# once connected, type:
+VRFY [username]
+# or
+EXPN [user_alias]
+```
+
+#### Exploits:
+- SMTP exploits are usually associated with a vulnerable version.
+- Connect (by telnet). Grab banner info (`VRFY`, `EXPN`).
+- This should give you a clue as to the SMTP version on your target.
+
+### SNMP
+> SNMP stands for "Simple Network Management Protocol." SNMP is used to collect data related to network changes or to determine the status of network-connected devices.
+- You can use SNMP to gather information on a system if you have access to the system and you know the “read” community string (which is often: public).
+- Tools: [snmpenum](https://www.kali.org/tools/snmpenum/) and [snmpwalk](http://www.net-snmp.org/wiki/index.php/Snmpwalk)
+- Example syntax for snmpwalk, assuming "public" as the community string
+```
+snmpwalk -c public -v1 192.168.1.1
+```
