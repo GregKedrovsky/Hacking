@@ -27,4 +27,5 @@ net users:                     # enumerate all the other users on the system
 net user [username]            # learn more about a particular user (shows password policy info)
 net localgroup                 # enumerate the groups configured on the system
 net localgroup administrators  # enumerate the users who are part of the Administrators group
+net share                      # enumerate the SMB shares on a Windows box
 ```
