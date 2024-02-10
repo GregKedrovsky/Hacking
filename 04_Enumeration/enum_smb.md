@@ -1,6 +1,12 @@
 # Enumeration: SMB
 > SMB (Server Message Block) is a Windows implementation of a file sharing service.  The Linux version of SMB is called Samba
 
+- Common ports on a Windows machine: 
+  - TCP Port **135:** Microsoft EPMAP (End Point Mapper)
+  - TCP Port **139:** NetBIOS Datagram Service
+  - TCP Port **445:** Microsoft-DS Active Directory; SMB file sharing 
+- If you need to list out the SMB shares in Windows: [net share](net.md)
+
 ## Contents
 - [SMBMap](#smbmap)
   - [Null Session](#null-session)
