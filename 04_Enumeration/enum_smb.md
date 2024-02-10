@@ -5,9 +5,10 @@
   - TCP Port **135:** Microsoft EPMAP (End Point Mapper)
   - TCP Port **139:** NetBIOS Datagram Service
   - TCP Port **445:** Microsoft-DS Active Directory; SMB file sharing 
-- If you need to list out the SMB shares in Windows: [net share](net.md)
+- If you need to list out the SMB shares in Windows: [net share](../net.md)
 
 ## Contents
+- [Windows Net Use](#windows-net-use)
 - [SMBMap](#smbmap)
   - [Null Session](#null-session)
   - [Login with Creds](#login-with-creds)
@@ -29,6 +30,17 @@
   - [Get (Printer) Information:](#get-printer-information)
   - [Get SIDs (Linux)](#get-sids-linux)
 - [Hydra](#hydra)
+
+## Windows Net Use
+> Windows specific commands (net).
+```
+net use /?                                               # help
+net use * /delete                                        # clear all stored sessions: 
+net use /delete \\10.3.31.125\C$                         # clear a specific stored session
+net use z: \\10.3.31.125\C$                              # mount a target on a specific drive letter
+net use * \\10.3.31.125\C$                               # mount a target on whatever letter
+net use g: \\10.3.31.125\C$ [password] /user:[username]  # mount the share
+```
 
 ## SMBMap
 > Samba Share Enumerator
