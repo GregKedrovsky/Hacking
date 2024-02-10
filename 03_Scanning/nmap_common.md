@@ -39,47 +39,47 @@
 
 |  #  | Description | Syntax |
 | :-: | ----------- | ------ |
-| 01 | Scan a single IP | ''nmap 192.168.20.128'' |
-| 02 | Scan a host | ''nmap %%www.example.com%%'' |
-| 03 | Scan a range of IPs | ''nmap 192.168.20.120-128'' |
-| 04 | Scan a subnet | ''nmap 192.168.20.2/24'' |
-| 05 | Scan targets from text file | ''nmap -iL ips.txt'' |
+| 01 | Scan a single IP | `nmap 192.168.20.128` |
+| 02 | Scan a host | `nmap %%www.example.com%%` |
+| 03 | Scan a range of IPs | `nmap 192.168.20.120-128` |
+| 04 | Scan a subnet | `nmap 192.168.20.2/24` |
+| 05 | Scan targets from text file | `nmap -iL ips.txt` |
 
 ### Port Selection
 
 |  #  | Description | Syntax |
 | :-: | ----------- | ------ |
-| 06 | Scan a single port| ''nmap -p 22 192.168.20.128'' |
-| 07 | Scan a range of ports| ''nmap -p 1-100 192.168.20.128'' |
-| 08 | Scan 100 common ports| ''nmap -F 192.168.20.128'' |
-| 09 | Scan all ports| ''nmap -p- 192.168.20.128'' |
-| 10 | Specify UDP or TCP scan| ''nmap -p U:137,T:139 192.168.20.128'' |
+| 06 | Scan a single port| `nmap -p 22 192.168.20.128` |
+| 07 | Scan a range of ports| `nmap -p 1-100 192.168.20.128` |
+| 08 | Scan 100 common ports| `nmap -F 192.168.20.128` |
+| 09 | Scan all ports| `nmap -p- 192.168.20.128` |
+| 10 | Specify UDP or TCP scan| `nmap -p U:137,T:139 192.168.20.128` |
 
 ### Scan Types
 
 |  #  | Description | Syntax |
 | :-: | ----------- | ------ |
-| 11 | Scan using TCP connect| ''nmap -sT 192.168.20.128'' |
-| 12 | Scan using TCP SYN scan| ''nmap -sS 192.168.20.128'' |
-| 13 | Scan UDP ports| ''nmap -sU -p 123,161,162 192.168.20.128'' |
-| 14 | Scan, Ignore Discovery (Ping not)| ''nmap -Pn -F 192.168.20.128'' |
+| 11 | Scan using TCP connect| `nmap -sT 192.168.20.128` |
+| 12 | Scan using TCP SYN scan| `nmap -sS 192.168.20.128` |
+| 13 | Scan UDP ports| `nmap -sU -p 123,161,162 192.168.20.128` |
+| 14 | Scan, Ignore Discovery (Ping not)| `nmap -Pn -F 192.168.20.128` |
 
 ### Service and OS Detection
 
 |  #  | Description | Syntax |
 | :-: | ----------- | ------ |
-| 15 | Detect OS and Services| ''nmap -A 192.168.20.128'' |
-| 16 | Standard service detection| ''nmap -sV 192.168.20.128'' |
-| 17 | Aggressive service detection| ''nmap -sV –version-intensity 5 192.168.20.128'' |
+| 15 | Detect OS and Services| `nmap -A 192.168.20.128` |
+| 16 | Standard service detection| `nmap -sV 192.168.20.128` |
+| 17 | Aggressive service detection| `nmap -sV –version-intensity 5 192.168.20.128` |
 
 ### Output Formats
 
 |  #  | Description | Syntax |
 | :-: | ----------- | ------ |
-| 18 | Save as normal file| ''nmap -oN result.txt 192.168.20.128'' |
-| 19 | Save as XML| ''nmap -oX resultxml.xml 192.168.20.128'' |
-| 20 | Save as Grepable| ''nmap -oG formattable.txt 192.168.20.128'' |
-| 21 | Save in all formats| ''nmap -oA allformats 192.168.20.128'' |
+| 18 | Save as normal file| `nmap -oN result.txt 192.168.20.128` |
+| 19 | Save as XML| `nmap -oX resultxml.xml 192.168.20.128` |
+| 20 | Save as Grepable| `nmap -oG formattable.txt 192.168.20.128` |
+| 21 | Save in all formats| `nmap -oA allformats 192.168.20.128` |
 
 ## [Nmap Scripting Engine](https://nmap.org/nsedoc/scripts/)
 
@@ -87,20 +87,20 @@
 
 |  #  | Description | Syntax |
 | :-: | ----------- | ------ |
-| 22 | Scan using default safe scripts| ''nmap -sV -sC 192.168.20.128'' |
-| 23 | Get help for a script| ''nmap –script-help=ssl-heartbleed'' |
-| 24 | Scan using a specific script| ''nmap -sV -p 443 -script=ssl-heartbleed 192.168.20.133'' |
-| 25 | Update script database| ''nmap –script-updatedb'' |
+| 22 | Scan using default safe scripts| `nmap -sV -sC 192.168.20.128` |
+| 23 | Get help for a script| `nmap –script-help=ssl-heartbleed` |
+| 24 | Scan using a specific script| `nmap -sV -p 443 -script=ssl-heartbleed 192.168.20.133` |
+| 25 | Update script database| `nmap –script-updatedb` |
 
 ### Useful NSE Scripts
 
 |  #  | Description | Syntax |
 | :-: | ----------- | ------ |
-| 26 | Scan for UDP DDOS reflectors| ''nmap -sU -A -PN -n -pU:19,53,123,161 -script=ntp-monlist,dns-recursion,snmp-sysdescr 192.168.20.2/24'' |
-| 27 | Gather page titles from HTTP Servers| ''nmap –script=http-title 192.168.20.128'' |
-| 28 | Get HTTP headers of web services| ''nmap –script=http-headers 192.168.20.128'' |
-| 29 | Find web apps from known paths| ''nmap –script=http-enum 192.168.20.128'' |
-| 30 | Find exposed Netbios servers| ''nmap -sU –script nbtstat.nse -p 137 192.168.20.128'' |
+| 26 | Scan for UDP DDOS reflectors| `nmap -sU -A -PN -n -pU:19,53,123,161 -script=ntp-monlist,dns-recursion,snmp-sysdescr 192.168.20.2/24` |
+| 27 | Gather page titles from HTTP Servers| `nmap –script=http-title 192.168.20.128` |
+| 28 | Get HTTP headers of web services| `nmap –script=http-headers 192.168.20.128` |
+| 29 | Find web apps from known paths| `nmap –script=http-enum 192.168.20.128` |
+| 30 | Find exposed Netbios servers| `nmap -sU –script nbtstat.nse -p 137 192.168.20.128` |
 
 ### [Script Categories](https://subscription.packtpub.com/book/networking-and-servers/9781782168317/1/ch01lvl1sec11/script-categories)
 
@@ -137,7 +137,7 @@ namp -sC [target]     #load default scripts
 nmap --script filename|category|directory|expression,...[target]
 ```
 
-- Syntax to perform a scan with most of the default scripts, use the ''-sC'' flag or alternatively use ''--script=default'' as shown here:
+- Syntax to perform a scan with most of the default scripts, use the `-sC` flag or alternatively use `--script=default` as shown here:
 ```
 nmap -sC [target IP or domain name]
 # or
