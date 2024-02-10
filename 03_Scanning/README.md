@@ -1,6 +1,9 @@
 # Scanning
 > After host discovery, you check for open ports on the hosts you discovered. 
 
+## Scanning Philosophy
+> Fast and wide first; slow and narrow later.
+
 ## Netcat: Manually Check Ports
 - Nmap will find open ports, and a service version scan will most often provide detailed information about what services (and their versions) are running on those open ports.
 - This is not, however, the case all the time.
