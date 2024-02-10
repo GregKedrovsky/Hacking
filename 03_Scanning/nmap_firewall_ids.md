@@ -1,6 +1,14 @@
 # Nmap: Firewall Detection & IDS Evasion
 
 ## Contents
+- [Firewall Detection](#)
+- [IDS Evasion](#)
+  - [Fragmented Packets](#)
+  - [Fragment + MTU](#)
+- [Spoofing / Decoy IP Addresses](#)
+  - [The Idea](#)
+  - [The Syntax](#)
+  - [Obfuscate More](#)
 
 ## Firewall Detection
 
@@ -49,3 +57,28 @@ nmap -Pn -sS -sV -p 80,445,3389 -f -mtu 32 [target ip]
 # set at mtu 32, there will likely be no fragmentation of packets. So...
 nmap -Pn -sS -sV -p 80,445,3389 -f -mtu 8 [target ip]
 ```
+
+## Spoofing / Decoy IP Addresses
+> "...now this is really, really cool..." ~ Alexis Ahmed, INE
+
+### The Idea
+
+Make our attack machine look like it's the gateway.
+- With `ifconfig` you will see your IP address and the subnet.
+- The gateway IP address will almost always be the first usable address (ending in `.1`).
+- We want to spoof that to make our traffic look like it's coming from the gateway, a trusted source.
+
+### The Syntax
+```
+nmap -Pn -sS -sV -p 445,3389 -f  --data-length 200 -D [decoy ip 1],[decoy ip 2] [target  ip]
+```
+- `--data-length  <num>` : Append random data to sent packets (which will result in their fragmentation because they will be larger than default).
+- `-D` : Cloak a scan with decoys (one or multiple separated by commas, no spaces)
+
+### Obfuscate More
+
+You can obfuscate your scanning traffic even more by specifying a port number (vs. just allowing nmap to randomly select a port number for your scan source): 
+```
+nmap -Pn -sS -sV -p 445,3389 -f  --data-length 200 -g  53 -D [decoy ip 1],[decoy ip 2] [target  ip]
+```
+- `-g`  /  `--source-port <portnum>`  :  Use given port number
