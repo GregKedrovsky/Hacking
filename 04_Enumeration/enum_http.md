@@ -1,13 +1,28 @@
 # Enumeration: HTTP
 
 ## Contents
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
+- [Concepts & Methodology](#)
+  - [HTTP](#)
+  - [IIS](#)
+  - [WebDAV](#)
+  - [Initial Recon](#)
+- [Linux CLI](#)
+  - [curl](#)
+  - [wget](#)
+- [Directory Busting](#)
+  - [DirB](#)
+  - [GoBuster](#)
+- [Nmap Scripts](#)
+  - [Default Scripts](#)
+  - [banner](#)
+  - [http-enum](#)
+  - [http-headers](#)
+  - [http-methods](#)
+  - [http-webdav-scan](#)
+- [MetaSploit](#)
+  - [brute_dirs](#)
+  - [http_version](#)
+- [robots.txt](#)
 
 ## Concepts & Methodology
 
@@ -142,7 +157,7 @@ nmap -sV -p 80 --script http-webdav-scan --script-args http-methods.url-path=/we
 ```
 - More information on the WebDAV if it's installed and running on the web server.
 
-## MSF
+## MetaSploit
 
 ### brute_dirs
 > Uses a default standard wordlist and searches the target ip for directories. Similar to `dirb`.
