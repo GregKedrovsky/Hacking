@@ -4,11 +4,21 @@
 - Default MySQL Port: `3306`
 
 ## Contents
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
+- [Nmap Scripts](#nmap-scripts)
+  - [Default Scripts](#default-scripts)
+  - [mysql-empty-password](#mysql-empty-password)
+  - [mysql-info](#mysql-info)
+  - [mysql-users](#mysql-users)
+  - [mysql-databases](#mysql-databases)
+  - [mysql-audit](#mysql-audit)
+  - [mysql-dump-hashes](#mysql-dump-hashes)
+  - [mysql-query](#mysql-query)
+- [MetaSploit](#metasploit)
+  - [mysql_writable_dirs](#mysql_writable_dirs)
+  - [mysql_hashdump](#mysql_hashdump)
+- [MySQL Commands](#mysql-commands)
+  - [Initial Queries](#initial-queries)
+  - [Filesystem Access](#filesystem-access)
 
 ## Nmap Scripts
 
@@ -136,7 +146,7 @@ help
   # This will give you a quick list of things you can do, syntax, etc.
 ```
 
-### Filesystem Acces
+### Filesystem Access
 > Let's see if we have access to files on the target machine... 
 ```
 mysql -h [target ip] -u root
