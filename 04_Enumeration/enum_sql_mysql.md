@@ -20,7 +20,7 @@
   - [Initial Queries](#initial-queries)
   - [Filesystem Access](#filesystem-access)
 - [Dictionary Attacks](#dictionary-attacks)
-  - [MetaSploit](#metasploit)
+  - [MetaSploit](#metasploit-1)
   - [Hydra](#hydra)
 
 ## Nmap Scripts
