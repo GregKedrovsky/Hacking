@@ -108,3 +108,43 @@ WHERE condition;
 - You just might get a whole bundle of hashs you can add to our list of enumerated goodies
 
 ## MySQL Commands
+
+### Initial Queries
+```
+mysql -h [target ip] -u root
+```
+- This is a mysql command, the `-h` is for the host, `-u` is username
+- If that lets you login... it's horribly misconfigured and more than vulnerable.
+- At the `MySQL [(none)]>` prompt:
+
+```
+show databases;
+  # NOTE: requires semicolon at the end
+  # This will list out all the databases out there on the server
+  # Choose one and look at it... done with "use [database]"
+use [database];
+show tables;
+describe [table name or databaseName.tableName];
+use books;
+  # This drops us into the books db
+select count(*) from authors;
+  # This gives us a count of authors in the db
+  # If you want to see everything from db...
+select * from authors
+  # Lists out all the info in authors
+help
+  # This will give you a quick list of things you can do, syntax, etc.
+```
+
+### Filesystem Acces
+> Let's see if we have access to files on the target machine... 
+```
+mysql -h [target ip] -u root
+```
+- At the `MySQL [(none)]>` prompt:
+```
+> select load_file("/etc/shadow");
+```
+- You may get the full shadow file...
+- The [/etc/shadow](https://www.cyberciti.biz/faq/understanding-etcshadow-file/) file is a text file that contains information about the system’s users’ passwords.
+- The [/etc/passwd](https://www.cyberciti.biz/faq/understanding-etcpasswd-file-format/) file contains a list of valid users on the target system
