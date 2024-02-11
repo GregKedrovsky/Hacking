@@ -4,7 +4,7 @@
 - Default MSSQL Port: `1433`
 
 ## Contents
-- [Nmap Scripts](#)
+- [Nmap Scripts](#nmap-scripts)
   - [ms-sql-info](#ms-sql-info)
   - [ms-sql-ntlm-info](#ms-sql-ntlm-info)
   - [ms-sql-brute](#ms-sql-brute)
