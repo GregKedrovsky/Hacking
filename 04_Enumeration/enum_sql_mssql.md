@@ -68,8 +68,8 @@ nmap [target ip] -p 1433 --script ms-sql-xp-cmdshell --script-args mssql.usernam
 ```
 
 ## MetaSploit
+> Modules to Enumerate MSSQL
 
-Modules to Enumerate MSSQL:
 - `mssql_enum` : enumerate MSSQL configuration
 - `mssql_enum_sql_logins` : enumerate all MSSQL logins
 - `mssql_login` : discover valid users and their passwords
