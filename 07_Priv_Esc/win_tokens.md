@@ -2,14 +2,14 @@
 > How to impersonate a Windows Access Token that belongs to a privileged user (allows us to inherit that users privileges). 
 
 ## Contents
-- [Intro]()
-  - [Windows Access Tokens]()
-  - [How Windows Access Token Work]()
-  - [Windows Privileges]()
-  - [Tool: The Incognito Module]()
-- [Practical: Incognito]()
-  - [Scenario]()
-  - [Usage: Meterpreter Module]()
+- [Intro](#intro)
+  - [Windows Access Tokens](#windows-access-tokens)
+  - [How Windows Access Token Work](#how-windows-access-token-work)
+  - [Windows Privileges](#windows-privileges)
+  - [Tool: The Incognito Module](#tool-the-incognito-module-metasploit)
+- [Practical: Incognito](#practical-incognito)
+  - [Scenario](#scenario)
+  - [Usage: Meterpreter Module](#usage-meterpreter-module)
 
 ## Intro
 
