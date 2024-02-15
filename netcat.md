@@ -2,19 +2,19 @@
 > Netcat (the "TCP/IP Swiss Army Knife") is a networking utility used to read and write data to network connections using TCP or UDP.
 
 ## Contents
-- [Intro](#)
-  - [Remote Access Tool](#)
-  - [Two Modes](#)
-  - [Options](#)
-- [Connecting to Ports (client mode)](#)
-  - [Standard Syntax](#)
-  - [Additional Information](#)
-  - [Manually Check Ports](#)
-- [Listener](#)
-- [Connect](#)
-  - [Connect to listener from Linux](#)
-  - [Connect to listener from Windows](#)
-- [File Input/Output](#)
+- [Intro](#intro)
+  - [Remote Access Tool](#remote-access-tool)
+  - [Two Modes](#two-modes)
+  - [Options](#options)
+- [Connecting to Ports (client mode)](#connecting-to-ports-client-mode)
+  - [Standard Syntax](#standard-syntax)
+  - [Additional Information](#additional-information)
+  - [Manually Check Ports](#manually-check-ports)
+- [Listener](#listener)
+- [Connect](#connect)
+  - [Connect to listener from Linux](#connect-to-the-listener-from-a-linux-target-machine)
+  - [Connect to listener from Windows](#connect-to-the-listener-from-a-windows-target-machine)
+- [File Input/Output](#file-inputoutput)
 
 ## Intro
 
