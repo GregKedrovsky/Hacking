@@ -2,7 +2,20 @@
 > Kernel Exploits can give us Privilege Escalation.
 
 ## Contents 
-- [](#)
+- [Windows Kernal](#)
+- [Windows Kernel Exploitation](#)
+- [Tools, Overview](#)
+  - [Windows-Exploit-Suggester](#)
+  - [Windows-Kernel-Exploits](#)
+  - [MetaSploit](#)
+- [Manual Kernel Exploit](#)
+  - [Tool: Windows-Exploit-Suggester](#)
+  - [Steps](#)
+  - [System Info](#)
+  - [Run the Update](#)
+  - [Run the Suggester](#)
+  - [The Results](#)
+- [Recommendation](#)
 
 ## Windows Kernal
 > A "kernel" is a computer program (or set of programs) that is the core of an operating system. A kernel has complete control over every resource and piece of hardware on the system. A kernel acts as a translation layer between hardware and software, and it facilitates the communication between these two layers.
@@ -67,7 +80,7 @@
   - `[*]` There is a missing bulletin regarding the vuln/exploit
 - Google search on exploits you think might work, and try them out. 
 
-### Recommendation
+## Recommendation
 - Experiment with all of this (and the list of exploits from Windows-Exploit-Suggester) on your own home lab.
 - Set up various target systems with different versions of Windows.
 - Test drive and practice.
