@@ -2,20 +2,20 @@
 > Kernel Exploits can give us Privilege Escalation.
 
 ## Contents 
-- [Windows Kernal](#)
-- [Windows Kernel Exploitation](#)
-- [Tools, Overview](#)
-  - [Windows-Exploit-Suggester](#)
-  - [Windows-Kernel-Exploits](#)
-  - [MetaSploit](#)
-- [Manual Kernel Exploit](#)
-  - [Tool: Windows-Exploit-Suggester](#)
-  - [Steps](#)
-  - [System Info](#)
-  - [Run the Update](#)
-  - [Run the Suggester](#)
-  - [The Results](#)
-- [Recommendation](#)
+- [Windows Kernal](#windows-kernal)
+- [Windows Kernel Exploitation](#windows-kernel-exploitation)
+- [Tools, Overview](#tools-overview)
+  - [Windows-Exploit-Suggester](#windows-exploit-suggester-python)
+  - [Windows-Kernel-Exploits](#windows-kernel-exploits)
+  - [MetaSploit](#metasploit)
+- [Manual Kernel Exploit](#manual-kernel-exploit)
+  - [Tool: Windows-Exploit-Suggester](#tool-windows-exploit-suggester)
+  - [Steps](#steps)
+  - [System Info](#system-info)
+  - [Run the Update](#run-the-update)
+  - [Run the Suggester](#run-the-suggester)
+  - [The Results](#the-results)
+- [Recommendation](#recommendation)
 
 ## Windows Kernal
 > A "kernel" is a computer program (or set of programs) that is the core of an operating system. A kernel has complete control over every resource and piece of hardware on the system. A kernel acts as a translation layer between hardware and software, and it facilitates the communication between these two layers.
