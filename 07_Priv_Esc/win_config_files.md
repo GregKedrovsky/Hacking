@@ -1,13 +1,13 @@
 # Privilege Escalation: Passwords In Win Config Files
 
 ## Contents
-- [Intro]()
-  - [Windows Configuration Files]()
-  - [Unattended Windows Setup]()
-- [Practical: Find, Decode, Use]()
-  - [Search & Download]()
-  - [cat, grep, decode]()
-  - [Exploit]()
+- [Intro](#intro)
+  - [Windows Configuration Files](#windows-configuration-files)
+  - [Unattended Windows Setup](#unattended-windows-setup)
+- [Practical: Find, Decode, Use](#practical-find-decode-use)
+  - [Search & Download](#search--download)
+  - [cat, grep, decode](#cat-grep-decode)
+  - [Exploit](#exploit)
 
 ## Intro
 
