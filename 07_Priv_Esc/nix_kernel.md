@@ -1,0 +1,59 @@
+# Privilege Escalation: Linux Kernel
+
+## Contents
+- [Intro]()
+  - [Linux Kernel Exploitation (for priv esc)]()
+  - [Tool: Linux-Exploit-Suggester]()
+  - [Caution: You Will Crash the System]()
+- [Practical Walk-Through]()
+  - [Scenario]()
+  - [Tool: Download & Transfer]()
+  - [Tool: Oh, run me baby!]()
+  - [Results]()
+
+## Intro
+
+### Linux Kernel Exploitation (for priv esc)
+- Kernel exploits on Linux will typically target vulnerabilities in the Linux kernel to execute arbitrary code in order to run privileged system commands or to obtain a system shell.
+- This process will differ based on the Kernel version and distro being targeted and the kernel exploit being used.
+- Privilege escalation on Linux systems will typically follow the following methodology:
+  - Identify kernel vulnerabilities
+  - Download, compile, and transfer kernel exploits onto the target system.
+
+### Tool: [Linux-Exploit-Suggester](https://github.com/The-Z-Labs/linux-exploit-suggester)
+- This tool is designed to assit in detecting security deficiencies for given Linux kernel/Linux-based machine.
+- It assesses (using heuristics methods) the exposure of the given kernel on every publically known Linux kernel explot.
+
+### Caution: You Will Crash the System
+- Because you are dinkin' around in the kernel, if your exploit doesn't work perfectly, you'll likely crash the system.
+- Be careful in a production/enterprise environment.
+
+## Practical Walk-Through
+> This is based on a lab, but it should be sufficient to give you the general idea to replicate it on other systems.
+
+### Scenario
+- You have compromised a Linux machine and have access via an unprivileged account
+- So our life's purpose at this moment is to get root.
+
+### Tool: Download & Transfer
+- Go to the [linux-exploit-suggester GitHub page](https://github.com/The-Z-Labs/linux-exploit-suggester).
+- Follow the instructions to download it (`les.sh`).
+- You're going to need to transfer it over to the target system (which is fairly easy with meterpreter)
+```
+meterpreter > upload ~/Desktop/Linux-Enum/les.sh 
+```
+
+### Tool: Oh, run me baby!
+- Open a shell session in your meterpreter and:
+```
+> /bin/bash -i
+  # start an interactive bash session
+> chmod 755 les.sh
+  # needs executable perms
+> ./les.sh
+  # execute and give it a few minutes to run; it will enumerate a list of exploits
+```
+
+### Results
+- The exploits listed at the top of the list are the ones with the greatest chance of success.
+- Pick one. Try it. 
