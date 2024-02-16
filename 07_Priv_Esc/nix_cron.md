@@ -1,15 +1,15 @@
 # Privilege Escalation: Misconfigured Cron Jobs
 
 ## Contents
-- [Intro]()
-  - [Cron Jobs]()
-  - [Exploiting Misconfigured Cron Jobs]()
-- [Practical :: Process]()
-  - [Scenario]()
-  - [Objective]()
-  - [List the cron jobs]()
-  - [Find a Misconfiguration]()
-  - [Modify & Exploit]()
+- [Intro](#intro)
+  - [Cron Jobs](#cron-jobs)
+  - [Exploiting Misconfigured Cron Jobs](#exploiting-misconfigured-cron-jobs)
+- [Practical :: Process](#practical--process)
+  - [Scenario](#scenario)
+  - [Objective](#objective)
+  - [List the cron jobs](#list-the-cron-jobs)
+  - [Find a Misconfiguration](#find-a-misconfiguration)
+  - [Modify & Exploit](#modify--exploit)
 
 ## Intro
 
