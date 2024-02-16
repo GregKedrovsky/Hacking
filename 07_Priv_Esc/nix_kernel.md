@@ -1,15 +1,15 @@
 # Privilege Escalation: Linux Kernel
 
 ## Contents
-- [Intro]()
-  - [Linux Kernel Exploitation (for priv esc)]()
-  - [Tool: Linux-Exploit-Suggester]()
-  - [Caution: You Will Crash the System]()
-- [Practical Walk-Through]()
-  - [Scenario]()
-  - [Tool: Download & Transfer]()
-  - [Tool: Oh, run me baby!]()
-  - [Results]()
+- [Intro](#intro)
+  - [Linux Kernel Exploitation (for priv esc)](#linux-kernel-exploitation-for-priv-esc)
+  - [Tool: Linux-Exploit-Suggester](#tool-linux-exploit-suggester)
+  - [Caution: You Will Crash the System](#caution-you-will-crash-the-system)
+- [Practical Walk-Through](#practical-walk-through)
+  - [Scenario](#scenario)
+  - [Tool: Download & Transfer](#tool-download--transfer)
+  - [Tool: Oh, run me baby!](#tool-oh-run-me-baby)
+  - [Results](#results)
 
 ## Intro
 
