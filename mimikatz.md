@@ -1,7 +1,7 @@
 # Mimikatz
 > Mimikatz is pretty much "THE" tool to use in Windows post-exploitation: Password/Hash extraction from memory.
 
-##IMPORTANT:** Mimikatz will required elevated privileges in order to run correctly.
+- **IMPORTANT:** Mimikatz will required elevated privileges in order to run correctly.
 - LSASS is a system process and so runs with system/admin privileges.
 
 ## Contents
