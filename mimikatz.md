@@ -5,12 +5,15 @@
 - LSASS is a system process and so runs with system/admin privileges.
 
 ## Contents
-- []()
-- []()
-- []()
-- []()
-- []()
-- []()
+- [Intro](#intro)
+  - [Mimikatz & Kiwi](#mimikatz--kiwi)
+  - [Why are hashes important?](#why-are-hashes-important)
+- [Techniques & Tools](#techniques--tools)
+  - [Scenario & Set-Up](#scenario--set-up)
+  - [Meterpreter Built-In Extension: Kiwi](#meterpreter-built-in-extension-kiwi)
+  - [Mimikatz on the Target](#mimikatz-on-the-target)
+    - [Upload mimikatz.exe](#upload-mimikatzexe)
+    - [Run mimikatz.exe on the Target](#run-mimikatzexe-on-the-target)
 
 ## Intro
 
