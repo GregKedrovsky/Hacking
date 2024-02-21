@@ -90,12 +90,12 @@ nmap [Scan Type(s)] [Options] {target specification}
 ### Standard Go-To
 ```
 #TCP Ports:
-nmap -sS -T4 -p- -A -vv [IP Address]
-nmap -sS -T4 -p- -A -vv --reason [IP Address]
+nmap -sS -T4 -p- -A -vv [target ip]
+nmap -sS -T4 -p- -A -vv --reason [target ip]
 
 #UDP Ports: 
-nmap -sU -T4 -A -vv [IP Address]
-nmap -sU -T4 -A -vv --reason [IP Address]
+nmap -sU -T4 -A -vv [target ip]
+nmap -sU -T4 -A -vv --reason [target ip]
 ```
 
 ### Default Port Scan
@@ -118,30 +118,32 @@ nmap -Pn -F [target ip]
 ```
 - `-F` : Scans 100 of the most commonly used ports (instead of the default 1000)
 
-### Scan All Ports
+### Scan Ports
+
+#### Scan All Ports
 ```
-nmap -Pn -p- [target IP address]
+nmap -Pn -p- [target ip]
 ```
 
-### Scan for Open Ports
+#### Scan for Open Ports
 ```
-nmap [target IP or IP/CIDR subnet] --open
+nmap [target ip or ip/CIDR subnet] --open
 ```
 - `--open`: Only show hosts that have open ports, and only show the open ports for those
 
-### Scan Specific Port
+#### Scan Specific Port
 ```
-nmap -Pn -p 80 [target IP address]
-```
-
-### Scan Multiple Ports
-```
-nmap -Pn -p 80,445,3389 [target IP address]
+nmap -Pn -p 80 [target ip]
 ```
 
-### Scan Range of Ports
+#### Scan Multiple Ports
 ```
-nmap -Pn -p 1-65535 [target IP address]
+nmap -Pn -p 80,445,3389 [target ip]
+```
+
+#### Scan Range of Ports
+```
+nmap -Pn -p 1-65535 [target ip]
 ```
 
 ### TCP Connect Scan
@@ -176,27 +178,27 @@ nmap -sU --top-ports 25 --open [target ip]
 ```
 - This will only scan the top 25 ports, not the entirety. and only the open ports. Faster.
 
-### Scan for Service Versions
+### Version Scan
 ```
 nmap -Pn -sV [target ip]
 ```
 - `-sV` : show the version of the service running on the open port.
 
-### Scan for Operating System
+### Operating System Scan 
 ```
-nmap -Pn -O [target IP address]
+nmap -Pn -O [target ip]
 ```
 - `-O` : This will attempt to ID the O/S running on the target system
 
-### Scan with All Defaults Scripts: 
+### Defaults Script Scan
 ```
-nmap -Pn -sV -O -sC [target IP address]
+nmap -Pn -sV -O -sC [target ip]
 ```
 - `-sC` : Runs the default (safe) Nmap scripts on the open ports (equivalent: `--script=default`).
 
 ### Aggressive Scan
 ```
-nmap -Pn -A [target IP address]
+nmap -Pn -A [target ip]
 ```
 - It combines the following into one switch: `-A`
 - `-sV` : Version detection
@@ -208,7 +210,7 @@ nmap -Pn -A [target IP address]
 
 ### Increase speed
 ```
-nmap -Pn -T5 -sV -O -sC [target IP address] -v
+nmap -Pn -T5 -sV -O -sC [target ip] -v
 ```
 - Nmap's timing templates: T<0-5>: Set timing template (higher is faster)
 - `-T0` : Paranoid
