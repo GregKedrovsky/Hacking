@@ -16,6 +16,7 @@
     - [Options are Not Site-Wide](#options-are-not-site-wide)
   - [wget](#wget)
 - [Directory Busting](#directory-busting)
+  - [DirBuster](#dirbuster)
   - [DirB](#dirb)
   - [GoBuster](#gobuster)
     - [General Syntax](#general-syntax)
@@ -130,8 +131,17 @@ curl -X POST [target ip]/login.php -d "name=john&password=password" -v
 http://[target ip]/index
 ```
 - Then you just cat the file to see what info is provided. Enumerate.
+- File Extensions for Windows (IIS; the longer the list, the longer it will take):
+  - asm,asmx,asp,aspx
+  - asm,asmx,asp,aspx,txt,zip,rar,bak
+- File Extensions for Linux (Apache)
+  - php, sh, js, html, py
 
 ## Directory Busting
+
+### [DirBuster](https://www.kali.org/tools/dirbuster/)
+- Oldie but a goodie. You can still get good results from DirBuster, even when DirB and GoBuster crap out.
+- 
 
 ### [DirB](https://www.kali.org/tools/dirb/)
 > DIRB is a Web Content Scanner. It looks for existing (and/or hidden) Web Objects. It basically works by launching a dictionary based attack against a web server and analyzing the responses.
