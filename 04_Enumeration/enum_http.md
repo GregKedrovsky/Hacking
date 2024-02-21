@@ -34,6 +34,7 @@
   - [http-methods](#http-methods)
   - [http-webdav-scan](#http-webdav-scan)
 - [MetaSploit](#metasploit)
+  - [Modules, List](#modules-list)
   - [brute_dirs](#brute_dirs)
   - [http_version](#http_version)
 - [robots.txt](#robotstxt)
