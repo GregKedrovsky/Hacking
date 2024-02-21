@@ -8,6 +8,12 @@
   - [Initial Recon](#initial-recon)
 - [Linux CLI](#linux-cli)
   - [curl](#curl)
+    - [Usage & Syntax]()
+    - [General Enumeration]()
+    - [GET Request]()
+    - [HEAD Request]()
+    - [Method (Options) Inquiry]()
+    - [Options are Not Site-Wide]()
   - [wget](#wget)
 - [Directory Busting](#directory-busting)
   - [DirB](#dirb)
@@ -64,10 +70,58 @@
 
 ### curl
 > curl (short for "Client URL") is a command line tool that enables data transfer over various network protocols. It communicates with a web or application server by specifying a relevant URL and the data that need to be sent or received.
+
+#### Usage & Syntax
+```
+curl [options...] <url>
+```
+- `-I, --head` : Show document info only
+- `-X, --request <command>` : Specify request command to use
+- `-v, --verbose` : Make the operation more talkative
+- `url` : The URL syntax is protocol-dependent. If you provide a URL without a leading `protocol://` scheme, curl guesses what protocol you want. It then defaults to HTTP.
+
+#### General Enumeration
 ```
 curl [target ip] | more
 ```
 - Enumerate any useful information that curl retrieves for you 
+
+#### GET Request
+- Send a GET request to the server using curl:
+```
+curl -X GET [target ip]  
+```
+- We should get the index/home page.
+
+#### HEAD Request
+- Send a HEAD request to the server using curl: 
+```
+curl -I HEAD [target ip]
+```
+
+#### Method (Options) Inquiry
+- Find out what methods are allowed on the server:
+```
+curl -X OPTIONS [target ip] -v
+```
+- The verbose (`-v`) option is necessary
+- Result will look like: "Allow: GET, HEAD, OPTIONS"
+- So if you try `curl -X PUT [target ip]` you will get a response of "Method Not Allowed"
+
+#### Options are Not Site-Wide
+```
+curl -X OPTIONS [target ip]/login.php -v
+```
+- This could show "Allow: GET, POST, HEAD, OPTIONS"
+- This page allows POST because it uses POST for authentication.
+- So, test that out:
+```
+curl -X POST [target ip]/login.php -v
+```
+- Continue with (for example):
+```
+curl -X POST [target ip]/login.php -d "name=john&password=password" -v
+```
 
 ### wget
 > wget retrieves files you specify by url.
