@@ -45,11 +45,13 @@
 - []()
 
 ## Resources
+
+### Links
 - [Reference Guide](https://nmap.org/book/man.html)
 - [Host Discovery](https://nmap.org/book/man-host-discovery.html)
 - [NSE Script List](https://nmap.org/nsedoc/scripts/)
 
-Find scripts on your system:
+### Find scripts on your system
 ```
 locate *.nse
 # or in Kali
