@@ -43,6 +43,7 @@
   - [Scan Delay](#scan-delay)
   - [Slow Target Response](#slow-target-response)
 
+----
 ## Resources
 
 ### Links
@@ -62,6 +63,7 @@ ls -l /usr/share/nmap/scripts | grep ftp-*  # (or smb, http, etc.)
 - **Verbosity:** Increase the verbosity of the output with `-v`, and more with `-vv`
 - **Status:** Hit `ENTER` while nmap is doing its thing to see the status (percentage done).
 
+----
 ## Host Discovery
 
 ### Standard
@@ -239,6 +241,7 @@ nmap -Pn -A [target ip]
 - `-O` : OS detection
 - `–traceroute` : Traceroute
 
+----
 ## Additional Options
 
 ### Increase Speed
