@@ -12,6 +12,14 @@
 - [Directory Busting](#directory-busting)
   - [DirB](#dirb)
   - [GoBuster](#gobuster)
+    - [General Syntax]()
+    - [Modes/Commands]()
+    - [DIR Mode/Command]()
+    - [DIR Mode Flags/Options]()
+    - [Syntax 1: Standard DirBust]()
+    - [Syntax 2: Blacklist Codes]()
+    - [Syntax 3: Find Files]()
+    - [Syntax 4: Specific Directory]()
 - [Nmap Scripts](#nmap-scripts)
   - [Default Scripts](#default-scripts)
   - [banner](#banner)
@@ -78,7 +86,7 @@ dirb http://[target ip]
 dirb http://[target ip] /usr/share/metasploit-framework/data/wordlists/directory.txt
 ```
 - NOTE: dirb needs a URL not just an IP address
-- It dirb sends GET requests to predetermined URLs (based on its default, included wordlist) to see if it gets back anything.
+- DirB sends GET requests to predetermined URLs (based on its default, included wordlist) to see if it gets back anything.
 - It will enumerate quite a bit of information about the site's content (esp. directories).
 
 ### GoBuster
@@ -90,28 +98,65 @@ dirb http://[target ip] /usr/share/metasploit-framework/data/wordlists/directory
   - Open Amazon S3 buckets
   - Open Google Cloud buckets
   - TFTP servers
-- [Kali](https://www.kali.org/tools/gobuster/)'s website has usage and examples.
-- Syntax 1:
+- [Kali's website has usage and examples](https://www.kali.org/tools/gobuster/).
+
+#### General Syntax
+```
+gobuster [Mode][Options]    # Two required options:
+                            #  1. -u : target URL
+                            #  2. -w : /path/to/wordlist
+```
+
+#### [Modes/Commands](https://github.com/OJ/gobuster?tab=readme-ov-file#modes)
+```
+dir         # Uses directory/file enumeration mode
+dns         # Uses DNS subdomain enumeration mode
+fuzz        # Uses fuzzing mode
+help        # Help about any command
+s3          # Uses aws bucket enumeration mode
+version     # Shows the current version
+vhost       # Uses VHOST enumeration mode
+```
+- To find additional help on any of the modes: `gobuster [mode] --help`
+
+#### [DIR Mode/Command](https://github.com/OJ/gobuster?tab=readme-ov-file#dir-mode)
+- The DIR mode is used for finding hidden directories and files.
+- This is the classic directory brute-forcing mode or Enumerating URIs for directories and files.
+- The Dir mode in Gobuster is mainly used to find extra content in a specific target domain or its subdomain. This additional information can include hidden directories or hidden files that can contain sensitive data.
+
+#### DIR Mode Flags/Options
+```
+-u, --url [string]                     # [required] target URL
+-w, --wordlist [string]                # [required] path to the wordlist
+-e, --expanded                         # expanded mode, print full URLs
+-x, --extensions [string]              # file extension(s) to search for
+-b, --status-codes-blacklist [string]  # blacklist status codes
+-r, --follow-redirect                  # follow redirects
+```
+
+#### Syntax 1: Standard DirBust
 ```
 gobuster dir -u http://[target ip] -w /usr/share/wordlists/dirb/common.txt
 ```
-- `-u` : URL
-- `-w` : wordlist
+
+#### Syntax 2: Blacklist Codes
 - Lots of 403 and 404 responses cluttering things up. You can clean that up with:
 ```
 gobuster dir -u http://[target ip] -w /usr/share/wordlists/dirb/common.txt  -b 403,404
 ```
-- `-b` : blacklist (don't display)
+
+#### Syntax 3: Find Files
 - Look for something specific, like for example PHP or XML files and plaintext files... and follow-redirects:
 ```
 gobuster dir -u http://[target ip] -w /usr/share/wordlists/dirb/common.txt  -b 403,404 -x .php,.xml,.txt -r
 ```
-- `-x` : extensions (file extensions to search for)
-- `-r` : redirect (follow redirects)
+
+#### Syntax 4: Specific Directory
 - Enumerate the contents of a directory gobuster found (e.g., `/data/`):
 ```
 gobuster dir -u http://[target ip]/data/ -w /usr/share/wordlists/dirb/common.txt  -b 403,404 -x .php,.xml,.txt -r
 ```
+
 ## Nmap Scripts
 
 ### Default Scripts
