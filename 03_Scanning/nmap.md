@@ -9,6 +9,6 @@
 
 ## Additional:
 - [nmap.md](/nmap.md)
-  - [Host Discovery](#host-discovery)
-  - [Port Scans](#port-scans)
-  - [Additional Options](#additional-options)
+  - [Host Discovery](/nmap.md#host-discovery)
+  - [Port Scans](/nmap.md#port-scans)
+  - [Additional Options](/nmap.md#additional-options)
