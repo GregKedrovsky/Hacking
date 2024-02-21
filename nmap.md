@@ -5,6 +5,7 @@
 | Description | Syntax |
 | ----------- | ------ |
 | Initial Scan | `nmap -Pn [target ip]` |
+| Faster Initial | `nmap -Pn --host-timeout 30s [target ip]` |
 | Scan Open Ports | `nmap -Pn -sS -sV -sC -O -T4 -p [port,numbers] [target ip]` |
 
 ## Contents
