@@ -11,6 +11,12 @@ gzip -d /usr/share/wordlists/rockyou.txt.gz .
   - [Speed Kills, Del](#speed-kills-del)
   - [Common Options](#common-options)
 - [Protocol Examples](#specific-protocol-examples): [`FTP`](#ftp), [`SMB`](#smb), [`SSH`](#ssh), [`MySQL`](#mysql), [`WebDAV`](#webdav), [`RDP`](#rdp)
+- [HTTP Login Form: http-post-form]()
+  - [General Syntax]()
+  - [Intercept a Random, Invalid Login]()
+  - [Capture a Failed Login String]()
+  - [Final Syntax]()
+  - [Additional Help]()
 
 ## Configuration
 
@@ -58,10 +64,10 @@ hydra -L users.txt -P passwords.txt [target ip] rdp -s 3333
 ```
 - `-s` : service port (if different than the default)
 
-### HTTP Login Form
+## HTTP Login Form: http-post-form
 > This was taken from a lab (and the syntax is complicated). The lab used bWAPP as the vulnerable target website and Burp Suite as the proxy.
 
-#### General Syntax: http-post-form
+### General Syntax
 ```
 <url>:<form parameters>:<condition string>[:<optional>[:<optional>]
 #[1]    [2]             [3]  
@@ -71,24 +77,24 @@ hydra -L users.txt -P passwords.txt [target ip] rdp -s 3333
 3. Third is the string that it checks for an *invalid* login (by default)
     - This is where most people get it wrong. You have to check the webapp what a failed string looks like and put it in this parameter!
 
-#### Intercept a Random, Invalid Login
+### Intercept a Random, Invalid Login
 - Copy and paste the login syntax being POSTed to the server.
 - Change the login variables (the random username and password you plugged in) to the **_placeholders_** required by Hydra. These placeholders function as variables and Hydra will plug in its attempts into these placeholders/variables.
 
 ![image](https://github.com/GregKedrovsky/Hacking/assets/26492233/3a32dae8-e9b6-48d6-b73e-e002cca6b7f2)
 
-#### Capture a Failed Login String
+### Capture a Failed Login String
 - This is where most people get it wrong. You have to check in the webapp what a failed string looks like and put it in this parameter!
 
 ![image](https://github.com/GregKedrovsky/Hacking/assets/26492233/a9bc4a0d-338c-4f16-8820-bb324eb027f8)
 
-#### Final Syntax
+### Final Syntax
 ```
 hydra -L user_list.txt -P password_list.txt http://192.103.189.3 http-post-form "/login.php:login=^USER^&password=^PASS^&security_level=0&form=submit:Invalid credentials or user not activated!"
 # the 3 required arguments in the http-post-form are colon-separated:             [1] <url>    [2] <form parameters>                                   [3]  <condition string>
 ```
 
-#### Additional Help
+### Additional Help
 ```
 hydra -U http-post-form
 # -U : service module usage details
