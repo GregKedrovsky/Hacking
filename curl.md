@@ -17,3 +17,6 @@ curl -X PUT -T "/path/to/file" "http://myputserver.com/puturl.tmp"
 ```
 
 **Note:** `-X PUT` is redundant when using `-T` (which is short for `--upload-file`)
+
+----
+## [more](/04_Enumeration/enum_http.md#curl)
