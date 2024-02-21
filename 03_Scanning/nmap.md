@@ -23,10 +23,10 @@ nmap -Pn -sS -sV -sC -O -T4 -p- [target ip]
 
 nmap -Pn -A [target IP address]
 ```
-- `-A`          : combines the following into one switch
-- `-sV`         : Version detection
-- `-sC`         : Script scanning
-- `-O`          : OS detection
+- `-A` : combines the following into one switch
+- `-sV` : Version detection
+- `-sC` : Script scanning
+- `-O` : OS detection
 - `–traceroute` : Traceroute
 
 ## Additional: [nmap.md](/nmap.md)
