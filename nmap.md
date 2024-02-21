@@ -23,11 +23,11 @@ locate *.nse
 # or in Kali
 ls -l /usr/share/nmap/scripts | grep ftp-*  # (or smb, http, etc.)
 ```
-**Combine Options:** `nmap -sU -sV -sC [target IP]` is the same as `nmap -sUVC [target IP]`
 
-**Verbosity:** Increase the verbosity of the output with `-v`, and more with `-vv`
-
-**Status:** Hit `ENTER` while nmap is doing its thing to see the status (percentage done).
+### Tips
+- **Combine Options:** `nmap -sU -sV -sC [target IP]` is the same as `nmap -sUVC [target IP]`
+- **Verbosity:** Increase the verbosity of the output with `-v`, and more with `-vv`
+- **Status:** Hit `ENTER` while nmap is doing its thing to see the status (percentage done).
 
 ## Host Discovery
 
@@ -76,14 +76,47 @@ nmap -sn -PE [target ip subnet]/[CIDR] --send-ip
 - `--send-ip` : send packets via raw IP sockets rather than sending lower level Ethernet frames
 
 ## Port Scans
+> These scans need to be run as root.
+> 
+### General Syntax
+```
+nmap [Scan Type(s)] [Options] {target specification}
+```
+- If you are dealing with a Windows system and you get a `filtered` STATE in your response, you can be assured the target system has a **_firewall_**.
+- If you are dealing with a Windows system and you get a `closed` STATE in your response, then Windows Firewall is **_not active_** or there are **_not rules_** for particular port that are intercepting traffic.
+- `-v` provides some verbosity. `-vv` provides more verbosity.
+- `--reason` : display the reason a port is in a particular state
 
-### Default scan, Ping No
+### Standard Go-To
 ```
-nmap -Pn [target IP or CIDR notation network]
+#TCP Ports:
+nmap -sS -T4 -p- -A -vv [IP Address]
+nmap -sS -T4 -p- -A -vv --reason [IP Address]
+
+#UDP Ports: 
+nmap -sU -T4 -A -vv [IP Address]
+nmap -sU -T4 -A -vv --reason [IP Address]
 ```
-- This disables host discovery. 
-- It causes Nmap to attempt the requested scanning functions against every target IP address specified. 
-- Nmap performs the requested functions as if each specified target IP is active.
+
+### Default Port Scan
+```
+nmap [target ip]
+# or
+nmap -Pn [target ip]
+```
+- Default Scan: If you are running as root then nmap will run a SYN port scan (`-sS` : stealth Scan option) by default (without you having to type it in).
+  -  That means nmap will first perform host discovery automatically (ping scan)
+  -  Then (based on the port range, if you specified one) nmap will send a SYN packet to the target ports.
+  -  If it gets a SYN-ACK in return, the port is open. All else, port considered closed.
+- Default Ports: (when none are specified) The 1000 most commonly used ports.
+- Problem: Because it's performing host discovery with a ping sweep, if the target is blocking ICMP requests, then it won't do the port scan since the host was not "discovered."
+  - Solution: `-Pn` : Ping no. Disable the host discovery ping sweep and go right to the port scan.
+
+### Fast Scan
+```
+nmap -Pn -F [target ip]
+```
+- `-F` : Scans 100 of the most commonly used ports (instead of the default 1000)
 
 ### Scan All Ports
 ```
@@ -111,38 +144,55 @@ nmap -Pn -p 80,445,3389 [target IP address]
 nmap -Pn -p 1-65535 [target IP address]
 ```
 
-### Fast Scan
+### TCP Connect Scan
+> This is the default scan for an unprivileged/non-root user because you have to be root in order to have "raw packet privileges"
+- This scan completes the TCP three-way handshake.
+  - It sends an TCP packet with the SYN flag set.
+  - If it receives a TCP packet with the SYN-ACK flag set...
+  - It sends a TCP packet with the ACK flag set.
+- **_This is very loud on the network_**. But it is also very accurate.
 ```
-nmap -Pn -F [target IP address]
+nmap -Pn -sT [target ip]
 ```
-- Will scan only the first 100 most common ports. 
+- `-sT` : TCP Connect Scan.
 
 ### UDP Port Scan
 ```
-nmap -Pn -sU [target IP address]
+nmap -Pn -sU  [target ip]
+nmap -Pn -sU -p 53,137,138,139 [target ip]
 ```
+- `-sU` : activates a UDP scan (instead of the default TCP scan)
+- UDP scan works by sending a UDP packet to every targeted port.
+- If an ICMP port unreachable error (type 3, code 3) is returned, the port is closed.
+- Other ICMP unreachable errors (type 3, codes 1, 2, 9, 10, or 13) mark the port as filtered.
+- Occasionally, a service will respond with a UDP packet, proving that it is open.
+- If no response is received after retransmissions, the port is classified as open|filtered.
+  - This means that the port could be open, or perhaps packet filters are blocking the communication.
+  - `-sV` : Version detection can be used to help differentiate the truly open ports from the filtered ones.
 
 ### UDP Top Port scan
 ```
-nmap -sU --top-ports 25 --open [ip addr]
+nmap -sU --top-ports 25 --open [target ip]
 ```
 - This will only scan the top 25 ports, not the entirety. and only the open ports. Faster.
 
 ### Scan for Service Versions
 ```
-nmap -Pn -sV [target IP address]
+nmap -Pn -sV [target ip]
 ```
+- `-sV` : show the version of the service running on the open port.
 
 ### Scan for Operating System
 ```
 nmap -Pn -O [target IP address]
 ```
+- `-O` : This will attempt to ID the O/S running on the target system
 
 ### Scan with All Defaults Scripts: 
 ```
 nmap -Pn -sV -O -sC [target IP address]
 ```
-- Runs the default (safe) Nmap scripts (`-sC` is equivalent to `--script=default`) on the open ports
+- `-sC` : Runs the default (safe) Nmap scripts on the open ports (equivalent: `--script=default`).
 
 ### Aggressive Scan
 ```
@@ -177,3 +227,17 @@ nmap [target IP address] -oN output.txt
 - `-oS` : output ScriptKiddie
 - `-oG` : output Grepable
 - `-oA` : output All (all formats)
+
+### Scan Delay
+```
+nmap -sS -sV -F --scan-delay 5s [target ip]
+```
+- `--scan-delay time` or `--max-scan-delay time` :  Adjust delay between probes.
+- You can append `ms` (milliseconds), `s` (seconds), `m` (minutes), or `h` (, or hours). 
+
+### Slow Target Response
+- You can also add `--host-timeout [time]` to give up on slow target hosts.
+- The time parameter is specified in seconds by default.
+- You can append `ms` (milliseconds), `s` (seconds), `m` (minutes), or `h` (, or hours).
+- TIP: Set it to `30s` if you are working on a large network and/or with a large group of IPs.
+
