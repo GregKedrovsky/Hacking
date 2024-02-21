@@ -141,10 +141,10 @@ http://[target ip]/index
 
 ### [DirBuster](https://www.kali.org/tools/dirbuster/)
 - Oldie but a goodie. You can still get good results from DirBuster, even when DirB and GoBuster crap out.
-- File Extensions for Windows (IIS)
+- File Extensions for Windows (IIS):
   - asm,asmx,asp,aspx
   - asm,asmx,asp,aspx,txt,zip,rar,bak
-- File Extensions for Linux (Apache)
+- File Extensions for Linux (Apache):
   - php, sh, js, html, py
 - NOTE: The longer the list, the longer the search will take.
 
