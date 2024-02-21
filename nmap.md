@@ -8,7 +8,40 @@
 | Scan Open Ports | `nmap -Pn -sS -sV -sC -O -T4 -p [port,numbers] [target ip]` |
 
 ## Contents
-- []()
+- [Resources]()
+  - [Links]()
+  - [Find scripts on your system]()
+  - [Tips]()
+- [Host Discovery]()
+  - [Standard]()
+  - [Scan Subnet for Open Ports]()
+  - [TCP SYN Ping Scan]()
+  - [UDP Ping Scan]()
+  - [ICMP Ping Scan]()
+  - [Problem: Firewalls]()
+- [Port Scans]()
+  - [General Syntax]()
+  - [Standard Go-To]()
+  - [Default Port Scan]()
+  - [Fast Scan]()
+  - [Scan Ports]()
+    - [Scan All Ports]()
+    - [Scan for Open Ports]()
+    - [Scan Specific Port]()
+    - [Scan Multiple Ports]()
+    - [Scan Range of Ports]()
+  - [TCP Connect Scan]()
+  - [UDP Port Scan]()
+  - [UDP Top Port scan]()
+  - [Version Scan]()
+  - [Operating System Scan]()
+  - [Defaults Script Scan]()
+  - [Aggressive Scan]()
+- [Additional Options]()
+  - [Increase Speed]()
+  - [Output to File]()
+  - [Scan Delay]()
+  - [Slow Target Response]()
 
 ## Resources
 
@@ -31,7 +64,7 @@ ls -l /usr/share/nmap/scripts | grep ftp-*  # (or smb, http, etc.)
 
 ## Host Discovery
 
-### Standard:
+### Standard
 ```
 nmap -sn  -v -T4 [target ip subnet]/[CIDR]
 ```
@@ -46,21 +79,21 @@ nmap --open -T4 10.4.20.0/20
 ```
 - `--open` : Only show hosts that have open ports, and only show the open ports for those.
 
-### TCP SYN Ping Scan: 
+### TCP SYN Ping Scan
 ```
 nmap -sn -PS 21,22,25,80,445,3389,8080 -T4 [target ip subnet]/[CIDR]
 ```
 - `-PS [port list]` : TCP SYN Ping
 - Add the most common ports for Linux and Windows to save time
 
-### UDP Ping Scan: 
+### UDP Ping Scan
 ```
 nmap -sn -PS21,22,25,80,445,3389,8080 -PU137,138 -T4 [target ip subnet]/[CIDR]
 ```
 - `-PU [port list]` : UDP Ping Scan.  It sends a UDP packet (usually empty) to the given ports.
 - Upon hitting a closed port on the target machine, the UDP probe should elicit an ICMP port unreachable packet in return. This signifies to Nmap that the machine is up and available.
 
-### ICMP Ping Scan: 
+### ICMP Ping Scan
 > This is a host discovery scan than only sends ICMP Echo Requests (just like when we used the ping command). 
 ```
 nmap -sn -PE  [target ip subnet]/[CIDR]
@@ -208,7 +241,7 @@ nmap -Pn -A [target ip]
 
 ## Additional Options
 
-### Increase speed
+### Increase Speed
 ```
 nmap -Pn -T5 -sV -O -sC [target ip] -v
 ```
