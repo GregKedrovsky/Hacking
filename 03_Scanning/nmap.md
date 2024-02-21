@@ -7,4 +7,8 @@
 | Initial Scan | `nmap -Pn [target ip]` |
 | Scan Open Ports | `nmap -Pn -sS -sV -sC -O -T4 -p [port,numbers] [target ip]` |
 
-## Additional: [nmap.md](/nmap.md)
+## Additional:
+- [nmap.md](/nmap.md)
+  - [Host Discovery](#host-discovery)
+  - [Port Scans](#port-scans)
+  - [Additional Options](#additional-options)
