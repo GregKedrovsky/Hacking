@@ -80,7 +80,7 @@ nmap -sn -PS 21,22,25,80,445,3389,8080 -T4 [target ip subnet]/[CIDR]
 - `-PS [port list]` : TCP SYN Ping
 - Add the most common ports for Linux and Windows to save time
 
-###  UDP Ping Scan: 
+### UDP Ping Scan: 
 ```
 nmap -sn -PS21,22,25,80,445,3389,8080 -PU137,138 -T4 [target ip subnet]/[CIDR]
 ```
