@@ -1,6 +1,11 @@
 # Nmap
 
-Go-To: `nmap -Pn -sS -sV -sC -O -T4 -p- [target ip]`
+## Quick Reference
+
+| Description | Syntax |
+| ----------- | ------ |
+| Initial Scan | `nmap -Pn [target ip]` |
+| Scan Open Ports | `nmap -Pn -sS -sV -sC -O -T4 -p [port,numbers] [target ip]` |
 
 ## Contents
 - []()
