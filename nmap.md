@@ -40,6 +40,8 @@
   - [Aggressive Scan](#aggressive-scan)
 - [Additional Options](#additional-options)
   - [Increase Speed](#increase-speed)
+    - [Timing Templates]()
+    - [Option: min-rate]()
   - [Output to File](#output-to-file)
   - [Scan Delay](#scan-delay)
   - [Slow Target Response](#slow-target-response)
@@ -246,6 +248,8 @@ nmap -Pn -A [target ip]
 ## Additional Options
 
 ### Increase Speed
+
+#### Timing Templates
 ```
 nmap -Pn -T5 -sV -O -sC [target ip] -v
 ```
@@ -256,6 +260,13 @@ nmap -Pn -T5 -sV -O -sC [target ip] -v
 - `-T3` : Normal
 - `-T4` : Aggressive
 - `-T5` : Insane
+
+#### Option: min-rate
+```
+nmap -sV --min-rate 1000 -p- 10.129.128.223
+```
+- This is used to specify the minimum number of packets Nmap should send per second
+- It speeds up the scan as the number goes higher
 
 ### Output to File
 ```
