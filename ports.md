@@ -45,6 +45,8 @@
 |  2049         | TCP & UDP | NFS (possibly)                   |
 |  3389         | TCP       | RDP (Windows)                    |
 |  5355         | TCP & UDP | LLMNR [5]                        |
+|  5985         | TCP       | WinRM (http)                     |
+|  5986         | TCP       | WinRM (https)                    |
 
 ## Notes: 
 1. Microsofts's Remote Procedure Call (RPC) Endpoint Mapper (EPMAP): An RPC is a communication process that allows for executing a subroutine or procedure in another address space.
