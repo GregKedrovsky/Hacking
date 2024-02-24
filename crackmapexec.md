@@ -6,9 +6,15 @@
 
 **Supported Protocols:** `WinRM`, `MSSQL`, `SMB`, `SSH`
 
-## Help
+## Contents
+- [Help]()
+- [Examples]()
+- [WinRM]()
+- [Pass-the-Hash (SMB)]()
 
-For help and syntax, just issue the command: `crackmapexec`
+## Help
+- For help and syntax, just issue the command: `crackmapexec`
+- [Cheat Sheet](https://www.ivoidwarranties.tech/posts/pentesting-tuts/cme/crackmapexec-cheatsheet/)
 
 ```
 crackmapexec -h
@@ -29,7 +35,7 @@ crackmapexec <protocol> <target(s)> -u username -p 'Admin!123@'   # or...
 crackmapexec <protocol> <target(s)> -u='username' -p='Admin!123@'
 ```
 
-## WinRM:
+## WinRM
 
 **Syntax:**
 
@@ -55,7 +61,7 @@ crackmapexec winrm [target ip] -u administrator -p tinkerbell -x "systeminfo"
 # This takes a while to run but provides a lot of information about your target system.
 ```
 
-## Pass-the-Hash
+## Pass-the-Hash (SMB)
 
 **Syntax:**
 
