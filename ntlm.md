@@ -25,3 +25,7 @@ The terminology around NTLM authentication is messy, and even pros misuse it fro
 - An **_NTHash_** is the output of the algorithm used to store passwords on Windows systems in the SAM database and on domain controllers. An NTHash is often referred to as an **_NTLM hash_** or even just an **_NTLM_**, which is very misleading/confusing.
 
 - When the NTLM protocol wants to do authentication over the network, it uses a challenge/response model as described above. A **_NetNTLMv2_** challenge/response is a string specifically formatted to include the challenge and response. This is often referred to as a **_NetNTLMv2 hash_**, but it's not actually a hash. Still, it is regularly referred to as a hash because we attack it in the same manner. You'll see NetNTLMv2 objects referred to as NTLMv2, or even confusingly as NTLM.
+
+## Stealing NTLM Hashes
+
+https://osandamalith.com/2017/03/24/places-of-interest-in-stealing-netntlm-hashes/
