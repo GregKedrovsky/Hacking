@@ -2,19 +2,19 @@
 > Responder is a tool to capture hashes while connected onto a network. If a client/target cannot resolve a name via DNS, it will fall back to name resolution via LLMNR, NBT-NS and MDNS. If we have Responder running on the same network, it will essentially say "Hey, I'm who you're looking for" to all of the LLMNR and NBT-NS requests that we see, and the traffic is directed to us. 
 
 ## Contents
-- [Installation & Syntax]()
-- [Common Errors]()
-  - [TCP Server, Port 80]()
-  - [Next Error (whatever it may be)]()
-- [Malicious SMB Server]()
-  - [Scenario]()
-  - [Attack Overview]()
-  - [Attack Set-Up]()
-    - [Start responder]()
-    - [Force the Hash: RFI]()
-    - [Capture the Hash: Responder]()
-    - [Crack the Hash: John]()
-    - [Exploit with Evil-WinRM]()
+- [Installation & Syntax](#installation--syntax)
+- [Common Errors](#common-errors)
+  - [TCP Server, Port 80](#tcp-server-port-80)
+  - [Next Error (whatever it may be)](#next-error-whatever-it-may-be)
+- [Malicious SMB Server](#malicious-smb-server)
+  - [Scenario](#scenario)
+  - [Attack Overview](#attack-overview)
+  - [Attack Set-Up](#attack-set-up)
+    - [Start responder](#start-responder)
+    - [Force the Hash: RFI](#force-the-hash-rfi)
+    - [Capture the Hash: Responder](#capture-the-hash-responder)
+    - [Crack the Hash: John](#crack-the-hash-john)
+    - [Exploit with Evil-WinRM](#exploit-with-evil-winrm)
 
 ## Installation & Syntax
 - In the case of Kali Linux, Responder is installed by default as a system utility, thus it can be launched just by running the command:
