@@ -2,7 +2,19 @@
 > Responder is a tool to capture hashes while connected onto a network. If a client/target cannot resolve a name via DNS, it will fall back to name resolution via LLMNR, NBT-NS and MDNS. If we have Responder running on the same network, it will essentially say "Hey, I'm who you're looking for" to all of the LLMNR and NBT-NS requests that we see, and the traffic is directed to us. 
 
 ## Contents
-- []()
+- [Installation & Syntax]()
+- [Common Errors]()
+  - [TCP Server, Port 80]()
+  - [Next Error (whatever it may be)]()
+- [Malicious SMB Server]()
+  - [Scenario]()
+  - [Attack Overview]()
+  - [Attack Set-Up]()
+    - [Start responder]()
+    - [Capture the Hash: RFI]()
+    - [Responder Capture the Hash]()
+    - [Crack the Hash]()
+    - [Exploit with Evil-WinRM]()
 
 ## Installation & Syntax
 - In the case of Kali Linux, Responder is installed by default as a system utility, thus it can be launched just by running the command:
@@ -10,6 +22,7 @@
 responder -I [network_interface]
 ```
 
+----
 ## Common Errors
 
 ### TCP Server, Port 80
@@ -35,6 +48,7 @@ HTTP = On        #  chane "On" to "Off"
 ```
 ### Next Error (whatever it may be)
 
+----
 ## Malicious SMB Server
 
 ### Scenario
@@ -52,7 +66,7 @@ HTTP = On        #  chane "On" to "Off"
 
 ### Attack Set-Up
 
-#### Start responder:
+#### Start responder
 ```
 responder -I [network_interface]
 ```
