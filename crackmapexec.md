@@ -6,6 +6,8 @@
 
 **Supported Protocols:** `WinRM`, `MSSQL`, `SMB`, `SSH`
 
+https://academy.hackthebox.com/course/preview/using-crackmapexec
+
 ## Contents
 - [Help](#help)
 - [General Syntax](#general-syntax)
