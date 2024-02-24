@@ -7,10 +7,11 @@
 **Supported Protocols:** `WinRM`, `MSSQL`, `SMB`, `SSH`
 
 ## Contents
-- [Help]()
-- [Examples]()
-- [WinRM]()
-- [Pass-the-Hash (SMB)]()
+- [Help](#help)
+- [General Syntax](#general-syntax)
+- [Examples](#examples)
+- [WinRM](#winrm)
+- [Pass-the-Hash (SMB)](#pass-the-hash-smb)
 
 ## Help
 - For help and syntax, just issue the command: `crackmapexec`
