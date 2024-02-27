@@ -55,11 +55,59 @@ dirb http://[target ip] /usr/share/metasploit-framework/data/wordlists/directory
 
 ### [FFUF](https://github.com/ffuf/ffuf)
 > Fuzz Faster U Fool (FFUF): A fast web fuzzer written in Go. It's an open source web fuzzing tool, intended for discovering elements and content within web applications, or web servers. At its core, one of the main functions that people use FFUF for, is directory brute forcing.
-- Documentation: [wiki](https://github.com/ffuf/ffuf/wiki), [Everything You Need to Know](https://codingo.io/tools/ffuf/bounty/2020/09/17/everything-you-need-to-know-about-ffuf.html)
-- Example Syntax: 
+- Documentation: [wiki](https://github.com/ffuf/ffuf/wiki), [Everything You Need to Know](https://codingo.io/tools/ffuf/bounty/2020/09/17/everything-you-need-to-know-about-ffuf.html), [tutorial](https://medium.com/quiknapp/fuzz-faster-with-ffuf-c18c031fc480)
+- The position to be fuzzed should be indicated by the `FUZZ` word in the ffuf command.
+
+#### Use Cases
+1. General Directory discovery with option to fuzz at any place in the URL.
+2. VHOST discovery without DNS Records
+3. Fuzzing using various HTTP methods.
+
+#### Directory and File Discovery
+
+##### Syntax
+```
+ffuf -w wordlist.txt -u http://website.com/FUZZ
+```
+- `-w` : wordlist to plug into the position marked with `FUZZ`
+- `-u` : URL with `FUZZ` marking the position to plug in words
+
+##### Options
+- Ffuf also gives option to get output only of responses with specific status code, amount of lines, response size, amount of words as well as the response which matches a regex pattern.
+- A few examples of flags for the same are:
+```
+-mc                 # to specify Status code
+-ml                 # to specify amount of lines in response
+-mr                 # to specify regex pattern
+-ms                 # to specify response size
+-mw                 # to specify amount of words in response
+-recursion          # fuzz subdirs below final /FUZZ in URL
+-recursion-depth    # specify the depth of recursion
+-maxtime [seconds]  # end the ongoing fuzzing after the specified time in seconds
+```
+
+##### Examples
+```
+ffuf -w wordlist.txt -w http://website.com/FUZZ -e .aspx,.html -mc 200,302
+# provides output of responses with status code 200 and 302 only
+```
+
+#### VHOST Discovery
+
+
+
+
+
 ```
 ffuf -w /path/to/subdomain/list -H "Host: FUZZ.[domain name] -u http://[domain name]/ -fc 200
 ```
+
+
+
+
+
+ffuf -w subdomains.txt -u http://website.com/ -H “Host: FUZZ.website.com”
+
 
 ----
 ## DNS Busting
