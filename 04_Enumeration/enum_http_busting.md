@@ -45,6 +45,31 @@ dirb http://[target ip] /usr/share/metasploit-framework/data/wordlists/directory
 - It will enumerate quite a bit of information about the site's content (esp. directories).
 
 ----
+## DNS Busting
+
+### [Amass](https://github.com/owasp-amass/amass/blob/master/doc/user_guide.md)
+> Amass is a powerful open-source reconnaissance tool designed for network mapping and information gathering. It is widely used by security professionals and researchers to map out external network space and discover assets that belong to a target organization.
+
+#### Subcommands
+- Amass usage is based on five subcommands (like GoBuster's "modes"):
+```
+intel : collect open source intelligence for investigation of the target organization
+enum  : perform DNS enumeration and network mapping of systems exposed to the Internet
+viz   : visualize enumeration results
+track : Track differences between enumerations
+db    : manage the graph databases storing the enumeration results
+```
+- To see the available options for a subcommand, just type in the terminal:
+```
+amass intel
+```
+
+#### Syntax, enum
+```
+amass enum -d thetoppers.htb
+```
+
+----
 ## [GoBuster](https://github.com/OJ/gobuster)
 > Gobuster is a tool used to brute-force: URIs (directories and files) in web sites, DNS subdomains (with wildcard support), Virtual Host names on target web servers, Open Amazon S3 buckets, Open Google Cloud buckets and TFTP servers.
 - GoBuster is a command line tool similar to DirB that used to brute-force...
@@ -109,6 +134,9 @@ gobuster dir -u http://[target ip] -w /usr/share/wordlists/dirb/common.txt  -b 4
 ```
 gobuster dir -u http://[target ip] -w /usr/share/wordlists/dirb/common.txt  -b 403,404 -x .php,.xml,.txt -r
 # looks for specific files: those ending in .php, .xml, and .txt; and it does so following redirects.
+
+gobuster dir -u mytarget.com -w path/to/my/awesome/wordlist.txt -e -t 100 -x jpg,jpeg,png,gif,ico
+# looks for images
 ```
 
 #### Syntax 4: Specific Directory
@@ -133,6 +161,9 @@ gobuster dir -u http://[target ip]/data/ -w /usr/share/wordlists/dirb/common.txt
 #### Syntax: Standard DNS Bust
 ```
 gobuster dns -d [target domain] -w /path/to/wordlist
+
+gobuster dns -d [target domain] -w /path/to/wordlist -r 10.10.10.10 -i -v
+# custom DNS server
 ```
 
 ### [VHOST Mode](https://github.com/OJ/gobuster?tab=readme-ov-file#vhost-mode)
