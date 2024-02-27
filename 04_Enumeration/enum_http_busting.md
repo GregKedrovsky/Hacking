@@ -2,8 +2,26 @@
 > Busting refers to brute-forcing directories, files, and other information from websites
 
 ## Content
-- []()
+- [Directory Busting]()
+  - [DirBuster]()
+  - [DirB]()
+- [GoBuster]()
+  - [General Syntax]()
+  - [Modes]()
+  - [DIR Mode]()
+    - [DIR Mode Common Flags/Options]()
+    - [Syntax 1: Standard Dir Bust]()
+    - [Syntax 2: Blacklist Codes]()
+    - [Syntax 3: Find Files]()
+    - [Syntax 4: Specific Directory]()
+  - [DNS Mode]()
+    - [DNS Mode Common Flags/Options]()
+    - [Syntax: Standard DNS Bust]()
+  - [VHOST Mode]()
+    - [VHOST Mode Common Flags/Options]()
+    - [Syntax: Standard VHOST Bust]()
 
+----
 ## Directory Busting
 
 ### [DirBuster](https://www.kali.org/tools/dirbuster/)
@@ -26,6 +44,7 @@ dirb http://[target ip] /usr/share/metasploit-framework/data/wordlists/directory
 - DirB sends GET requests to predetermined URLs (based on its default, included wordlist) to see if it gets back anything.
 - It will enumerate quite a bit of information about the site's content (esp. directories).
 
+----
 ## [GoBuster](https://github.com/OJ/gobuster)
 > Gobuster is a tool used to brute-force: URIs (directories and files) in web sites, DNS subdomains (with wildcard support), Virtual Host names on target web servers, Open Amazon S3 buckets, Open Google Cloud buckets and TFTP servers.
 - GoBuster is a command line tool similar to DirB that used to brute-force...
@@ -43,12 +62,12 @@ dirb http://[target ip] /usr/share/metasploit-framework/data/wordlists/directory
 
 ### General Syntax
 ```
-gobuster [Mode][Options]    # Two required options:
+gobuster [Mode] [Options]   # Two required options:
                             #  1. -u : target URL
                             #  2. -w : /path/to/wordlist
 ```
 
-### [Modes/Commands](https://github.com/OJ/gobuster?tab=readme-ov-file#modes)
+### [Modes](https://github.com/OJ/gobuster?tab=readme-ov-file#modes)
 ```
 dir         # Uses directory/file enumeration mode
 dns         # Uses DNS subdomain enumeration mode
@@ -60,7 +79,7 @@ vhost       # Uses VHOST enumeration mode
 ```
 - To find additional help on any of the modes: `gobuster help [mode]`
 
-### [DIR Mode/Command](https://github.com/OJ/gobuster?tab=readme-ov-file#dir-mode)
+### [DIR Mode](https://github.com/OJ/gobuster?tab=readme-ov-file#dir-mode)
 > This is the classic directory brute-forcing mode or Enumerating URIs for directories and files.
 - The DIR mode is used for finding hidden directories and files. 
 - The DIR mode in Gobuster is mainly used to find extra content in a specific target domain or its subdomain. This additional information can include hidden directories or hidden files that can contain sensitive data.
@@ -98,7 +117,7 @@ gobuster dir -u http://[target ip]/data/ -w /usr/share/wordlists/dirb/common.txt
 # enumerates the contents of a directory gobuster found (/data/)
 ```
 
-### [DNS Mode/Command](https://github.com/OJ/gobuster?tab=readme-ov-file#dns-mode)
+### [DNS Mode](https://github.com/OJ/gobuster?tab=readme-ov-file#dns-mode)
 > In DNS mode GoBuster attempts to resolve the subdomains of a website via DNS. 
 
 #### DNS Mode Common Flags/Options
@@ -116,7 +135,7 @@ gobuster dir -u http://[target ip]/data/ -w /usr/share/wordlists/dirb/common.txt
 gobuster dns -d [target domain] -w /path/to/wordlist
 ```
 
-### [VHOST Mode/Command](https://github.com/OJ/gobuster?tab=readme-ov-file#vhost-mode)
+### [VHOST Mode](https://github.com/OJ/gobuster?tab=readme-ov-file#vhost-mode)
 > This mode should not be mistaken to be the same as the DNS mode. In the DNS mode the tool attempts to DNS resolve the subdomains and based on that we are given the result. In vhosts mode the tool is checking if the subdomain exists by visiting the formed url and verifying the IP address.
 - If using Gobuster version 3.2.0 and above we also have to add the `--append-domain` flag to our command so that the enumeration takes into account the known vHost (`thetoppers.htb`) and appends it to the words found in the wordlist (e.g., `word.thetoppers.htb`).
 - From the help file: Append main domain from URL to words from wordlist. Otherwise the fully qualified domains need to be specified in the wordlist. 
