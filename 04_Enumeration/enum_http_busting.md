@@ -2,7 +2,7 @@
 > Busting refers to brute-forcing directories, files, and other information from websites
 
 ## Content
-- {}()
+- []()
 
 ## Directory Busting
 
@@ -26,26 +26,29 @@ dirb http://[target ip] /usr/share/metasploit-framework/data/wordlists/directory
 - DirB sends GET requests to predetermined URLs (based on its default, included wordlist) to see if it gets back anything.
 - It will enumerate quite a bit of information about the site's content (esp. directories).
 
-## GoBuster
-
-> GoBuster is a command line tool (-h, --help to see the help menu) similar to DirB (Directory Buster).
-- From the [GitHub Repo](https://github.com/OJ/gobuster): Gobuster is a tool used to brute-force...
+## [GoBuster](https://github.com/OJ/gobuster)
+> Gobuster is a tool used to brute-force: URIs (directories and files) in web sites, DNS subdomains (with wildcard support), Virtual Host names on target web servers, Open Amazon S3 buckets, Open Google Cloud buckets and TFTP servers.
+- GoBuster is a command line tool similar to DirB that used to brute-force...
   - URIs (directories and files) in web sites.
   - DNS subdomains (with wildcard support).
   - Virtual Host names on target web servers.
   - Open Amazon S3 buckets
   - Open Google Cloud buckets
   - TFTP servers
-- [Kali's website has usage and examples](https://www.kali.org/tools/gobuster/).
+- Help is built-in:
+  - `gobuster help` : outputs the top-level help.
+  - `gobuster help [mode]` : outputs the help specific to that mode.
+  - [Kali's website has usage and examples](https://www.kali.org/tools/gobuster/).
+  - [Explanation & CheatSheet](https://erev0s.com/blog/gobuster-directory-dns-and-virtual-hosts-bruteforcing/)
 
-#### General Syntax
+### General Syntax
 ```
 gobuster [Mode][Options]    # Two required options:
                             #  1. -u : target URL
                             #  2. -w : /path/to/wordlist
 ```
 
-#### [Modes/Commands](https://github.com/OJ/gobuster?tab=readme-ov-file#modes)
+### [Modes/Commands](https://github.com/OJ/gobuster?tab=readme-ov-file#modes)
 ```
 dir         # Uses directory/file enumeration mode
 dns         # Uses DNS subdomain enumeration mode
@@ -55,14 +58,14 @@ s3          # Uses aws bucket enumeration mode
 version     # Shows the current version
 vhost       # Uses VHOST enumeration mode
 ```
-- To find additional help on any of the modes: `gobuster [mode] --help`
+- To find additional help on any of the modes: `gobuster help [mode]`
 
-#### [DIR Mode/Command](https://github.com/OJ/gobuster?tab=readme-ov-file#dir-mode)
-- The DIR mode is used for finding hidden directories and files.
-- This is the classic directory brute-forcing mode or Enumerating URIs for directories and files.
-- The Dir mode in Gobuster is mainly used to find extra content in a specific target domain or its subdomain. This additional information can include hidden directories or hidden files that can contain sensitive data.
+### [DIR Mode/Command](https://github.com/OJ/gobuster?tab=readme-ov-file#dir-mode)
+> This is the classic directory brute-forcing mode or Enumerating URIs for directories and files.
+- The DIR mode is used for finding hidden directories and files. 
+- The DIR mode in Gobuster is mainly used to find extra content in a specific target domain or its subdomain. This additional information can include hidden directories or hidden files that can contain sensitive data.
 
-#### DIR Mode Flags/Options
+#### DIR Mode Common Flags/Options
 ```
 -u, --url [string]                     # [required] target URL
 -w, --wordlist [string]                # [required] path to the wordlist
@@ -72,25 +75,68 @@ vhost       # Uses VHOST enumeration mode
 -r, --follow-redirect                  # follow redirects
 ```
 
-#### Syntax 1: Standard DirBust
+#### Syntax 1: Standard Dir Bust
 ```
 gobuster dir -u http://[target ip] -w /usr/share/wordlists/dirb/common.txt
 ```
 
 #### Syntax 2: Blacklist Codes
-- Lots of 403 and 404 responses cluttering things up. You can clean that up with:
 ```
 gobuster dir -u http://[target ip] -w /usr/share/wordlists/dirb/common.txt  -b 403,404
+# filters out 403 and 404 responses (to remove clutter)
 ```
 
 #### Syntax 3: Find Files
-- Look for something specific, like for example PHP or XML files and plaintext files... and follow-redirects:
 ```
 gobuster dir -u http://[target ip] -w /usr/share/wordlists/dirb/common.txt  -b 403,404 -x .php,.xml,.txt -r
+# looks for specific files: those ending in .php, .xml, and .txt; and it does so following redirects.
 ```
 
 #### Syntax 4: Specific Directory
-- Enumerate the contents of a directory gobuster found (e.g., `/data/`):
 ```
 gobuster dir -u http://[target ip]/data/ -w /usr/share/wordlists/dirb/common.txt  -b 403,404 -x .php,.xml,.txt -r
+# enumerates the contents of a directory gobuster found (/data/)
 ```
+
+### [DNS Mode/Command](https://github.com/OJ/gobuster?tab=readme-ov-file#dns-mode)
+> In DNS mode GoBuster attempts to resolve the subdomains of a website via DNS. 
+
+#### DNS Mode Common Flags/Options
+```
+-d, --domain string        # [required] the target domain
+-w, --wordlist [string]    # [required] path to the wordlist
+-r, --resolver string      # use custom DNS server (format server.com or server.com:port)
+-i, --showips              # sow IP addresses
+    --timeout duration     # DNS resolver timeout (default 1s)
+    --wildcard             # force continued operation when wildcard found
+```
+
+#### Syntax: Standard DNS Bust
+```
+gobuster dns -d [target domain] -w /path/to/wordlist
+```
+
+### [VHOST Mode/Command](https://github.com/OJ/gobuster?tab=readme-ov-file#vhost-mode)
+> This mode should not be mistaken to be the same as the DNS mode. In the DNS mode the tool attempts to DNS resolve the subdomains and based on that we are given the result. In vhosts mode the tool is checking if the subdomain exists by visiting the formed url and verifying the IP address.
+- If using Gobuster version 3.2.0 and above we also have to add the `--append-domain` flag to our command so that the enumeration takes into account the known vHost (`thetoppers.htb`) and appends it to the words found in the wordlist (e.g., `word.thetoppers.htb`).
+- From the help file: Append main domain from URL to words from wordlist. Otherwise the fully qualified domains need to be specified in the wordlist. 
+
+#### VHOST Mode Common Flags/Options
+```
+-u, --url string             # [required] the target URL
+-w, --wordlist [string]      # [required] path to the wordlist
+    --append-domain          # [required in v3.2.0 and above] append main domain from URL to words from wordlist
+-r, --followredirect         # follow redirects
+-H, --headers stringArray    # specify HTTP headers, -H 'Header1: val1' -H 'Header2: val2'
+-k, --insecuressl            # skip SSL certificate verification
+-P, --password string        # password for Basic Auth
+    --timeout duration       # HTTP Timeout (default 10s)
+-a, --useragent string       # set the User-Agent string (default "gobuster/3.0.1")
+-U, --username string        # username for Basic Auth
+```
+
+#### Syntax: Standard VHOST Bust
+```
+gobuster vhost -u [target domain] -w /path/to/wordlist --append-domain
+```
+
