@@ -5,10 +5,15 @@
 - [Directory Busting](#directory-busting)
   - [DirBuster](#dirbuster)
   - [DirB](#dirb)
+  - [FFUF](#ffuf)
 - [DNS Busting](#dns-busting)
   - [Amass](#amass)
     - [Subcommands](#subcommands)
     - [Syntax, enum](#syntax-enum)
+  - [Sublist3r]()
+    - [Usage]()
+    - [Examples]()
+  - [DNSRecon]()
 - [GoBuster](#gobuster)
   - [General Syntax](#general-syntax)
   - [Modes](#modes)
@@ -48,6 +53,14 @@ dirb http://[target ip] /usr/share/metasploit-framework/data/wordlists/directory
 - DirB sends GET requests to predetermined URLs (based on its default, included wordlist) to see if it gets back anything.
 - It will enumerate quite a bit of information about the site's content (esp. directories).
 
+### [FFUF](https://github.com/ffuf/ffuf)
+> Fuzz Faster U Fool (FFUF): A fast web fuzzer written in Go. It's an open source web fuzzing tool, intended for discovering elements and content within web applications, or web servers. At its core, one of the main functions that people use FFUF for, is directory brute forcing.
+- Documentation: [wiki](https://github.com/ffuf/ffuf/wiki), [Everything You Need to Know](https://codingo.io/tools/ffuf/bounty/2020/09/17/everything-you-need-to-know-about-ffuf.html)
+- Example Syntax: 
+```
+ffuf -w /path/to/subdomain/list -H "Host: FUZZ.[domain name] -u http://[domain name]/ -fc 200
+```
+
 ----
 ## DNS Busting
 
@@ -72,6 +85,74 @@ amass intel
 ```
 amass enum -d thetoppers.htb
 ```
+
+### [Sublist3r](https://github.com/aboul3la/Sublist3r)
+> Sublist3r is a python tool designed to enumerate subdomains of websites using OSINT. It helps penetration testers and bug hunters collect and gather subdomains for the domain they are targeting. Sublist3r enumerates subdomains using many search engines such as Google, Yahoo, Bing, Baidu and Ask. Sublist3r also enumerates subdomains using Netcraft, Virustotal, ThreatCrowd, DNSdumpster and ReverseDNS.
+
+#### [Usage](https://github.com/aboul3la/Sublist3r?tab=readme-ov-file#usage)
+```
+-d 	--domain 	Domain name to enumerate subdomains of
+-b 	--bruteforce 	Enable the subbrute bruteforce module
+-p 	--ports 	Scan the found subdomains against specific tcp ports
+-v 	--verbose 	Enable the verbose mode and display results in realtime
+-t 	--threads 	Number of threads to use for subbrute bruteforce
+-e 	--engines 	Specify a comma-separated list of search engines
+-o 	--output 	Save the results to text file
+-h 	--help 	show the help message and exit
+```
+
+#### [Examples](https://github.com/aboul3la/Sublist3r?tab=readme-ov-file#examples)
+
+1. To list all the basic options and switches use -h switch:
+
+```
+python sublist3r.py -h
+```
+
+2. To enumerate subdomains of specific domain:
+```
+python sublist3r.py -d example.com
+```
+
+3. To enumerate subdomains of specific domain and show the results in realtime:
+```
+python sublist3r.py -v -d example.com
+```
+
+4. To enumerate subdomains and enable the bruteforce module:
+```
+python sublist3r.py -b -d example.com
+```
+
+5. To enumerate subdomains and use specific engines such Google, Yahoo and Virustotal engines
+```
+python sublist3r.py -e google,yahoo,virustotal -d example.com
+```
+
+
+### [DNSRecon](https://www.kali.org/tools/dnsrecon/)
+> DNS Enumeration and Scanning Tool
+
+```
+dnsrecon -d example.com -D /usr/share/wordlists/dnsmap.txt -t std --xml dnsrecon.xml
+
+# -d [domain]       # target domain
+# -D [dictionary]   # dictionary file of subdomain and hostnames to use for brute force.
+# --xml [file.xml]  # XML file to save found records
+# -t [type]         # Type of enumeration to perform. Possible types:
+                    # std      : SOA, NS, A, AAAA, MX and SRV.
+                    # rvl      : Reverse lookup of a given CIDR or IP range.
+                    # brt      : Brute force domains and hosts using a given dictionary.
+                    # srv      : SRV records.
+                    # axfr     : Test all NS servers for a zone transfer.
+                    # bing     : Perform Bing search for subdomains and hosts.
+                    # yand     : Perform Yandex search for subdomains and hosts.
+                    # crt      : Perform crt.sh search for subdomains and hosts.
+                    # snoop    : Perform cache snooping against all NS servers for a given domain,
+                                 testing all with file containing the domains, file given with -D option.
+                    # tld      : Remove the TLD of given domain and test against all TLDs registered in IANA.
+                    # zonewalk : Perform a DNSSEC zone walk using NSEC records.
+````
 
 ----
 ## [GoBuster](https://github.com/OJ/gobuster)
