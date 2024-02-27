@@ -6,7 +6,6 @@
   - [DirBuster](#dirbuster)
   - [DirB](#dirb)
   - [FFUF](#ffuf)
-    - [Use Cases](#use-cases)
     - [[1] Directory and File Discovery](#1-directory-and-file-discovery)
     - [[2] VHOST Discovery](#2-vhost-discovery)
     - [[3] Miscellaneous Fuzzing](#3-miscellaneous-fuzzing)
