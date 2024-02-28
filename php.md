@@ -1,15 +1,16 @@
 # PHP Quick Reference
 
 ## Contents
-- []()
-- []()
-- []()
-- []()
-- []()
-- []()
-- []()
+- [One-Liner: system() Function]()
+  - [Syntax]()
+  - [Use as a Test]()
+  - [Reverse Shell]()
+    - [Linux Payload]()
+    - [Start a Listener]()
+    - [Spin Up a Local Web Server]()
+    - [Build a URL with curl to Execute]()
 
-## One-Liner: cmd
+## One-Liner: system() Function
 - This is a [PHP function](https://www.php.net/manual/en/function.system.php) that is used to execute a command.
 - It uses the PHP `system()` function to execute commands that are being passed through `cmd` HTTP request `GET` parameter.
 - The `cmd` is a parameter. You pass the argument to that parameter via the URL (see below).
