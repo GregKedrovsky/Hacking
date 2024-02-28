@@ -5,10 +5,6 @@
 - [Directory Busting](#directory-busting)
   - [DirBuster](#dirbuster)
   - [DirB](#dirb)
-  - [FFUF](#ffuf)
-    - [Directory and File Discovery](#1-directory-and-file-discovery)
-    - [VHOST Discovery](#2-vhost-discovery)
-    - [Miscellaneous Fuzzing](#3-miscellaneous-fuzzing)
 - [DNS Busting](#dns-busting)
   - [Amass](#amass)
     - [Subcommands](#subcommands)
@@ -17,6 +13,10 @@
     - [Usage](#usage)
     - [Examples](#examples)
   - [DNSRecon](#dnsrecon)
+- [FFUF](#ffuf)
+  - [Directory and File Discovery](#1-directory-and-file-discovery)
+  - [VHOST Discovery](#2-vhost-discovery)
+  - [Miscellaneous Fuzzing](#3-miscellaneous-fuzzing)
 - [GoBuster](#gobuster)
   - [General Syntax](#general-syntax)
   - [Modes](#modes)
@@ -55,88 +55,6 @@ dirb http://[target ip] /usr/share/metasploit-framework/data/wordlists/directory
 - NOTE: dirb needs a URL not just an IP address
 - DirB sends GET requests to predetermined URLs (based on its default, included wordlist) to see if it gets back anything.
 - It will enumerate quite a bit of information about the site's content (esp. directories).
-
-### [FFUF](https://github.com/ffuf/ffuf)
-> Fuzz Faster U Fool (FFUF): A fast web fuzzer written in Go. It's an open source web fuzzing tool, intended for discovering elements and content within web applications, or web servers. At its core, one of the main functions that people use FFUF for, is directory brute forcing.
-- Documentation: [`wiki`](https://github.com/ffuf/ffuf/wiki), [`Everything You Need to Know`](https://codingo.io/tools/ffuf/bounty/2020/09/17/everything-you-need-to-know-about-ffuf.html), [`tutorial`](https://medium.com/quiknapp/fuzz-faster-with-ffuf-c18c031fc480)
-- The position to be fuzzed should be indicated by the `FUZZ` word in the ffuf command.
-- The `-c` flag can be used for colorful output.
-
-#### Use Cases
-1. General Directory discovery with option to fuzz at any place in the URL.
-2. VHOST discovery without DNS Records
-3. Fuzzing using various HTTP methods.
-
-#### [1] Directory and File Discovery
-
-##### Syntax
-```
-ffuf -w wordlist.txt -u http://website.com/FUZZ
-```
-- `-w` : wordlist to plug into the position marked with `FUZZ`
-- `-u` : URL with `FUZZ` marking the position to plug in words
-
-##### Options
-- Ffuf also gives option to get output only of responses with specific status code, amount of lines, response size, amount of words as well as the response which matches a regex pattern.
-- A few examples of flags for the same are:
-```
--mc                 # to specify Status code
--ml                 # to specify amount of lines in response
--mr                 # to specify regex pattern
--ms                 # to specify response size
--mw                 # to specify amount of words in response
--recursion          # fuzz subdirs below final /FUZZ in URL
--recursion-depth    # specify the depth of recursion
--maxtime [seconds]  # end the ongoing fuzzing after the specified time in seconds
-```
-
-##### Examples
-```
-ffuf -w wordlist.txt -w http://website.com/FUZZ -e .aspx,.html -mc 200,302
-# provides output of responses with status code 200 and 302 only
-```
-
-#### [2] VHOST Discovery
-- This tool is able to find subdomains without DNS records at blazing fast speeds.
-
-##### Syntax
-```
-ffuf -w sublists.txt -u http://website.com/ -H "Host: FUZZ.website.com" -fc 200
-```
-
-##### Options
-- If the tool gives many subdomains as output and most of them are not present in reality, then the filter options offered by the tool can be used.
-- Make note of either the most common size, words, or lines for the **_false positive_** responses and then specify them in a filter.
-- Use:
-```
--fw : to filter by the amount of words
--fl : to filter by the number of lines
--fs : to filter by the size of the response
--fc : to filter by the status code
--fr : to filter by the regex pattern
-```
-
-##### Example
-- If your results include many false positives with `size:12454`, `words:3913`, `lines:421`, filter with this:
-```
-ffuf -w sublists.txt -u http://website.com/ -H "Host: FUZZ.website.com" -fw 3913
-```
-
-#### [3] Miscellaneous Fuzzing
-> Fuzzing using various HTTP methods: The tool also allows us to fuzz at any place from URL to HTTP Headers.
-
-##### Fuzz POST Data
-```
-ffuf -w wordlist.txt -X POST -d “username=admin\&password=FUZZ” -u http://website.com/FUZZ
-```
-- `-X`   : specifies the method to execute
-- `-d`   : specify the data to be sent with POST request
-- `FUZZ` : placeholder for data sent
-
-##### Find a File
-```
-ffuf -w wordlist.txt -u http://website.com/FUZZ/backup.zip
-```
 
 ----
 ## DNS Busting
@@ -230,6 +148,89 @@ dnsrecon -d example.com -D /usr/share/wordlists/dnsmap.txt -t std --xml dnsrecon
                     # tld      : Remove the TLD of given domain and test against all TLDs registered in IANA.
                     # zonewalk : Perform a DNSSEC zone walk using NSEC records.
 ````
+
+----
+## [FFUF](https://github.com/ffuf/ffuf)
+> Fuzz Faster U Fool (FFUF): A fast web fuzzer written in Go. It's an open source web fuzzing tool, intended for discovering elements and content within web applications, or web servers. At its core, one of the main functions that people use FFUF for, is directory brute forcing.
+- Documentation: [`wiki`](https://github.com/ffuf/ffuf/wiki), [`Everything You Need to Know`](https://codingo.io/tools/ffuf/bounty/2020/09/17/everything-you-need-to-know-about-ffuf.html), [`tutorial`](https://medium.com/quiknapp/fuzz-faster-with-ffuf-c18c031fc480)
+- The position to be fuzzed should be indicated by the `FUZZ` word in the ffuf command.
+- The `-c` flag can be used for colorful output.
+
+### Use Cases
+1. General Directory discovery with option to fuzz at any place in the URL.
+2. VHOST discovery without DNS Records
+3. Fuzzing using various HTTP methods.
+
+### [1] Directory and File Discovery
+
+#### Syntax
+```
+ffuf -w wordlist.txt -u http://website.com/FUZZ
+```
+- `-w` : wordlist to plug into the position marked with `FUZZ`
+- `-u` : URL with `FUZZ` marking the position to plug in words
+
+#### Options
+- Ffuf also gives option to get output only of responses with specific status code, amount of lines, response size, amount of words as well as the response which matches a regex pattern.
+- A few examples of flags for the same are:
+```
+-mc                 # to specify Status code
+-ml                 # to specify amount of lines in response
+-mr                 # to specify regex pattern
+-ms                 # to specify response size
+-mw                 # to specify amount of words in response
+-recursion          # fuzz subdirs below final /FUZZ in URL
+-recursion-depth    # specify the depth of recursion
+-maxtime [seconds]  # end the ongoing fuzzing after the specified time in seconds
+```
+
+#### Examples
+```
+ffuf -w wordlist.txt -w http://website.com/FUZZ -e .aspx,.html -mc 200,302
+# provides output of responses with status code 200 and 302 only
+```
+
+### [2] VHOST Discovery
+- This tool is able to find subdomains without DNS records at blazing fast speeds.
+
+#### Syntax
+```
+ffuf -w sublists.txt -u http://website.com/ -H "Host: FUZZ.website.com" -fc 200
+```
+
+#### Options
+- If the tool gives many subdomains as output and most of them are not present in reality, then the filter options offered by the tool can be used.
+- Make note of either the most common size, words, or lines for the **_false positive_** responses and then specify them in a filter.
+- Use:
+```
+-fw : to filter by the amount of words
+-fl : to filter by the number of lines
+-fs : to filter by the size of the response
+-fc : to filter by the status code
+-fr : to filter by the regex pattern
+```
+
+#### Example
+- If your results include many false positives with `size:12454`, `words:3913`, `lines:421`, filter with this:
+```
+ffuf -w sublists.txt -u http://website.com/ -H "Host: FUZZ.website.com" -fw 3913
+```
+
+### [3] Miscellaneous Fuzzing
+> Fuzzing using various HTTP methods: The tool also allows us to fuzz at any place from URL to HTTP Headers.
+
+#### Fuzz POST Data
+```
+ffuf -w wordlist.txt -X POST -d “username=admin\&password=FUZZ” -u http://website.com/FUZZ
+```
+- `-X`   : specifies the method to execute
+- `-d`   : specify the data to be sent with POST request
+- `FUZZ` : placeholder for data sent
+
+#### Find a File
+```
+ffuf -w wordlist.txt -u http://website.com/FUZZ/backup.zip
+```
 
 ----
 ## [GoBuster](https://github.com/OJ/gobuster)
