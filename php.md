@@ -1,14 +1,14 @@
 # PHP Quick Reference
 
 ## Contents
-- [One-Liner: system() Function]()
-  - [Syntax]()
-  - [Use as a Test]()
-  - [Reverse Shell]()
-    - [Linux Payload]()
-    - [Start a Listener]()
-    - [Spin Up a Local Web Server]()
-    - [Build a URL with curl to Execute]()
+- [One-Liner: `system()` Function](#one-liner-system-function)
+  - [Syntax](#syntax)
+  - [Use as a Test](#use-as-a-test)
+  - [Reverse Shell](#reverse-shell)
+    - [Linux Payload](#linux-payload)
+    - [Start a Listener](#start-a-listener)
+    - [Spin Up a Local Web Server](#spin-up-a-local-web-server)
+    - [Build a URL with curl to Execute](#build-a-url-with-curl-to-execute)
 
 ## One-Liner: system() Function
 - This is a [PHP function](https://www.php.net/manual/en/function.system.php) that is used to execute a command.
