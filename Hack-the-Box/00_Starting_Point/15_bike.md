@@ -4,7 +4,6 @@
 ----
 
 ## Nmap
-
 ```
 nmap -Pn -p- 10.129.140.193 --min-rate 1000
 Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-02-29 19:09 EST
@@ -19,7 +18,6 @@ PORT   STATE SERVICE
 ```
 
 ## Nmap: Initial Service Version Scan
-
 ```
 nmap -Pn -p 22,80 -sS -sV -sC -O 10.129.140.193
 Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-02-29 19:10 EST
@@ -45,7 +43,6 @@ Nmap done: 1 IP address (1 host up) scanned in 20.20 seconds
 ```
 
 ## Nmap: Script http-enum
-
 ```
 nmap -Pn 10.129.140.193 -sV --script http-enum 
 Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-02-29 19:13 EST
@@ -62,12 +59,10 @@ Nmap done: 1 IP address (1 host up) scanned in 53.89 seconds
 ```
 
 ## Wappalyzer
-
-![[Pasted image 20240229181757.png]]
 - `Node.js` is an open-source, cross-platform, back-end JavaScript runtime environment that can be used to build scalable network applications.
 - `Express` is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
-## GoBuster
 
+## GoBuster
 ```
 gobuster dir -u http://10.129.140.193/ -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt 
 ===============================================================
@@ -114,9 +109,6 @@ Finished
 > Identifying the template engine involves analyzing error messages or manually testing various language-specific payloads. Common payloads causing errors include `${7/0}`, `{{7/0}}`, and `<%= 7/0 %>`. Observing the server's response to mathematical operations helps pinpoint the specific template engine.
 
 - I plugged in `{{7*7}}` into the email input field and got the following error message.
-
-![[Pasted image 20240229193134.png]]
-
 - This means that the payload was indeed detected as valid by the template engine, however the code had some error and was unable to be executed. 
 - An error is not always a bad thing. Here it provided valuable information: 
     - The server is running from the /root/Backend directory.
@@ -160,12 +152,10 @@ Finished
 ### Encode to URL
 - Copy the above code and paste it into Burp's Decoder. Select `Encode as... URL`
 - That should give you a long string of percent code. That's what we're going to use.
+
 ### Problem
 - Start up Burp Suite. Turn on FoxyProxy. Use Burp's Proxy tab to capture a Submit from the website (anything will do). 
 - Send the capture to Repeater... replace the text being sent via the Form with our URL encoded exploit.
-
-![[Pasted image 20240229203438.png]]
-
 - This does not work right outta the box. We get an error: The response shows an error that states `require is not defined`.  
 - `require` is a keyword in Node.js that is used to load code from other modules or files. The above code is attempting to load the Child Process module into memory and use it to execute system commands (in this case `whoami`).
 - Template Engines are often Sandboxed, meaning their code runs in a restricted code space so that in the event of malicious code being run, it will be very hard to load modules that can run system commands. 
