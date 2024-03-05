@@ -259,17 +259,15 @@ Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 
 - That should give you `root`
 
 ```
-</div>
-  <p class="result">
-    We will contact you at: e
-    2
-    [object Object]
-    function Function() { [native code] }
-    2
-    [object Object]
-    root                                     #  <<-- whomai returned "root"
-  </p>
-</div>
+<p class="result">
+  We will contact you at: e
+  2
+  [object Object]
+  function Function() { [native code] }
+  2
+  [object Object]
+  root                                     #  <<-- whomai returned "root"
+</p>
 ```
 
 - Now just replace `whoami` with `ls /root` and you should see the flag file. Use `cat /root/flag.txt` in the line above (encode to URL, paste into Repeater). Should get it.
@@ -299,19 +297,17 @@ Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 
 - The returns the response:
 
 ```
-</div>
-  <p class="result">
-    We will contact you at: e
-    2
-    [object Object]
-    function Function() { [native code] }
-    2
-    [object Object]
-    Backend
-    flag.txt
-    snap
-  </p>
-</div>
+<p class="result">
+  We will contact you at: e
+  2
+  [object Object]
+  function Function() { [native code] }
+  2
+  [object Object]
+  Backend
+  flag.txt
+  snap
+</p>
 ```
 
 - Now use the same code to `cat` the flag:
