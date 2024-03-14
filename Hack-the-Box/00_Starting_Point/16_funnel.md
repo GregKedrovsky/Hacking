@@ -109,6 +109,19 @@ hydra -L /usr/share/wordlists/rockyou.txt -p 'funnel123#!#' 10.129.34.254 ftp -I
 - used the creds `christine:funnel123#!#` to login via ssh.
 - I could login but that didn't get me anywhere
 
+## Enumeration
+> This is from the walkthrough doc
+- From this point on, we have complete access as the christine user on the target machine, and can start enumerating it for potential files or services that we can explore further.
+- A crucial command at this point in time is the `ss` command ([reference](../../04_Enumeration/enum_sockets.md)), which stands for `socket statistics`, and it can be used to check which ports are listening locally on a given machine.
+```
+ss -tln
+# -l: Display only listening sockets.
+# -t: Display TCP sockets.
+# -n: Do not try to resolve service names.
+```
+- If there are ports listening on the system, they will be listed by `ss`.
+- In our scenario, one of the results was: `127.0.0.1:5432`.
+
 ## PostgreSQL
 - TCP port is open 5432 (do a better nmap scan!! The question to answer on HTB led me to this port; I didn't find it)
 - That port is used by PostgreSQL and it only listens only on localhost so if you want to connect remotely, you have to use ssh...
