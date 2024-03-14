@@ -128,7 +128,7 @@ ss -tln
 - And that's what follows...
 
 ## PostgreSQL
-- TCP port is open 5432 (do a better nmap scan!! The question to answer on HTB led me to this port; I didn't find it)
+- TCP port is open 5432 but only locally on the target (not visible from an external scan).
 - That port is used by PostgreSQL and it only listens only on localhost so if you want to connect remotely, you have to use ssh...
 - Since you can't access PostgreSQL from the local machine, you will have to create a tunnel with local port forwarding
 - Ref: https://www.postgresql.org/docs/current/ssh-tunnels.html
