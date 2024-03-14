@@ -122,6 +122,11 @@ ss -tln
 - If there are ports listening on the system, they will be listed by `ss`.
 - In our scenario, one of the results was: `127.0.0.1:5432`.
 
+### Problem
+- If you login via ssh as `christine` and try to run `psql` (the command line tool used for interacting with a PostgreSQL database), you'll get the message that `psql` has not been installed.
+- The solution is to use `psql` on my local machine and tunnel commands through ssh to the remote target.
+- And that's what follows...
+
 ## PostgreSQL
 - TCP port is open 5432 (do a better nmap scan!! The question to answer on HTB led me to this port; I didn't find it)
 - That port is used by PostgreSQL and it only listens only on localhost so if you want to connect remotely, you have to use ssh...
