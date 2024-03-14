@@ -107,22 +107,22 @@ hydra -L /usr/share/wordlists/rockyou.txt -p 'funnel123#!#' 10.129.34.254 ftp -I
 
 ## SSH
 - used the creds `christine:funnel123#!#` to login via ssh.
+- I could login but that didn't get me anywhere
 
+## PostgreSQL
+- TCP port is open 5432 (do a better nmap scan!! The question to answer on HTB led me to this port; I didn't find it)
+- That port is used by PostgreSQL and it only listens only on localhost so if you want to connect remotely, you have to use ssh...
+- Since you can't access PostgreSQL from the local machine, you will have to create a tunnel with local port forwarding
+- Ref: https://www.postgresql.org/docs/current/ssh-tunnels.html
 
-
-TCP port is open 5432 (do a better nmap scan!!)
-That port is used by PostgreSQL and it only listens only on localhost so if you want to connect remotely, you have to use ssh...
-Since you can't access PostgreSQL from the local machine, you will have to create a tunnel with local port forwarding
-
-Ref: https://www.postgresql.org/docs/current/ssh-tunnels.html
-
-I did: 
-
+### SSH Tunneling to PostgreSQL
+- Following the reference link above, I did: 
 ```
 ssh -L 63333:localhost:5432 christine@10.129.34.254
 psql -h localhost -p 63333 --username=christine postgres
 
 # Result: postgres prompt...
+
 postgres=# 
 postgres-# \?     # for help
 postgres-# \l     # list all databases
@@ -138,7 +138,7 @@ postgres-# \l     # list all databases
            |           |          |                 |            |            |            |           | christine=CTc/christine                            
 (5 rows)  
 
-christine-# \c secrets      # connect to database
+postgres-# \c secrets      # connect to database
 psql (16.2 (Debian 16.2-1), server 15.1 (Debian 15.1-1.pgdg110+1))                                                                                          
 You are now connected to database "secrets" as user "christine". 
 
