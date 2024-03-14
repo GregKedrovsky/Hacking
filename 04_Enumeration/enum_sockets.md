@@ -1,7 +1,7 @@
 # Enumerating Sockets (Local Ports)
-> This is from the walkthrough doc from HTB's "Funnel" box (in Starting Point).
-
-## ss: socket statistics
+> This is from the walkthrough doc from HTB's "[Funnel](../Hack-the-Box/00_Starting_Point/16_funnel.md)" box (in Starting Point).
+ 
+## ss
 - A crucial command in the enumeration of a freshly compromised target is the `ss` command, which stands for `socket statistics`, and it can be used to check which ports are listening locally on a given machine.
 
 ### Syntax Example
