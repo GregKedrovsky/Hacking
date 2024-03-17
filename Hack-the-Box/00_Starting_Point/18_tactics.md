@@ -1,4 +1,4 @@
-# Tactic
+# Tactics
 
 > Remote: 10.129.54.215
 > Local:  10.10.14.170
