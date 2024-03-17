@@ -144,4 +144,5 @@ xfreerdp /u:administrator /p:"" /v:10.129.55.66
 # Flag: 951fa96d7830c451b536be5a6be008a0
 ```
 
+![Pasted image 20240220202102](https://github.com/GregKedrovsky/Hacking/assets/26492233/30fb9e35-f97b-4c4d-adb5-bb456f338305)
 
