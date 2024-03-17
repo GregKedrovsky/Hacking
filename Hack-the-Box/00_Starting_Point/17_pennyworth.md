@@ -128,9 +128,9 @@ The wget executed but I could not get the shell executable to run on the target.
 
 
 ## Walkthrough
-- Jenkins exposures:
-  - [A handbook including multiple ways of gaining Jenkins RCE's](https://cloud.hacktricks.xyz/pentesting-ci-cd/jenkins-security)
-  - [A repository similar to the above, including links to scripts and tools](https://github.com/gquere/pwn_jenkins)
+Jenkins exposures (should have found these via a Google search):
+- [A handbook including multiple ways of gaining Jenkins RCE's](https://cloud.hacktricks.xyz/pentesting-ci-cd/jenkins-security)
+- [A repository similar to the above, including links to scripts and tools](https://github.com/gquere/pwn_jenkins)
 
 Since it only executes the Groovy commands, we will need to create a payload in Groovy to execute the reverse shell connection.
 - In order to do that, we will need a specially crafted payload, which we can find in the following GitHub [cheatsheet](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md).
