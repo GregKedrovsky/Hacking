@@ -70,15 +70,13 @@ Finished
 
 ## Pwn
 
-![[Pasted image 20240220205012.png]]
+![Pasted image 20240220205012](https://github.com/GregKedrovsky/Hacking/assets/26492233/2ed98dc3-4d0b-4876-b222-47a43eb5c9fe)
 
-![[Pasted image 20240220204657.png]]
+![Pasted image 20240220204657](https://github.com/GregKedrovsky/Hacking/assets/26492233/efce9f14-85a5-4f72-b435-ef8f6866aa2c)
 
-![[Pasted image 20240220204720.png]]
-
+![Pasted image 20240220204720](https://github.com/GregKedrovsky/Hacking/assets/26492233/7e18d8eb-105d-4722-80e0-4136f3e18dc9)
 
 ### Admin Console Login
 Congratulations! Your flag is: 6483bee07c1c1d57f14e5b0717503c73
 
-
-![[Pasted image 20240220205316.png]]
+![Pasted image 20240220205316](https://github.com/GregKedrovsky/Hacking/assets/26492233/63ddbec9-ac29-4be2-9859-1b50c7f09957)
