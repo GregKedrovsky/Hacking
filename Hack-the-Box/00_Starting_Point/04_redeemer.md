@@ -58,3 +58,6 @@ redis-cli -h 10.129.64.170
 ```
 
 "Key" Source: https://www.geeksforgeeks.org/a-complete-guide-to-redis-keys/
+
+![Pasted image 20240220195521](https://github.com/GregKedrovsky/Hacking/assets/26492233/adeda947-95bb-48e9-9dd9-c0bd260dd89a)
+
