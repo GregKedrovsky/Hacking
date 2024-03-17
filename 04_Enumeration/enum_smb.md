@@ -7,6 +7,7 @@
   - TCP Port **445:** Microsoft-DS Active Directory; SMB file sharing 
 - If you need to list out the SMB shares in Windows: [net share](../net.md)
 - [MetaSploit modules to use](https://www.offsec.com/metasploit-unleashed/port-scanning/#smb-version-scanning): `smb_version` | `smb_enumusers` | `smb_enumshares` | `smb_login` (then use [smbclient](#smbclient) outside of msf to logon)
+- If you have username and password, use [psexec.py](../06_Exploit/Exploit_Windows/exploit_smb_with_psexec.md) (on local machine) to login to the target.
 
 ## Contents
 - [Windows Net Use](#windows-net-use)
