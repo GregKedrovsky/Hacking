@@ -64,3 +64,6 @@ flag.txt  snap
 root@Meow:~# cat flag.txt 
 b40abdfe23665f766f9c61ecba8a4c19
 ```
+
+![Pasted image 20240220173705](https://github.com/GregKedrovsky/Hacking/assets/26492233/4e701314-ed0c-40b8-9625-56c9dd42108d)
+
