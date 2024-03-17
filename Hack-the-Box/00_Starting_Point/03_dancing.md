@@ -109,3 +109,5 @@ smbclient //10.129.143.5/WorkShares -N
 cat flag.txt 
 5f61c10dffbc77a704d76016a22f1664
 ```
+
+![Pasted image 20240220185240](https://github.com/GregKedrovsky/Hacking/assets/26492233/614bd240-4cb2-4025-86b9-26c166f05cc7)
