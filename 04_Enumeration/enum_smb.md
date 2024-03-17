@@ -193,6 +193,9 @@ nmblookup -A [target IP addr]
 ### General Syntax
 ```
 smbclient -L [target ip addr] -N
+
+# or, since it's a Windows machine, you could try to login with the standard Administrator account and see if a null password gets you in:
+smbclient -L [target ip addr] -U Administrator 
 ```
 - The `-L` lists the shares available. Gives you server info.
 - The `-N` checks for a null session (i.e., no pwd required).
