@@ -58,6 +58,7 @@ Nmap done: 1 IP address (1 host up) scanned in 53.89 seconds
 ```
 
 ## Wappalyzer
+![Pasted image 20240229181757](https://github.com/GregKedrovsky/Hacking/assets/26492233/0f6a9641-505c-4c4d-b74e-4810e722604d)
 - `Node.js` is an open-source, cross-platform, back-end JavaScript runtime environment that can be used to build scalable network applications.
 - `Express` is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
 
@@ -125,7 +126,7 @@ Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 
     at Route.dispatch (/root/Backend/node_modules/express/lib/router/route.js:112:3)
     at Layer.handle [as handle_request] (/root/Backend/node_modules/express/lib/router/layer.js:95:5)
 ```
-
+![Pasted image 20240229193134](https://github.com/GregKedrovsky/Hacking/assets/26492233/9521ac31-7d07-4a1d-8222-4dc9109c9fde)
 - This means that the payload was indeed detected as valid by the template engine, however the code had some error and was unable to be executed. 
 - An error is not always a bad thing. Here it provided valuable information: 
     - The server is running from the `/root/Backend` directory.
@@ -173,6 +174,7 @@ Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 
 ### Problem
 - Start up Burp Suite. Turn on FoxyProxy. Use Burp's Proxy tab to capture a Submit from the website (anything will do). 
 - Send the capture to Repeater... replace the text being sent via the Form with our URL encoded exploit.
+![Pasted image 20240229203311](https://github.com/GregKedrovsky/Hacking/assets/26492233/f6980b28-67a1-49d1-bdb5-aae978719eb4)
 - This does not work right outta the box. We get an error: The response shows an error that states `require is not defined`.  
 - `require` is a keyword in Node.js that is used to load code from other modules or files. The above code is attempting to load the Child Process module into memory and use it to execute system commands (in this case `whoami`).
 - Template Engines are often Sandboxed, meaning their code runs in a restricted code space so that in the event of malicious code being run, it will be very hard to load modules that can run system commands. 
@@ -349,3 +351,5 @@ Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 
 
 ## Pwned
 https://www.hackthebox.com/achievement/machine/172151/449
+
+
