@@ -63,3 +63,5 @@ ftp> exit
 └──╼ [★]$ cat flag.txt 
 035db21c881520061c53e0536e44f815
 ```
+
+![Pasted image 20240220183647](https://github.com/GregKedrovsky/Hacking/assets/26492233/08278164-a3f7-4c95-8632-14335ed1f5ad)
