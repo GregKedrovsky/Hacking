@@ -206,7 +206,10 @@ smbclient -L [target ip addr] -U Administrator
 
 ### Connect
 ```
-smbclient //[target IP]/Public -N
+smbclient //[target ip]/Public -N
+
+# or if you have a username:
+smbclient //[target ip]/[share name] -U [username]
 ```
 - Connect to the target SMB server, the public share, with no password
 - `> help`  (see commands you can run)
