@@ -144,4 +144,4 @@ xfreerdp /u:administrator /p:"" /v:10.129.55.66
 # Flag: 951fa96d7830c451b536be5a6be008a0
 ```
 
-![[Pasted image 20240220202102.png]]
+
