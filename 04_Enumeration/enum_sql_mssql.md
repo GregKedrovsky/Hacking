@@ -13,6 +13,7 @@
   - [ms-sql-dump-hashes](#ms-sql-dump-hashes)
   - [ms-sql-xp-cmdshell](#ms-sql-xp-cmdshell)
 - [MetaSploit](#metasploit)
+- [Resources](#resources)
 
 ## Nmap Scripts
 
@@ -75,4 +76,11 @@ nmap [target ip] -p 1433 --script ms-sql-xp-cmdshell --script-args mssql.usernam
 - `mssql_login` : discover valid users and their passwords
 - `mssql_exec` : execute a command on the target machine
 - `mssql_enum_domain_accounts` : enumerate all available system users
+
+---
+
+## Resources
+Two articles that can guide in further exploration of a MSSQL Server:
+1. [HackTricks](https://book.hacktricks.xyz/pentesting/pentesting-mssql-microsoft-sql-server)
+2. [PenTest Monkey](https://pentestmonkey.net/cheat-sheet/sql-injection/mssql-sql-injection-cheat-sheet)
 
