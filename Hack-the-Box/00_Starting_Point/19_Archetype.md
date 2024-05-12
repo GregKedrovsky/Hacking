@@ -1,5 +1,6 @@
 # Archetype
 > Remote: 10.129.58.39
+> Remote: 10.129.46.106  (reset)
 
 > Local:  10.10.15.104
 ---
@@ -198,3 +199,4 @@ What extended stored procedure of Microsoft SQL Server can be used in order to s
 
 What script can be used in order to search possible paths to escalate privileges on Windows hosts?
 - Answer: 
+- 
