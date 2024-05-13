@@ -1,7 +1,7 @@
 # [Hashcat](https://www.makeuseof.com/use-hashcat-to-crack-hashes-linux/)
 
 ## Step 1: [Hash to File](https://null-byte.wonderhowto.com/how-to/crack-shadow-hashes-after-getting-root-linux-system-0186386/)
-- Unlike John, the easiest way to use Hashcat is to **_only_** supply the password hashes themselves.
+- Unlike [John](john_the_ripper.md), the easiest way to use Hashcat is to **_only_** supply the password hashes themselves.
 - Copy any hashes from the /etc/shadwo file that you want to crack. Copy them into a plain text file.
 
 ### Remember the Field Structure: 
