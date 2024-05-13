@@ -140,3 +140,65 @@ Progress: 4614 / 4615 (99.98%)
 Finished
 ===============================================================
 ```
+
+---
+
+## FTP
+
+### Anonymous Login: ftp-anon
+```
+nmap -Pn -sV -p 21 --script ftp-anon 10.129.248.107 
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-05-12 21:06 EDT
+Nmap scan report for 10.129.248.107
+Host is up (0.048s latency).
+
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     vsftpd 3.0.3
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_-rwxr-xr-x    1 0        0            2533 Apr 13  2021 backup.zip
+Service Info: OS: Unix
+```
+
+### Login as Anonymous
+```
+ftp 10.129.248.107
+Connected to 10.129.248.107.
+220 (vsFTPd 3.0.3)
+Name (10.129.248.107:greg): anonymous
+331 Please specify the password.
+Password: 
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+```
+
+Run an `ls` to see what you get...
+```
+ftp> pwd
+Remote directory: /
+ftp> ls
+229 Entering Extended Passive Mode (|||10130|)
+150 Here comes the directory listing.
+-rwxr-xr-x    1 0        0            2533 Apr 13  2021 backup.zip
+```
+
+Download that file: 
+```
+ftp> get backup.zip
+local: backup.zip remote: backup.zip
+229 Entering Extended Passive Mode (|||10507|)
+150 Opening BINARY mode data connection for backup.zip (2533 bytes).
+100% |***************************************************************************************************************|  2533        2.30 MiB/s    00:00 ETA
+226 Transfer complete.
+```
+
+Tried to unzip it and it's password protected.
+```
+unzip backup.zip 
+Archive:  backup.zip
+[backup.zip] index.php password: 
+   skipping: index.php               incorrect password
+   skipping: style.css               incorrect password
+```
+
+
