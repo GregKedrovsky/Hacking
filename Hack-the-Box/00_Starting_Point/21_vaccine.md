@@ -272,3 +272,5 @@ cat cracked_admin.txt
 - It works: I used it to sign into the webpage... 
 
 ** sqlmap is still needing to be transferred over from OneNote to this repo **
+** --os-shell option passed to sqlmap will give you command execution via sql injection**
+https://www.infosecinstitute.com/resources/penetration-testing/important-sqlmap-commands/
