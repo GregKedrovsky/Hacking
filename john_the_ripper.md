@@ -7,14 +7,16 @@
 unshadow /etc/passwd /etc/shadow > unshadowed.txt
 ```
 ### Zip File
+> Convert ZIP to John Format
 
- Convert ZIP to John Format
-
-John the Ripper requires the password hash to be in a specific format. To convert the ZIP file’s password hash into the appropriate format, use the zip2john utility that comes with John the Ripper. Open a terminal and navigate to the directory containing the ZIP file. Run the following command:
-
+John the Ripper requires the password hash to be in a specific format. 
+- To convert the ZIP file’s password hash into the appropriate format, use the `zip2john` utility (script) that comes with John the Ripper.
+- Open a terminal and navigate to the directory containing the ZIP file. Run the following command:
+```
 zip2john your_file.zip > zip.hash
+```
 
-This command extracts the password hash from the ZIP file and saves it in a file named zip.hash.
+This command extracts the password hash from the ZIP file and saves it in a file named `zip.hash`.
 
 ## Step 2: Crack
 ```
