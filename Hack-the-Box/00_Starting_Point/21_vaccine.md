@@ -263,5 +263,12 @@ grep -rnw ./ -e "password" 2>/dev/null
 
 It looks like the **admin** password is hashed as an md5: `2cb42f8734ea607eefed3b70af13bbd3'
 
+## Crack it with [Hashcat](../../hashcat.md)
+```
+hashcat -a 0 -m 0 -o cracked_admin.txt admin_pwd.txt /usr/share/wordlists/rockyou.txt
+cat cracked_admin.txt 
+2cb42f8734ea607eefed3b70af13bbd3:qwerty789
+```
+- It works: I used it to sign into the webpage... 
 
-
+** sqlmap is still needing to be transferred over from OneNote to this repo **
