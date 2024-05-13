@@ -201,4 +201,67 @@ Archive:  backup.zip
    skipping: style.css               incorrect password
 ```
 
+## Crack the Zip File Password
+
+### Convert the Zip Password to John Format
+```
+zip2john backup.zip > zip.hash
+```
+
+### Crack It
+```
+john zip.hash 
+Using default input encoding: UTF-8
+Loaded 1 password hash (PKZIP [32/64])
+Will run 4 OpenMP threads
+Proceeding with single, rules:Single
+Press 'q' or Ctrl-C to abort, almost any other key for status
+Almost done: Processing the remaining buffered candidate passwords, if any.
+Proceeding with wordlist:/usr/share/john/password.lst
+741852963        (backup.zip)     
+1g 0:00:00:00 DONE 2/3 (2024-05-12 21:19) 14.28g/s 1097Kp/s 1097Kc/s 1097KC/s 123456..ferrises
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed.
+```
+
+### Show It
+```
+john --show zip.hash 
+backup.zip:741852963::backup.zip:style.css, index.php:backup.zip
+
+1 password hash cracked, 0 left
+```
+
+### Unzip the Zip File
+```
+unzip backup.zip 
+Archive:  backup.zip
+[backup.zip] index.php password: [741852963]
+  inflating: index.php               
+  inflating: style.css
+
+ls -l
+total 16
+-rw-r--r-- 1 greg greg 2533 Apr 13  2021 backup.zip
+-rw-r--r-- 1 root root 2594 Feb  3  2020 index.php
+-rw-r--r-- 1 root root 3274 Feb  3  2020 style.css
+-rw-r--r-- 1 root root 2174 May 12 21:16 zip.hash
+```
+
+## grep for goodies
+```
+grep -rnw ./ -e "password" 2>/dev/null
+./index.php:4:  if(isset($_POST['username']) && isset($_POST['password'])) {
+./index.php:5:    if($_POST['username'] === 'admin' && md5($_POST['password']) === "2cb42f8734ea607eefed3b70af13bbd3") {
+./index.php:34:        <input id="login__password" type="password" name="password" class="form__input" placeholder="Password" required>
+./style.css:123:.form input[type='password'],
+./style.css:151:.login input[type='password'],
+./style.css:168:.login input[type='password'],
+./style.css:175:.login input[type='password']:focus,
+./style.css:176:.login input[type='password']:hover,
+```
+
+It looks like the **admin** password is hashed as an md5: `2cb42f8734ea607eefed3b70af13bbd3'
+
+
 
