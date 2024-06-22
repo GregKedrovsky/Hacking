@@ -126,6 +126,8 @@ set [option mame] [value]
 
 A [payload](https://www.offsec.com/metasploit-unleashed/payloads/) in Metasploit refers to an exploit module. There are three different types of payload modules in the Metasploit Framework: Singles, Stagers, and Stages. 
 
+You may also need [msfvenom](https://docs.metasploit.com/docs/using-metasploit/basics/how-to-use-msfvenom.html)
+
 ## [Sessions](https://docs.metasploit.com/docs/using-metasploit/basics/managing-sessions.html)
 
 Sessions command helps us to interact and manipulate the various sessions created through the exploits while hacking. Sessions command is usually just used to get into the session but it is far more useful than just that.
