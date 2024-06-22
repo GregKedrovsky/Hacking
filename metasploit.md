@@ -90,7 +90,7 @@ Rename a workspace:
 > workspace -r [current name of workspace] [new name of workspace]
 ```
 
-## Search for Modules
+## [Search for Modules](https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html)
 
 ```
 search [name or portion of name]
@@ -116,14 +116,11 @@ show options
 set [option mame] [value]
 ```
 
-## Payload
+## [Payloads](https://docs.metasploit.com/docs/using-metasploit/basics/how-payloads-work.html)
 
 A [payload](https://www.offsec.com/metasploit-unleashed/payloads/) in Metasploit refers to an exploit module. There are three different types of payload modules in the Metasploit Framework: Singles, Stagers, and Stages. 
 
-## Sessions
+## [Sessions](https://docs.metasploit.com/docs/using-metasploit/basics/managing-sessions.html)
 
-
-## Additional Functionality
-
-
-## Save Your Configuration
+Sessions command helps us to interact and manipulate the various sessions created through the exploits while hacking. Sessions command is usually just used to get into the session but it is far more useful than just that.
+- Additional Resources: [article](https://www.hackingarticles.in/metasploit-for-pentester-sessions/)
