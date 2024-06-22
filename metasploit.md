@@ -1,6 +1,6 @@
 # MetaSploit
 
-Resources: [MetaSploit Docs](https://docs.metasploit.com/) | [MetaSploit Unleased by OffSec](https://www.offsec.com/metasploit-unleashed/)
+Resources: [MetaSploit Docs](https://docs.metasploit.com/) | [MetaSploit Unleashed by OffSec](https://www.offsec.com/metasploit-unleashed/)
 
 Start MetaSploit: `msfconsole`
 
