@@ -1,6 +1,6 @@
 # MetaSploit
 
-Resource: [MetaSploit Unleased by OffSec](https://www.offsec.com/metasploit-unleashed/)
+Resources: [MetaSploit Docs](https://docs.metasploit.com/) | [MetaSploit Unleased by OffSec](https://www.offsec.com/metasploit-unleashed/)
 
 Start MetaSploit: `msfconsole`
 
@@ -22,7 +22,7 @@ Help Menu in MetaSploit: `search -h` ([additional](https://www.offsec.com/metasp
 All of the information for your workspaces (including the content you generate) is stored in the MSFdb.
 - Which is why you need to make sure PostgreSQL is started and running, and your MSFdb is initialized.
 
-First: Check the status of your MSFdb.
+**First:** Check the status of your MSFdb.
 ```
 > db_status
 ```
@@ -48,7 +48,7 @@ Start `msfconsole` and check to make sure you can connect (in msfconsole, type `
 db_status
 ```
 
-Second: Check out the help menu if you need it.
+**Second:** Check out the help menu if you need it.
 ```
 > workspace -h
 ```
@@ -62,11 +62,11 @@ What workspace are you currently using?
 
 Check the data in the workspace (see below for more commands): 
 ```
-	> hosts
-	> services
-	> loot
-	> creds
-	> vulns
+> hosts
+> services
+> loot
+> creds
+> vulns
 ```
 
 Create a new workspace: 
@@ -90,22 +90,37 @@ Rename a workspace:
 > workspace -r [current name of workspace] [new name of workspace]
 ```
 
-
-
-
 ## Search for Modules
 
+```
+search [name or portion of name]
+```
+
+You can narrow your search using keywords (`search -h` for a list). Example:
+```
+search type:auxiliary name:ftp
+```
 
 ## Select Modules
 
+```
+use [name or number]
+```
 
 ## Configure Module Options & Variables
 
+```
+options
+# or
+show options
+set [option mame] [value]
+```
 
-## Search for Payloads
+## Payload
 
+A [payload](https://www.offsec.com/metasploit-unleashed/payloads/) in Metasploit refers to an exploit module. There are three different types of payload modules in the Metasploit Framework: Singles, Stagers, and Stages. 
 
-## Manage Sessions
+## Sessions
 
 
 ## Additional Functionality
