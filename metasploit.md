@@ -1,11 +1,16 @@
 # MetaSploit
 
-Resources:
-- [MetaSploit Unleased by OffSec](https://www.offsec.com/metasploit-unleashed/)
+Resource: [MetaSploit Unleased by OffSec](https://www.offsec.com/metasploit-unleashed/)
 
 Start MetaSploit: `msfconsole`
 
 Help Menu in MetaSploit: `search -h` ([additional](https://www.offsec.com/metasploit-unleashed/msfconsole-commands/#search)]
+
+----
+
+## Contents
+
+---- 
 
 ## Workspaces
 - MSFconsole provides you with the ability to create, manage, and switch between multiple workspaces depending on your requirements. 
@@ -20,6 +25,27 @@ All of the information for your workspaces (including the content you generate) 
 First: Check the status of your MSFdb.
 ```
 > db_status
+```
+
+If your database is not connected, do the following. 
+
+**Start and enable the PostgreSQL db service:** At the Linux (not msf) prompt as root... 
+```
+systemctl enable postgresql  
+systemctl start postgresql  
+systemctl status postgresql  # or  service postgresql status
+```
+
+You may need to initialize the MSFdb: At the Linux (not msf) prompt as root...
+```
+msfdb        # this gives you the help menu
+msfdb init   # this will initialize or re-initialize your msfdb
+msfdb status # this will check the states of your msfdb
+```
+
+Start `msfconsole` and check to make sure you can connect (in msfconsole, type `db_` and TAB to see available commands)
+```
+db_status
 ```
 
 Second: Check out the help menu if you need it.
