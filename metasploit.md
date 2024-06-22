@@ -1,10 +1,8 @@
 # MetaSploit
 
 Resources: [MetaSploit Docs](https://docs.metasploit.com/) | [MetaSploit Unleashed by OffSec](https://www.offsec.com/metasploit-unleashed/)
-
-Start MetaSploit: `msfconsole`
-
-Help Menu in MetaSploit: `search -h` ([additional](https://www.offsec.com/metasploit-unleashed/msfconsole-commands/#search))
+- Start MetaSploit: `msfconsole`
+- Help Menu in MetaSploit: `help`
 
 ----
 
