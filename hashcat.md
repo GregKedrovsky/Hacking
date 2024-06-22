@@ -4,7 +4,7 @@
 - Unlike [John](john_the_ripper.md), the easiest way to use Hashcat is to **_only_** supply the password hashes themselves.
 - Copy any hashes (e.g., from the `/etc/shadow` file that you want to crack); copy them into a plain text file.
 
-### Remember the Field Structure: 
+### Remember the `/etc/shadow` Field Structure: 
 - The fields are delimited with a colon (`:`)
 - The first field is the username.
 - The second field is the encrypted password: 
