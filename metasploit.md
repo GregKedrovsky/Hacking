@@ -10,6 +10,14 @@ Help Menu in MetaSploit: `search -h` ([additional](https://www.offsec.com/metasp
 
 ## Contents
 
+- [Workspaces](#workspaces)
+  - [PostreSQL](#postresql)
+- [Search for Modules](#search-for-modules)
+- [Select Modules](#select-modules)
+- [Configure Module Options & Variables](#configure-module-options--variables)
+- [Payloads](#payloads)
+- [Sessions](#sessions)
+
 ---- 
 
 ## Workspaces
