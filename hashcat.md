@@ -2,7 +2,7 @@
 
 ## Step 1: [Hash to File](https://null-byte.wonderhowto.com/how-to/crack-shadow-hashes-after-getting-root-linux-system-0186386/)
 - Unlike [John](john_the_ripper.md), the easiest way to use Hashcat is to **_only_** supply the password hashes themselves.
-- Copy any hashes from the /etc/shadow file that you want to crack. Copy them into a plain text file.
+- Copy any hashes (e.g., from the `/etc/shadow` file that you want to crack); copy them into a plain text file.
 
 ### Remember the Field Structure: 
 - The fields are delimited with a colon (`:`)
