@@ -4,12 +4,85 @@ Resources:
 - [MetaSploit Unleased by OffSec](https://www.offsec.com/metasploit-unleashed/)
 
 Start MetaSploit: `msfconsole`
+
 Help Menu in MetaSploit: `search -h` ([additional](https://www.offsec.com/metasploit-unleashed/msfconsole-commands/#search)]
 
-Search for Modules
-Select Modules
-Configure Module Options & Variables
-Search for Payloads
-Manage Sessions
-Additional Functionality
-Save Your Configuration
+## Workspaces
+- MSFconsole provides you with the ability to create, manage, and switch between multiple workspaces depending on your requirements. 
+- Create a new workspace for each engagement (so you don't just dump everything always into the default workspace).
+- Workspaces allow you to keep track of all your hosts, scans, and activities. They are extremely useful when conducting pentests as they allow you to sort and organize your data based on the target or organization. 
+
+### PostreSQL
+
+All of the information for your workspaces (including the content you generate) is stored in the MSFdb.
+- Which is why you need to make sure PostgreSQL is started and running, and your MSFdb is initialized.
+
+First: Check the status of your MSFdb.
+```
+> db_status
+```
+
+Second: Check out the help menu if you need it.
+```
+> workspace -h
+```
+
+What workspace are you currently using? 
+```
+> workspace
+```
+- This will show you the name of the workspace you are using (e.g., default).
+- The asterisk * indicates the currently selected workspace.
+
+Check the data in the workspace (see below for more commands): 
+```
+	> hosts
+	> services
+	> loot
+	> creds
+	> vulns
+```
+
+Create a new workspace: 
+```
+> workspace -a [name]
+> workspace            # should show you the new workspace in the list
+```
+
+Switch back to the default workspace from your newly created workspace: 
+```
+> workspace default
+```
+
+Delete a workspace: 
+```
+> workspace -d [name to delete]
+```
+
+Rename a workspace: 
+```
+> workspace -r [current name of workspace] [new name of workspace]
+```
+
+
+
+
+## Search for Modules
+
+
+## Select Modules
+
+
+## Configure Module Options & Variables
+
+
+## Search for Payloads
+
+
+## Manage Sessions
+
+
+## Additional Functionality
+
+
+## Save Your Configuration
