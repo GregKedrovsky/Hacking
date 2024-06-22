@@ -1,6 +1,5 @@
 # SQLMap
-> sqlmap is an open source penetration testing tool that automates the process of detecting and exploiting SQL injection flaws and taking over of database servers.
-> sqlmap can be used to confirm the SQL injection vulnerability, to extract the database name, tables, columns, and to gain a full system.
+> SQLmap is an open-source tool used in penetration testing to detect and exploit SQL injection flaws. SQLmap automates the process of detecting and exploiting SQL injection. SQL Injection attacks can take control of databases that utilize SQL.
 
 Some websites will have SQL databases connected to them.
 - Often a db is used to provide dynamic content and give the user some persistence across sessions.
@@ -20,6 +19,11 @@ sqlmap -hh
 ```
 
 ## Obtain Cookie & Parameters
+
+You will need to provide a cookie to the sqlmap in order for it to find vulnerability. The reason why we have to provide a cookie is because of authentication.
+- To grab the cookie, we can intercept any request in Burp Suite & get it from there.
+- Or you can install an extension for your web browser called `cookie-editor`: [chrome](https://chrome.google.com/webstore/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm) or [firefox](https://addons.mozilla.org/en-US/firefox/addon/cookie-editor/)
+- The cookies in HTTP messages of requests are usually set the following way: `PHPSESSID=7u6p9qbhb44c5c1rsefp4ro8u1`
 
 1. Open up Burp Suite, go to Proxy, turn on Intercept
 2. Open Firefox browser and set proxy to Burp (FoxyProxy)
