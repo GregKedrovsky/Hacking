@@ -3,7 +3,9 @@
 |     Local    |     Remote     |
 | ------------ | -------------- |
 | 10.10.14.7   | 10.129.104.218 |
-|    |  |
+
+This is a mess. See the walk-through to make it work. He based his stuff on this article: 
+https://www.sprocketsecurity.com/resources/another-log4j-on-the-fire-unifi
 
 ----
 
@@ -126,8 +128,65 @@ Nmap done: 1 IP address (1 host up) scanned in 185.37 seconds
 ## Ports 8080 & 8443
 
 Same page (8080 is http and 8443 is https): Login Screen for UniFi Network version 6.4.54.
-- [Vulnerable](https://www.sprocketsecurity.com/resources/another-log4j-on-the-fire-unifi)
-- Log4j: Java logging library.
+- [Vulnerable](https://www.sprocketsecurity.com/resources/another-log4j-on-the-fire-unifi) 
+- Log4j: Java logging library. See: [HTB Article](https://www.hackthebox.com/blog/Whats-Going-On-With-Log4j-Exploitation) 
+- This Log4J vulnerability can be exploited by injecting operating system commands (OS Command Injection),
+
+## Metasploit | MSFConsole
+
+Ran the exploit here. Got a shell. Ran `find` for txt files. Got the user flag: 
+```
+unifi@unified:/unifi/data/db$ find / -name "*.txt" 2>/dev/null
+/home/michael/user.txt
+
+cat /home/michael/user.txt
+6ced1a6a89e666c0620cdb10262ba127
+```
+
+## NOTE: JNDI
+
+JNDI stands for Java Naming and Directory Interface [[source](https://docs.oracle.com/javase/tutorial/jndi/overview/index.html)].
+- JNDI allows distributed applications to look up services in an abstract, resource-independent way.
+- The most common use case is to set up a database connection pool on a Java EE application server. Any application that's deployed on that server can gain access to the connections they need using the JNDI name java:comp/env/FooBarPool without having to know the details about the connection.
+
+If there is a JNDI reference in the log entry, Log4j uses the JNDI feature to request data from an LDAP (Lightweight Directory Access Protocol) server. 
+- For example, an expression ${jndi:ldap://example.com/file} specifies the lookup through LDAP protocol and loads data from the URL example.com.
+
+## LDAP
+
+[Rapid7](https://www.rapid7.com/db/modules/exploit/multi/http/ubiquiti_unifi_log4shell/): The Ubiquiti UniFi Network Application versions 5.13.29 through 6.5.53 are affected by the Log4Shell vulnerability whereby a JNDI string can be sent to the server via the 'remember' field of a POST request to the /api/login endpoint that will cause the server to connect to the attacker and deserialize a malicious Java object. This results in OS command execution in the context of the server application. This module will start an LDAP server that the target will need to connect to. 
+
+Therefore we need to know the port number of LDAP: 
+- Port 389 and 636 are both registered ports for LDAP
+- Port 389 is the default port
+- Port 636 supports encryption via SSL/TLS
+
+## MongoDB
+
+MongoDB is running on port 27117. (google search)
+
+The default database name for UniFi applications is `ace`. (google search)
+
+## Walk-Through
+
+Way over my head...
+
+/root
+root@unified:~# ls
+root.txt
+root@unified:~# cat root.txt 
+e50bc93c75b634e4b272d2f771c33681
+root@unified:~# 
+
+
+![image](https://github.com/GregKedrovsky/Hacking/assets/26492233/9872226b-1f7f-421e-be05-397b88bc4de0)
+
+
+
+
+
+
+
 
 
 
