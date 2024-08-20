@@ -1,4 +1,5 @@
-Certutil is a command-line utility in a Windows OS that lets you manage and manipulate certificates and certificate services.
+# CertUtil Quick Reference
+> Certutil is a command-line utility in a Windows OS that lets you manage and manipulate certificates and certificate services.
 
 It can also be used on a Windows machine to transfer files, much like **wget** in Linux.
 
