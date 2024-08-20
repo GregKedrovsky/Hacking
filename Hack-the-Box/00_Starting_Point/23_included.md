@@ -51,6 +51,44 @@ Nmap done: 1 IP address (1 host up) scanned in 8.66 seconds
 
 Ran a `searchsploit Apache 2.4.29`: one priv esc that might be useful
 
+### DirBusting with dirb
+
+```
+# dirb http://10.129.95.185
+
+-----------------
+DIRB v2.22    
+By The Dark Raver
+-----------------
+
+START_TIME: Tue Aug 20 19:12:13 2024
+URL_BASE: http://10.129.95.185/
+WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt
+
+-----------------
+
+GENERATED WORDS: 4612                                                          
+
+---- Scanning URL: http://10.129.95.185/ ----
+==> DIRECTORY: http://10.129.95.185/fonts/                                                                                                                 
+==> DIRECTORY: http://10.129.95.185/images/                                                                                                                
++ http://10.129.95.185/index.php (CODE:301|SIZE:308)                                                                                                       
++ http://10.129.95.185/server-status (CODE:403|SIZE:278)                                                                                                   
+                                                                                                                                                           
+---- Entering directory: http://10.129.95.185/fonts/ ----
+(!) WARNING: Directory IS LISTABLE. No need to scan it.                        
+    (Use mode '-w' if you want to scan it anyway)
+                                                                                                                                                           
+---- Entering directory: http://10.129.95.185/images/ ----
+(!) WARNING: Directory IS LISTABLE. No need to scan it.                        
+    (Use mode '-w' if you want to scan it anyway)
+                                                                               
+-----------------
+END_TIME: Tue Aug 20 19:16:04 2024
+DOWNLOADED: 4612 - FOUND: 2
+```
+
+
 ## Scan UDP Ports (slow...)
 
 ```
@@ -84,3 +122,13 @@ PORT      STATE         SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 1314.76 seconds
 
 ```
+
+## tftp (UDP port 69)
+> Trivial File Transfer Protocol (TFTP) is a simple protocol that provides basic file transfer function with no user authentication. 
+
+Need some version information: (see man page)
+```
+# tftp -V 10.129.95.185         
+tftp-hpa 5.3, without readline
+```
+
