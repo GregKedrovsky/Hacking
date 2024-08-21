@@ -259,3 +259,18 @@ mike@included:~$ cat user.txt
 cat user.txt
 a56ef91d70cfbf2cdb8f454c006935a1
 ```
+
+Groups User mike is in: 
+```
+mike@included:/etc$ groups mike
+groups mike
+mike : mike lxd
+```
+
+Google Search: "LXD (pronounced lex-dee) is the lightervisor, or lightweight container hypervisor. LXC (lex-see) is a program which creates and administers “containers” on a local system. It also provides an API to allow higher level managers, such as LXD, to administer containers."
+
+[Privilege Escalation](https://www.hackingarticles.in/lxd-privilege-escalation/): an account on the system that is a member of the lxd group is able to escalate the root privilege by exploiting the features of LXD.
+- A member of the local “lxd” group can instantly escalate the privileges to root on the host operating system. This is irrespective of whether that user has been granted sudo rights and does not require them to enter their password
+- LXD is a root process that carries out actions for anyone with write access to the LXD UNIX socket.
+- One method of exploitation: Use the LXD API to mount the host’s root filesystem into a container.
+
