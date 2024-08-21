@@ -10,8 +10,10 @@ This can lead to something as outputting the contents of the file, but depending
 
 LFI is the process of including files, ***that are already locally present on the server***, through the exploiting of vulnerable inclusion procedures implemented in the application.
 
-Easy test for LFI (change the syntas per your target): `http://[target_ip]/?file=../../../../../etc/passwd` 
+Easy test for LFI" 
+- Use the browsewr (change the syntax per your target): `http://[target_ip]/?file=../../../../../etc/passwd` 
 - Same result with curl: `curl 'http://[target_ip]/?file=/etc/passwd`
+- NOTE: If the direct reference (/etc/passwd) does not work, try the traversal (../../../..)
 - If you get the file contents, it's vulnerable.
 
 
