@@ -1,5 +1,8 @@
 # PHP Quick Reference
 
+## Resources
+- [PentestMonkey Reverse PHP Shell](https://github.com/pentestmonkey/php-reverse-shell)
+
 ## Contents
 - [One-Liner: `system()` Function](#one-liner-system-function)
   - [Syntax](#syntax)
