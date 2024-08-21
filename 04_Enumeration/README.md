@@ -3,3 +3,7 @@
 
 ## Enumeration Defined
 > The action of mentioning a number of things one by one (i.e., making lists).
+
+## References
+- Check for [local file inclusion (LFI)](../local_file_inclusion.md) vulnerabilities.
+- If you have access to the target, check `/var/www/html/`. It often contains configuration files that might include passwords. 
