@@ -51,6 +51,22 @@ Nmap done: 1 IP address (1 host up) scanned in 8.66 seconds
 
 Ran a `searchsploit Apache 2.4.29`: one priv esc that might be useful
 
+Loaded the page in a browser (not much there). 
+
+**Walk-Through:** ...if we take a look at the URL we can see that this has automatically changed to `http://{target_IP}/?file=home.php`. This is a common way that developers use to dynamically load pages in a website and if not programmed correctly it can often lead to the webpage being vulnerable to Local File Inclusion...
+
+**[Local File Inclusion[(https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion)**: The File Inclusion vulnerability allows an attacker to include a file, usually exploiting a “dynamic file inclusion” mechanisms implemented in the target application. The vulnerability occurs due to the use of user-supplied input without proper validation.
+
+This can lead to something as outputting the contents of the file, but depending on the severity, it can also lead to:
+- Code execution on the web server
+- Code execution on the client-side such as JavaScript which can lead to other attacks such as cross site scripting (XSS)
+- Denial of Service (DoS)
+- Sensitive Information Disclosure
+
+LFI is the process of including files, ***that are already locally present on the server***, through the exploiting of vulnerable inclusion procedures implemented in the application.
+
+Easy test for LFI: `http://10.129.95.185/?file=../../../../../etc/passwd` and see if you get the file contents. If you do, it's vulnerable.
+
 ### DirBusting with dirb
 
 ```
