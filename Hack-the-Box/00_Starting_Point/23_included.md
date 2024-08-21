@@ -270,7 +270,34 @@ mike : mike lxd
 Google Search: "LXD (pronounced lex-dee) is the lightervisor, or lightweight container hypervisor. LXC (lex-see) is a program which creates and administers “containers” on a local system. It also provides an API to allow higher level managers, such as LXD, to administer containers."
 
 [Privilege Escalation](https://www.hackingarticles.in/lxd-privilege-escalation/): an account on the system that is a member of the lxd group is able to escalate the root privilege by exploiting the features of LXD.
+- Additional Page with How-To: [HackTricks](https://book.hacktricks.xyz/linux-hardening/privilege-escalation/interesting-groups-linux-pe/lxd-privilege-escalation)
 - A member of the local “lxd” group can instantly escalate the privileges to root on the host operating system. This is irrespective of whether that user has been granted sudo rights and does not require them to enter their password
 - LXD is a root process that carries out actions for anyone with write access to the LXD UNIX socket.
 - One method of exploitation: Use the LXD API to mount the host’s root filesystem into a container.
+
+**Linux Container (LXC):** often considered as a lightweight virtualization technology that is something in the middle between a chroot and a completely developed virtual machine, which creates an environment as close as possible to a Linux installation but without the need for a separate kernel.
+- chroot: Chroot, short for "change root," is a Unix command that alters the apparent root directory for a specific process and its children. It creates a confined environment, isolating processes from the rest of the system. This isolation can be handy for various purposes, such as testing and debugging or enhancing security.
+
+**Linux daemon (LXD):** The lightervisor, or lightweight container hypervisor. LXD is building on top of the container technology called LXC.
+
+This exploit works by making use of the Alpine image, which is a lightweight Linux distribution based on busy box.
+
+Walk-Through Steps: 
+1. Install golang-go debootstrap rsync gpg squashfs-tools with apt.
+2. Clone git repo: `git clone https://github.com/lxc/distrobuilder` (cd into that subdir and `make`)
+3. 
+
+
+```
+cd /mnt/root/root
+/mnt/root/root # ^[[74;18Rls 
+ls 
+root.txt
+/mnt/root/root # ^[[74;18Rcat root.txt
+cat root.txt
+c693d9c7499d9f572ee375d4c14c7bcf
+```
+
+![image](https://github.com/user-attachments/assets/8809242b-0f58-4da2-9860-22b7b3cbfb46)
+
 
