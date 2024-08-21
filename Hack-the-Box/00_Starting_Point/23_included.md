@@ -285,7 +285,8 @@ This exploit works by making use of the Alpine image, which is a lightweight Lin
 Walk-Through Steps: 
 1. Install golang-go debootstrap rsync gpg squashfs-tools with apt.
 2. Clone git repo: `git clone https://github.com/lxc/distrobuilder` (cd into that subdir and `make`)
-3. 
+3. Walk-Through gave errors... had to use the `snap` instructions. After that, everything built, etc.
+4. Got root (see walk-through) and escalated privileges. Got a messy root prompt. Odd syntax to get the flag (mount the filesystem /root dir in LXC).
 
 
 ```
