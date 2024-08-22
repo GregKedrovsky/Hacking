@@ -1,6 +1,8 @@
 # Local File Inclusion (LFI)
 
-**[Local File Inclusion[(https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion)**: The File Inclusion vulnerability allows an attacker to include a file, usually exploiting a “dynamic file inclusion” mechanisms implemented in the target application. The vulnerability occurs due to the use of user-supplied input without proper validation.
+**[Local File Inclusion](https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion)**: The File Inclusion vulnerability allows an attacker to include a file, usually exploiting a “dynamic file inclusion” mechanisms implemented in the target application. The vulnerability occurs due to the use of user-supplied input without proper validation.
+- See [file_inclusion_local.md](05_Vulnerability_Assessment/file_inclusion_local.md)
+- See [file_inclusion_remote.md](05_Vulnerability_Assessment/file_inclusion_remote.md)
 
 This can lead to something as outputting the contents of the file, but depending on the severity, it can also lead to:
 - Code execution on the web server
