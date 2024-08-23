@@ -68,6 +68,13 @@ Nmap done: 1 IP address (1 host up) scanned in 24.83 seconds
 1. Searched Google for "default login credentials" and started trying the pairs.
 2. Works: admin/password
 
+## Poke around the site...
+
+Check out the pages. Check out each page's source code. Anything to ***enumerate***? 
+
+
+
+
 ## XML
 One of the pages in the website (Order) uses XML to tranfer form data to the server.
 - Use BurpSuite to capture the posting of the form data:
@@ -190,8 +197,46 @@ The walk-through for this machine has this:
 
 Note the placement: within the `item`tags.
 - Putting the varible `test` in any other tag set does not work. 
+- Response in Burp:
+```
+HTTP/1.1 200 OK
+Date: Fri, 23 Aug 2024 22:51:54 GMT
+Server: Apache/2.4.41 (Win64) OpenSSL/1.1.1c PHP/7.2.28
+X-Powered-By: PHP/7.2.28
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Content-Length: 146
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Content-Type: text/html; charset=UTF-8
 
+Your order for 
+; for 16-bit app support
+[fonts]
+[extensions]
+[mci extensions]
+[files]
+[Mail]
+MAPI=1
+[Ports]
+COM1:=9600,n,8,1
+has been processed
+```
 
+### NOTE THE RESPONSE: This is why no other tag set will work... 
+- You need to **pay attention** to the ***original response***. The response from the server includes the "Type of Goods" you chose on the form. 
+- Example: If you chose "Electronics" on the form, the reply would say "Your order for ***Electronics*** has been processed"
+- Neither of the other two fields is returned from the server in the response. Therefore you need to place your variable in the tag set that the server will send back to you.
+- When it sends back its response, it will include your XML request (for the win.ini file).
+
+## SSH Key
+
+In the original nmap enumeration, we saw ssh was open: 
+```
+PORT    STATE SERVICE
+22/tcp  open  ssh
+```
 
 
 
