@@ -3,6 +3,7 @@
 |     Local    |     Remote     |
 | ------------ | -------------- |
 | 10.10.15.155 | 10.129.201.205 |
+| 10.10.15.155 | 10.129.95.192  |
 
 ----
 
@@ -64,5 +65,36 @@ Nmap done: 1 IP address (1 host up) scanned in 24.83 seconds
 ```
 
 ## Guessed the login creds
-admin/password
+1. Searched Google for "default login credentials" and started trying the pairs.
+2. Works: admin/password
+
+## XML
+One of the pages in the website (Order) uses XML to tranfer form data to the server.
+- Use BurpSuite to capture the posting of the form data:
+```
+POST /process.php HTTP/1.1
+Host: 10.129.95.192
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Content-Type: text/xml
+Content-Length: 141
+Origin: http://10.129.95.192
+Connection: keep-alive
+Referer: http://10.129.95.192/services.php
+Cookie: PHPSESSID=hmh2uk62nc3m8gmg5knr3n7g3j
+
+<?xml version = "1.0"?>
+  <order>
+    <quantity>2</quantity>
+    <item>Home Appliances</item>
+    <address>This is from the address form box.</address>
+  </order>
+```
+
+We are interested in the bottom portion: `<?xml version = "1.0"?>`
+
+
+
 
