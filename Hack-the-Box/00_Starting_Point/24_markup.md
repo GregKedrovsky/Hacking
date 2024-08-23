@@ -558,3 +558,18 @@ job.bat BUILTIN\Users:(F)
 Successfully processed 1 files; Failed processing 0 files
 ```
 
+**Results:** the group `BUILTIN\Users` has full control `(F)` over the file.
+- The `BUILTIN\Users` group represents all local users, which includes Daniel as well.
+
+**Check Scheduled Tasks:** Before then, we need to check if the wevtutil process mentioned in the job.bat file is running.
+- We can see the currently scheduled tasks by typing the `schtasks` command.
+- Nada. Did not give me anything (perm issue)
+
+**Next try:** `ps` in Powershell
+- Type 'powershell" at the cmd line then 'ps' once you're in PowerShell.
+- You might have to run `ps` several times to see if `wevtutil` runs. It does. So job.bat is likely scheduled as a task.
+
+
+```
+
+```
