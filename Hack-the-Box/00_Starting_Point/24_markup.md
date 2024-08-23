@@ -499,13 +499,62 @@ exit
 ```
 
 ## Priv Esc
-Check your current privileges: `whoami /priv`
+[Check your current privileges](../../07_Post-Exploitation/4_Privilege_Escalation/win_00_check_privs.md):
 
+**1. whoami**
+```
+daniel@MARKUP c:\Log-Management>whoami
+markup\daniel
+```
 
+**2. net user:** list out all the users on the system
+```
+daniel@MARKUP c:\Log-Management>net user
 
+User accounts for \\
 
+-------------------------------------------------------------------------------
+Administrator            daniel                   DefaultAccount
+Guest                    WDAGUtilityAccount
+The command completed with one or more errors.
+```
 
+**whoami /priv:** you should see all the privs associated with the current user
+```
+daniel@MARKUP c:\Log-Management>whoami /priv
 
+PRIVILEGES INFORMATION
+----------------------
 
+Privilege Name                Description                    State
+============================= ============================== =======
+SeChangeNotifyPrivilege       Bypass traverse checking       Enabled
+SeIncreaseWorkingSetPrivilege Increase a process working set Enabled
+```
 
+**Conclusion:** The user Daniel sucks. We want to be Administrator.
+
+## Exploiting job.bat & wevtutil
+
+**Walk-Through:** Since the file itself (job.bat) can only be run by an Administrator, we could try our luck and see if our usergroup could at least edit the file, instead of running it, or if there are any mismatched permissions between the script and the usergroup or file configuration. 
+We can achieve this by using the `icacls` command.
+
+[icacls](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/icacls): 
+- Displays or modifies discretionary access control lists (DACLs) on specified files, and applies stored DACLs to files in specified directories.
+- Sytax:
+```
+icacls <filename> [/grant[:r] <sid>:<perm>[...]] [/deny <sid>:<perm>[...]] [/remove[:g|:d]] <sid>[...]] [/t] [/c] [/l] [/q] [/setintegritylevel <Level>:<policy>[...]]
+icacls <directory> [/substitute <sidold> <sidnew> [...]] [/restore <aclfile> [/c] [/l] [/q]]
+```
+
+Run: `icacls job.bat`
+```
+daniel@MARKUP c:\Log-Management>icacls job.bat
+job.bat BUILTIN\Users:(F)
+        NT AUTHORITY\SYSTEM:(I)(F)
+        BUILTIN\Administrators:(I)(F)
+        BUILTIN\Users:(I)(RX)
+
+Successfully processed 1 files; Failed processing 0 files
+```
 
