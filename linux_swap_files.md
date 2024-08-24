@@ -12,7 +12,7 @@ A swap (.swp) file store content for the specific file — for example, while yo
 
 If you happen upon a vim swap file (e.g., login.php.swp) and want to see what's inside, here are two ways.
 1. If it's a Vim swap file, open it with vim: `vim -r [swap filename]`. If that doesn't work...
-2. Use the Linux [strings](https://www.howtogeek.com/427805/how-to-use-the-strings-command-on-linux/) command ([man page](https://linux.die.net/man/1/strings)
+2. Use the Linux [strings](https://www.howtogeek.com/427805/how-to-use-the-strings-command-on-linux/) command ([man page](https://linux.die.net/man/1/strings)).
 - The swap file will have a lot of human-unreadable content.
 - `strings` will only display the human-readable text. It will display the human-readable character of any file (like comments in a compiled binary).
 ```
