@@ -323,7 +323,7 @@ m3MVFR4sN7a1cAAAANZGFuaWVsQEVudGl0eQECAwQFBg==
 ## Use that SSH to login as Daniel
 
 Google Search: "OPENSSH PRIVATE KEY format"
-- [The OpenSSH Private Key Format ](https://coolaj86.com/articles/the-openssh-private-key-format/): You should just be able to copy and paste this into a file on our attach machine...
+- [The OpenSSH Private Key Format ](https://coolaj86.com/articles/the-openssh-private-key-format/): You should just be able to copy and paste this into a file on our attack machine...
 ```
 -----BEGIN OPENSSH PRIVATE KEY-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
