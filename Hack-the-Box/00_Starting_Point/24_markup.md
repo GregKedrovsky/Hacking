@@ -508,7 +508,7 @@ Guest                    WDAGUtilityAccount
 The command completed with one or more errors.
 ```
 
-**whoami /priv:** you should see all the privs associated with the current user
+**3. whoami /priv:** you should see all the privs associated with the current user
 ```
 daniel@MARKUP c:\Log-Management>whoami /priv
 
