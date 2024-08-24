@@ -268,28 +268,16 @@ In Burp's Repeater...
 Response: 
 ```
 HTTP/1.1 200 OK
-
 Date: Fri, 23 Aug 2024 23:08:17 GMT
-
 Server: Apache/2.4.41 (Win64) OpenSSL/1.1.1c PHP/7.2.28
-
 X-Powered-By: PHP/7.2.28
-
 Expires: Thu, 19 Nov 1981 08:52:00 GMT
-
 Cache-Control: no-store, no-cache, must-revalidate
-
 Pragma: no-cache
-
 Content-Length: 2636
-
 Keep-Alive: timeout=5, max=100
-
 Connection: Keep-Alive
-
 Content-Type: text/html; charset=UTF-8
-
-
 
 Your order for -----BEGIN OPENSSH PRIVATE KEY-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
