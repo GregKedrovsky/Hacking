@@ -372,6 +372,7 @@ ssh -i '/path/to/keyfile' username@server
 
 So I did: 
 - **Note:** I had to `chmod 600 ssh_key_daniel` because ssh would not allow the use of the private key if the key file was readable by others.
+- I think proper perms for an ssh private key would be `400` but `600` worked.
 ```
 # chmod 600 ssh_key_daniel
 # ssh -i ssh_key_daniel daniel@10.129.95.192
