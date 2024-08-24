@@ -69,6 +69,21 @@ Nmap done: 1 IP address (1 host up) scanned in 12.04 seconds
 < 
 * Connection #0 to host 10.129.95.184 left intact
 ```
+```
+# nmap -Pn -sV -p 80 --script http-methods 10.129.95.184 
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-08-24 10:10 EDT
+Nmap scan report for 10.129.95.184
+Host is up (0.043s latency).
+
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET POST OPTIONS HEAD
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 6.82 seconds
+```
 
 ### NSE Banner
 ```
@@ -82,4 +97,21 @@ PORT   STATE SERVICE
 
 Nmap done: 1 IP address (1 host up) scanned in 11.59 seconds
 ```
+
+### robots.txt
+- Nada
+```
+msf6 auxiliary(scanner/http/robots_txt) > run
+
+[*] Scanned 1 of 1 hosts (100% complete)
+[*] Auxiliary module execution completed
+```
+
+### Login
+- Login page: `http://10.129.95.184/login/login.php`
+- Login directory:
+![image](https://github.com/user-attachments/assets/7441fb52-ce39-4ca2-97cc-2bfda219ab9f)
+
+
+
 
