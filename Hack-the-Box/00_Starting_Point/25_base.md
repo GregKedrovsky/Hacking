@@ -107,11 +107,145 @@ msf6 auxiliary(scanner/http/robots_txt) > run
 [*] Auxiliary module execution completed
 ```
 
-### Login
+## Login
 - Login page: `http://10.129.95.184/login/login.php`
 - Login directory:
+
 ![image](https://github.com/user-attachments/assets/7441fb52-ce39-4ca2-97cc-2bfda219ab9f)
 
+A swap (.swp) file store content for the specific file — for example, while you’re editing a file with vim. They are set up when you start an edit session and then automatically removed when you’re done unless some problem occurs and your editing session doesn’t complete properly. In that case, vim will offer you a chance to recover your work where you left off. [Source](https://www.networkworld.com/article/939724/what-are-unix-swap-swp-files.html).
+- If the file being edited were called chkAccts.sh, for example, the swap file set up when you begin your edit would be called `.chkAccts.sh.swp`.
+- You could spot it sitting in the same directory were you to look for it from another window or login session.
 
+Therefore `login.php.swp` appears to be a swap file for a previous login that hung up.
 
+I opened the .swp file in a text editor (there is a lot of garbage; it's not plain text). 
+- **NOTE:** The login form uses the PHP function `strcmp()` ([string comparison](https://www.w3schools.com/php/func_string_strcmp.asp)) to compare the user entered username/password to saved values.
+- The `strcmp()` function will return 0 (zero) if both values are the same (else it returns a positive or negative number).
+
+## Directory Busting
+
+### DirB
+- DirB did not like large files of names. 
+```
+# dirb http://10.129.95.184                                                        
+
+---- Scanning URL: http://10.129.95.184/ ----
+==> DIRECTORY: http://10.129.95.184/assets/                                                                                                               
+==> DIRECTORY: http://10.129.95.184/forms/                                                                                                                
++ http://10.129.95.184/index.html (CODE:200|SIZE:39344)                                                                                                   
+==> DIRECTORY: http://10.129.95.184/login/                                                                                                                
++ http://10.129.95.184/server-status (CODE:403|SIZE:278)                                                                                                  
+                                                                                                                                                          
+---- Entering directory: http://10.129.95.184/assets/ ----
+(!) WARNING: Directory IS LISTABLE. No need to scan it.                        
+    (Use mode '-w' if you want to scan it anyway)
+                                                                                                                                                          
+---- Entering directory: http://10.129.95.184/forms/ ----
+(!) WARNING: Directory IS LISTABLE. No need to scan it.                        
+    (Use mode '-w' if you want to scan it anyway)
+                                                                                                                                                          
+---- Entering directory: http://10.129.95.184/login/ ----
+(!) WARNING: Directory IS LISTABLE. No need to scan it.                        
+    (Use mode '-w' if you want to scan it anyway)
+                                                                               
+-----------------
+END_TIME: Sat Aug 24 10:53:28 2024
+DOWNLOADED: 4612 - FOUND: 2
+
+```
+
+### DirBuster
+- Found the same ones: assets, forms, logins. And then it found icons. Whoopteedoo...
+
+### GoBuster
+
+```
+# gobuster dir -u http://10.129.95.184 -w /usr/share/wordlists/dirb/common.txt -b 403,404
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.129.95.184
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/wordlists/dirb/common.txt
+[+] Negative Status codes:   403,404
+[+] User Agent:              gobuster/3.6
+[+] Timeout:                 10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+/assets               (Status: 301) [Size: 315] [--> http://10.129.95.184/assets/]
+/forms                (Status: 301) [Size: 314] [--> http://10.129.95.184/forms/]
+/index.html           (Status: 200) [Size: 39344]
+/login                (Status: 301) [Size: 314] [--> http://10.129.95.184/login/]
+Progress: 4614 / 4615 (99.98%)
+===============================================================
+Finished
+===============================================================
+```
+
+### Tweak my Directory File
+- The HTB question shows the answer to have this syntax: `/_*****d`
+- So, I took a couple of the common directory wordlist files and shoved them through this python script to prepend an underline to each value in the file:
+
+```
+import sys
+
+if len(sys.argv) == 3: 
+
+    # Open the file from the argument provided
+    input_file = open(sys.argv[1], 'r')
+
+    # Open the file to which to write:
+    output_file = open(sys.argv[2], 'w')
+
+    counter = 0
+
+    # Append "_" to each line/value and write
+    for line in input_file:
+        print(line.rstrip("\n") + " >> " + "_" + line.rstrip("/n"), end='')
+        output_file.write("_" + line)
+        counter += 1
+
+else:
+    print("Usage: 'underline.py inputFileName outputFileName.")
+    exit()
+
+input_file.close()
+output_file.close()
+
+print()
+print("Processed " + str(counter) + " directory names.")
+
+exit()
+```
+
+Then I ran GoBuster with my modified file: 
+
+```
+# gobuster dir -u http://10.129.95.184 -w gman_common1.txt -b 403,404 
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.129.95.184
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                gman_common1.txt
+[+] Negative Status codes:   404,403
+[+] User Agent:              gobuster/3.6
+[+] Timeout:                 10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+/_uploaded            (Status: 301) [Size: 318] [--> http://10.129.95.184/_uploaded/]
+Progress: 4614 / 4615 (99.98%)
+===============================================================
+Finished
+===============================================================
+```
+
+**Answer:** `/_uploaded`
 
