@@ -8,7 +8,12 @@ GTFOBins is a curated list of Unix binaries that can be used to bypass local sec
 ## [find](https://gtfobins.github.io/gtfobins/find/)
 
 If the binary is allowed to run as superuser by sudo, it does not drop the elevated privileges and may be used to access the file system, escalate or maintain privileged access.
+- The `-exec` flag is used with `find` to run some command on each matching file that is found.
+- Since the process is running as root (from sudo ), that shell will also be running as root. Instead of `sh`, you can use `bash` as it offers better syntax and it is actually an improvement over `sh`.
 ```
 sudo find . -exec /bin/sh \; -quit
+# or
+sudo find . -exec /bin/bash \; -quit
 ```
 
+![image](https://github.com/user-attachments/assets/9dc0ab1f-6f02-4863-981f-f2ffd43b0e3f)
