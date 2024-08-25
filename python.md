@@ -19,3 +19,9 @@ python3 -m http.server 80
 ```
 - `-m` : module
 - `80` : port (you can use any that are available)
+
+## Bash Shell via Python
+
+```
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+```
