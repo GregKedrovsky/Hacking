@@ -518,7 +518,4 @@ root.txt
 51709519ea18ab37dd6fc58096bea949
 ```
 
-
-
-
-
+![image](https://github.com/user-attachments/assets/f7f0b1ae-afa4-4ddd-aa70-f765b5658133)
