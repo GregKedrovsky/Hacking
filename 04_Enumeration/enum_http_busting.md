@@ -37,6 +37,7 @@
 ## Directory Busting
 
 ### [DirBuster](https://www.kali.org/tools/dirbuster/)
+- **NOTE: YOU MUST RUN THIS AS USER NOT ROOT!!** (or else the system may not be able to find the DISPLAY variable)
 - Oldie but a goodie. You can still get good results from DirBuster, even when DirB and GoBuster crap out.
 - File Extensions for Windows (IIS):
   - asm,asmx,asp,aspx
