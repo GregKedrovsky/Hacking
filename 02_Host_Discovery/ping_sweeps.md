@@ -63,6 +63,8 @@ for ip in 192.168.56.{101..110}; do ping -c 1 $ip > /dev/null && echo "${ip} is 
 
 Simple sweep of a network for a quick look at what machines are out there (and respond):
 ```
+#! /bin/bash
+
 for i in {1..254}
 do
     ping -w 5 -c 1 192.168.0.$i | grep "64 bytes" | cut -d " " -f 4 | tr -d ":" &
