@@ -13,4 +13,5 @@
 
 ```
 apt -y install seclists
+# installs to: /usr/share/seclists/
 ```
