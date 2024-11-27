@@ -8,8 +8,7 @@
   - A curated list of Unix binaries that can be used to bypass local security restrictions in misconfigured systems.
   - These are legitimate *nix binaries that can be abused to break out restricted shells, escalate or maintain elevated privileges, transfer files, spawn bind and reverse shells, and facilitate the other post-exploitation tasks.
   - **Example:** Using [vi](https://gtfobins.github.io/gtfobins/vi/#sudo) to abuse sudo and get a root shell.
-- [SecLists](https://github.com/danielmiessler/SecLists) by Daniel Miessler.
-  - Install in Kali:
+- [SecLists](https://github.com/danielmiessler/SecLists) by Daniel Miessler. Install in Kali:
 
 ```
 apt -y install seclists
