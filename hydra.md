@@ -20,7 +20,7 @@ If Hydra throws an error or for some reason does not work, try [CrackMapExec](cm
   - [Capture a Failed Login String](#capture-a-failed-login-string)
   - [Final Syntax](#final-syntax)
   - [Additional Help](#additional-help)
-- [Hydra SSH Error]()
+- [Hydra SSH Error](#hydra-ssh-error)
 
 ## General Syntax (by usage example):
 
