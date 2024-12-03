@@ -12,13 +12,13 @@
 - [Help](#help)
 - [General Syntax](#general-syntax)
 - [Examples](#examples)
+- [SSH](#ssh)
 - [WinRM](#winrm)
 - [Pass-the-Hash (SMB)](#pass-the-hash-smb)
 
 ## Help
-- For help and syntax, just issue the command: `crackmapexec` (or see below)
-- [Cheat Sheet](https://www.stationx.net/crackmapexec-cheat-sheet/)
-- [Cheat Sheet, old](https://www.ivoidwarranties.tech/posts/pentesting-tuts/cme/crackmapexec-cheatsheet/)
+- [StationX Cheat Sheet](https://www.stationx.net/crackmapexec-cheat-sheet/) | [KSec Cheat Sheet, old](https://www.ivoidwarranties.tech/posts/pentesting-tuts/cme/crackmapexec-cheatsheet/)
+- - For help and syntax, just issue the command: `crackmapexec`, or:
 
 ```
 crackmapexec -h
@@ -30,7 +30,25 @@ crackmapexec smb -h    # for help specific to the smb protocol, etc.
 
 ```
 crackmapexec <protocol> <target(s)> -u username -p password
+# or, more complete:
+crackmapexec [runtime options] <protocol> [options] [-M module] [-o module options] <target ip>
+# see cheat sheet above
 ```
+
+CrackMapExec can interact with various services (protocols) running on the target machine. Each can be used to perform specific tasks related to enumeration, exploitation, or lateral movement.
+- WinRM, MSSQL, SMB, SSH, LDAP, RDP, FTP
+- Each service/protocol has a help menu: `crackmapexec [service] -h`
+- Examples: `crackmapexec smb -h`, `crackmapexec ssh -h`
+
+Each service has multiple modules you can use: `crackmapexec [service] -L`
+- `-L` - This will list out the modules available for that service/protocol
+
+[options] - Options are specific to the service you are targeting. Here are the common options:
+- `-u` : for username
+- `-p` : for password
+- `-h` : to get help for that module
+- `-x` : COMMAND to execute a command on the target
+- `-X` : PS_COMMAND to execute a PowerShell command-L list modules available for service
 
 ## Examples
 
