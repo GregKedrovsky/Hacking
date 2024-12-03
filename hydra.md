@@ -20,6 +20,7 @@ If Hydra throws an error or for some reason does not work, try [CrackMapExec](cm
   - [Capture a Failed Login String](#capture-a-failed-login-string)
   - [Final Syntax](#final-syntax)
   - [Additional Help](#additional-help)
+- [Hydra SSH Error]()
 
 ## General Syntax (by usage example):
 
@@ -60,6 +61,8 @@ hydra -l admin -P /usr/share/wordlists/rockyou.txt [target IP] smb
 ### SSH
 ```
 hydra -l student -P rockyou.txt [ip] ssh
+# or
+hydra -l student -P rockyou.txt ssh://[ip]
 ```
 
 ### MySQL
@@ -115,6 +118,39 @@ hydra -L user_list.txt -P password_list.txt http://192.103.189.3 http-post-form 
 hydra -U http-post-form
 # -U : service module usage details
 ```
+
+## Hydra SSH Error
+
+### Initial Hydra Command: 
+
+```
+# hydra -l root -P /usr/share/wordlists/metasploit/unix_passwords.txt ssh://192.168.61.129 -t 1 -V
+```
+
+### Error Message: 
+
+```
+[ERROR] could not connect to ssh://192.168.61.129:22 - kex error : no match for method kex algos: server [diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1], client [curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group18-sha512,diffie-hellman-group16-sha512,diffie-hellman-group-exchange-sha256,diffie-hellman-group14-sha256]
+```
+
+### Fix: 
+
+You need to run three commands to work around this error: 
+1. Update your system: `apt update && apt full-upgrade -y`
+2. Confirm the kali-tweaks package is installed: `dpkg -l | grep kali-tweaks`
+3. Run `kali-tweaks` and enable the SSH Wide Compatability module. If it is already enabled, disable it, exit, then go in again and enable it once more.
+   - In the Main Menu of kali-tweaks, choose the first option: "Hardening."  
+   - Select "SSH client" (arrow down to it, press spacebar to select)  
+   - Arrow down (or tab) to "Apply" and hit ENTER.  
+   - ENTER on "Ok" to Proceed (ENTER on the command line to continue)  
+   - TAB to "Quit" and hit ENTER  
+
+Try your Hydra command again and it should work.
+
+You may want to go back into kali-tweaks and deselect that SSH configuration once you're finished so it doesn't jack up something else on your system. 
+
+Workaround Source: https://youtu.be/fKVLVNaVXF0?si=mZOmHXwnHbISLeMQ
+
 
 
 
