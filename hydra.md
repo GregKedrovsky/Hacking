@@ -24,13 +24,15 @@ If Hydra throws an error or for some reason does not work, try [CrackMapExec](cm
 ## General Syntax (by usage example):
 
 ```
-hydra -l root -P /usr/share/wordlists/metasploit/unix_passwords.txt -t 6 ssh://192.168.1.123
+hydra -l root -P /usr/share/wordlists/metasploit/unix_passwords.txt ssh://192.168.1.123:22 -t 6 -V
 ```
 
 - `-l root` : attempt to login as the root user
 - `-P /usr/.../unix_passwords.txt` : using a password list
-- `-t 6` : with 6 threads
 - `ssh://192.168.1.123` : attacking SSH at the target IP
+- `:22` : via port 22 on the target
+- `-t 6` : with 6 threads
+- `V` : with verbosity to see the attempts 
 
 ## Configuration
 
