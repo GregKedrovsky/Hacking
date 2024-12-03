@@ -6,6 +6,8 @@ You may need to unzip the RockYou wordlist:
 gzip -d /usr/share/wordlists/rockyou.txt.gz .
 ```
 
+If Hydra throws an error or for some reason does not work, try [CrackMapExec](cme.md).
+
 ## Contents
 - [Configuration](#configuration)
   - [Speed Kills, Del](#speed-kills-del)
