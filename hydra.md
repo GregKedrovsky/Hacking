@@ -9,6 +9,7 @@ gzip -d /usr/share/wordlists/rockyou.txt.gz .
 If Hydra throws an error or for some reason does not work, try [CrackMapExec](cme.md).
 
 ## Contents
+- [Syntax](#general-syntax-by-usage-example)
 - [Configuration](#configuration)
   - [Speed Kills, Del](#speed-kills-del)
   - [Common Options](#common-options)
@@ -20,16 +21,27 @@ If Hydra throws an error or for some reason does not work, try [CrackMapExec](cm
   - [Final Syntax](#final-syntax)
   - [Additional Help](#additional-help)
 
+## General Syntax (by usage example):
+
+```
+hydra -l root -P /usr/share/wordlists/metasploit/unix_passwords.txt -t 6 ssh://192.168.1.123
+```
+
+- `-l root` : attempt to login as the root user
+- `-P /usr/.../unix_passwords.txt` : using a password list
+- `-t 6` : with 6 threads
+- `ssh://192.168.1.123` : attacking SSH at the target IP
+
 ## Configuration
+
+### Common Options
+- `-L` or `-l` : Indicates the "Login" (capital: file of multiple; lower case for single)
+- `-P` or `-p`: Indicates the "Passwords" (capital: file of multiple; lower case for single)
 
 ### Speed Kills, Del
 - Be very careful with your brute-force speed. You could crash the system or DoS it. 
 - The `-t` (tasks) option sets the number of connects in parallel (default is 16)
 - You could set `-t 2` or `-t 3` and see if that plays nicer. Hydra actually recommends `-t 1` through `-t 4`.
-
-### Common Options
-- `-L` : Indicates the "Login" (capital: file of multiple; lower case for single)
-- `-P` : Indicates the "Passwords" (capital: file of multiple; lower case for single)
 
 ## Specific Protocol Examples
 
