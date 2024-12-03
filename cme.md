@@ -17,8 +17,8 @@
 - [Pass-the-Hash (SMB)](#pass-the-hash-smb)
 
 ## Help
-- [StationX Cheat Sheet](https://www.stationx.net/crackmapexec-cheat-sheet/) | [KSec Cheat Sheet, old](https://www.ivoidwarranties.tech/posts/pentesting-tuts/cme/crackmapexec-cheatsheet/)
-- - For help and syntax, just issue the command: `crackmapexec`, or:
+- Cheat Sheets: [StationX](https://www.stationx.net/crackmapexec-cheat-sheet/) | [OffSec](https://cheatsheet.haax.fr/windows-systems/exploitation/crackmapexec/) | [KSec, old](https://www.ivoidwarranties.tech/posts/pentesting-tuts/cme/crackmapexec-cheatsheet/)
+- For help and syntax, just issue the command: `crackmapexec`, or:
 
 ```
 crackmapexec -h
@@ -49,6 +49,9 @@ Each service has multiple modules you can use: `crackmapexec [service] -L`
 - `-h` : to get help for that module
 - `-x` : COMMAND to execute a command on the target
 - `-X` : PS_COMMAND to execute a PowerShell command-L list modules available for service
+
+**NOTE:** When brute-forcing CrackMapExec will stop when it encounters the first successful attempt. 
+- If you want it to continue, add this flag: `--continue-on-success`
 
 ## Examples
 
