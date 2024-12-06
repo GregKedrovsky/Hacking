@@ -15,7 +15,7 @@ Microsofts's Remote Procedure Call (MS-RPC) Endpoint Mapper (EPMAP).
 rpcclient -U "" -N [target ip addr]
 ```
 - This tries to connect with (-U) a null username (none) and (-N) no password.
-- If you connect, type ? to see a help screen.
+- If you connect, type `?` to see a help screen.
 
 ### After connecting:
 
