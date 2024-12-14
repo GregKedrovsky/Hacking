@@ -1,10 +1,9 @@
 # Methodology & Resources
 
-tables.... from here:
-https://nix.kedrovsky.net/method_7_notes
-
 ## Contents
+- [Five Stages of Ethical Hacking](#five-stages-of-ethical-hacking)
 - Basic Networking
+  - [Copy Tables from Here](https://nix.kedrovsky.net/method_7_notes)
   - OSI Model
   - TCP/IP Model
   - OSI + TCP/IP 
