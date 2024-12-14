@@ -45,3 +45,9 @@ sshpass -p "Hacker123" ssh -o HostKeyAlgorithms=ssh-rsa TCM@$1
 - With this script, all you have to do is run the script name with one parameter: the IP of the target machine.
 - Since the IP of the target machine will likely change with each session, this seems to be the easiest workaround for me.
 
+### The Simulation:
+
+The use of SSH to get into the Linux PrivEsc Arena lab box is a simulation of low-level (user) access to a target machine.
+- From here you will learn how to enumerate the machine and find ways to escalate your privilege to root.
+
+![image](https://github.com/user-attachments/assets/80e793b1-a0bc-4415-aa5c-42cd865508b5)
