@@ -25,10 +25,6 @@ ssh -o HostKeyAlgorithms=ssh-rsa TCM@[target ip]
 
 ### Automate with a Shell Script: 
 
-NOTE: This script will not work for the initial connection. You need to do that manually and answer "yes" to the ssh fingerprint question. 
-- After that, this script will work to reconnect.
-- Just copy and paste the "smbpass" statement at the end of the script below into your command line. 
-
 If you don't want to type all of that every time you need to log into the lab, create the following shell script.
 - This shell script uses zsh because that's the default terminal in Kali.
 - If you need a different shell (like Bash), then just change the first line, the shebang.
@@ -43,10 +39,11 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
-sshpass -p "Hacker123" ssh -o HostKeyAlgorithms=ssh-rsa TCM@$1
+sshpass -p "Hacker123" ssh -o "StrictHostKeyChecking no" -o HostKeyAlgorithms=ssh-rsa TCM@$1
 ```
 
 - With this script, all you have to do is run the script name with one parameter: the IP of the target machine.
+- The `-o "StrictHostKeyChecking no"` is used to bypass the fingerprint acknowledgement (not really the best thing to do out in the wild). 
 - Since the IP of the target machine will likely change with each session, this seems to be the easiest workaround for me.
 
 ### The Simulation:
