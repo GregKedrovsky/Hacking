@@ -4,6 +4,9 @@
 - **IMPORTANT:** Mimikatz will required elevated privileges in order to run correctly.
 - LSASS is a system process and so runs with system/admin privileges.
 
+## Resources: 
+- Internal All the Things: [Mimikatz](https://swisskyrepo.github.io/InternalAllTheThings/cheatsheets/mimikatz-cheatsheet/)
+
 ## Contents
 - [Intro](#intro)
   - [Mimikatz & Kiwi](#mimikatz--kiwi)
