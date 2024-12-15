@@ -1,5 +1,8 @@
 # [Hashcat](https://www.makeuseof.com/use-hashcat-to-crack-hashes-linux/)
 
+## Resources:
+- Internal All the Things: [Hash Cracking](https://swisskyrepo.github.io/InternalAllTheThings/cheatsheets/hash-cracking/) | [Hashcat](https://hashcat.net/hashcat/) | [Hashcat Examples](https://hashcat.net/wiki/doku.php?id=example_hashes) | [Hashcat Install](https://swisskyrepo.github.io/InternalAllTheThings/cheatsheets/hash-cracking/#hashcat-install)
+
 ## Step 1: [Hash to File](https://null-byte.wonderhowto.com/how-to/crack-shadow-hashes-after-getting-root-linux-system-0186386/)
 - Unlike [John](john_the_ripper.md), the easiest way to use Hashcat is to **_only_** supply the password hashes themselves.
 - Copy any hashes (e.g., from the `/etc/shadow` file that you want to crack); copy them into a plain text file.
