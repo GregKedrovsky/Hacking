@@ -1,5 +1,8 @@
 # PowerShell Quick Reference
 
+## Resources:
+- Intewrnal All the Things: [Powershell Cheatsheet](https://swisskyrepo.github.io/InternalAllTheThings/cheatsheets/powershell-cheatsheet/)
+
 ## [PowerShell Equivalent of Find](https://jessitron.com/2020/04/23/powershell-equivalent-of-find/)
 ```
 gci -r -fi <filename-pattern>
