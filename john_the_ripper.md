@@ -1,5 +1,8 @@
 # [John the Ripper](https://www.openwall.com/john/doc/EXAMPLES.shtml)
 
+## Resources: 
+- Internal All the Things: [Hash Cracking](https://swisskyrepo.github.io/InternalAllTheThings/cheatsheets/hash-cracking/) | [John the Ripper](https://github.com/openwall/john) | [John Usage](https://swisskyrepo.github.io/InternalAllTheThings/cheatsheets/hash-cracking/#john-usage)
+
 ## Cracking /etc/passwd
 
 ### Step 1: Unshadow
