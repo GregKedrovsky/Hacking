@@ -14,6 +14,8 @@
 ### Password
 ```
 ssh [user_name]@[host]  # host can be either IP or domain name
+# If you are not on default port 22 you have to add the -p switch:
+ssh - [port] [user_name]@[host]
 ```
 
 ### Key File
