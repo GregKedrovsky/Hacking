@@ -5,6 +5,7 @@
 - [Directory Busting](#directory-busting)
   - [DirBuster](#dirbuster)
   - [DirB](#dirb)
+  - [DirSearch](#dirsearch)
 - [DNS Busting](#dns-busting)
   - [Amass](#amass)
     - [Subcommands](#subcommands)
@@ -56,6 +57,12 @@ dirb http://[target ip] /usr/share/metasploit-framework/data/wordlists/directory
 - NOTE: dirb needs a URL not just an IP address
 - DirB sends GET requests to predetermined URLs (based on its default, included wordlist) to see if it gets back anything.
 - It will enumerate quite a bit of information about the site's content (esp. directories).
+
+### [DirSearch](https://github.com/maurosoria/dirsearch?tab=readme-ov-file#how-to-use)
+> A command-line tool designed to brute force directories and files in webservers.
+```
+python3 dirsearch.py -e php,html,htm -u https://target -w /path/to/wordlist
+```
 
 ----
 ## DNS Busting
