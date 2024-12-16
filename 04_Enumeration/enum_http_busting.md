@@ -6,6 +6,7 @@
   - [DirBuster](#dirbuster)
   - [DirB](#dirb)
   - [DirSearch](#dirsearch)
+  - [GoBuster](#gobuster) *favorite*
 - [DNS Busting](#dns-busting)
   - [Amass](#amass)
     - [Subcommands](#subcommands)
