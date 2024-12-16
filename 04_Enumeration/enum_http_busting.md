@@ -62,7 +62,8 @@ dirb http://[target ip] /usr/share/metasploit-framework/data/wordlists/directory
 ### [DirSearch](https://github.com/maurosoria/dirsearch?tab=readme-ov-file#how-to-use)
 > A command-line tool designed to brute force directories and files in webservers.
 ```
-python3 dirsearch.py -e php,html,htm -u https://target -w /path/to/wordlist
+python3 dirsearch.py -e php,html,htm -u https://target -w /path/to/wordlist -x 400,401,403
+# The link in the header title is to usage; not -r is recursion if you need it
 ```
 
 ----
