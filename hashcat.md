@@ -44,6 +44,9 @@ $1$kR3ue7JZ$7GxELDupr5Ohp6cjZ3Bu//
 
 ## Step 2: Find the Hash Mode
 - The most important piece of information here is the hash mode.
+- [Find it on the HashCat Wiki](https://hashcat.net/wiki/doku.php?id=example_hashes).
+  - Just do a `ctrl-f` on the Hashcat wiki site and search for the initial characters that define the hash type (e.g., $6$; sha512).
+  - The mode is in the first column of the table (e.g., 1800 for sha512)
 - Find it with grep: `hashcat --help | grep SHA512` or `hashcat --help | grep "$6$"`
   - Should be ID 1800
 - Or, for MD5: `hashcat --help | grep MD5` or `hashcat --help | grep "$1$"`
