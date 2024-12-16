@@ -69,7 +69,6 @@ hashcat -a 0 -m 500 -o cracked.txt hashes.txt /usr/share/wordlists/sqlmap.txt
 hashcat -a 3 -m 1800 -o hashcat_output.txt --outfile-format=2 hash_msf.txt /usr/share/wordlists/rockyou.txt
 ```
 - Note that your wordlist is **_NOT_** an option. Just tag it on the end.
-- 
 
 ## Options (Summary)
 - `-a, --attack-mode=NUM` : Attack-mode, see references below
@@ -95,7 +94,7 @@ hashcat -a 3 -m 1800 -o hashcat_output.txt --outfile-format=2 hash_msf.txt /usr/
   - Outfile formats NUM, sample:
   - `1` = hash[:salt]
   - `2` = plain
-  - `3` = hash[:salt]:plain 
+  - `3` = hash[:salt]:plain
 
 ## [Show Cracked Passwords](https://hashcat.net/wiki/doku.php?id=frequently_asked_questions#how_can_i_show_previously_cracked_passwords_and_output_them_in_a_specific_format_eg_emailpassword)
 - To accomplish this, you need to use the `--show` switch.
