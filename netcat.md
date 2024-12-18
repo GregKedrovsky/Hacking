@@ -15,6 +15,7 @@
   - [Connect to listener from Linux](#connect-to-the-listener-from-a-linux-target-machine)
   - [Connect to listener from Windows](#connect-to-the-listener-from-a-windows-target-machine)
 - [File Input/Output](#file-inputoutput)
+- [Transfer Files](#transfer-files)
 
 ## Intro
 
@@ -100,3 +101,21 @@ Send output from a text file to a remote machine (this can be used to transfer a
 ```
 nc [IP Address] [port] < filename.txt
 ```
+
+## Transfer Files
+
+This will send the contents of the file "file.name" from the source file.name and save it in the target file.name. 
+- So, it's not actually sending the file; it's sending the file contents.
+- I've only tested this with text-based files. It works seamlessly.
+
+Initialize the target listening to the port: 
+```
+nc -vl 44444 > file.name
+```
+
+Send the file to target:
+```
+nc -n [target_ip] 44444 < file.name
+```
+
+Source: [Alvin Smith](https://gist.github.com/A1vinSmith/78786df7899a840ec43c5ddecb6a4740)
