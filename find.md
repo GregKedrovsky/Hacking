@@ -224,6 +224,45 @@ find / -perm -04000 -type f -ls 2>/dev/null  # find files with AT LEAST the SUID
 
 Resource: [Permission Bits](https://www.gnu.org/software/libc/manual/html_node/Permission-Bits.html)
 
-
 ### Find by Timestamps
 
+You can find files by modification, access, or change in timestamps.
+
+**Days:** There are three timestamps for days (24-hour periods): 
+
+|  Type   | Description                                                           |
+|:-------:|-----------------------------------------------------------------------|
+|  atime  | shows when the file was last accessed (e.g., read)                    |
+|  mtime  | shows when the file contents were last modified                       |
+|  ctime  | shows when metadata was last changed (including content modification) |
+
+**Minutes:** Three timestamps for minutes (60-second periods):
+
+|  Type  | Description                                                     |
+|:------:|-----------------------------------------------------------------|
+|  amin  | file was last accessed (e.g., read)                             |
+|  mmin  | file contents were last modified                                |
+|  cmin  | file metadata was last changed (including content modification) |
+
+|  Prefix  | Description  |
+|:--------:|--------------|
+|     +    | greater than |
+|     -    | less than    |
+
+**Note:** Any fractional part of the time period is ignored. 
+- Therefore `-atime +1` will find files accessed TWO days ago or longer (because files accessed today, or within the last 23.99 hours, can be found with `atime 0`). 
+
+#### Examples: 
+
+```
+find . -type f -mtime -10
+# find all files modified less than 10 days ago
+# find all files less than 10 days old
+
+find . -type f -mtime +10
+# find all files modified more than 10 days ago
+# find all files older than 10 days old
+
+find . -type f -mtime 0
+# find all files modified today
+```
