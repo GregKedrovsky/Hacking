@@ -170,12 +170,14 @@ Use the `-perm` expression.
 
 ### perm mode
 
-There are three ways to specify `-perm` mode: 
-- No prefix: find exact permissions
-- Prefix of `-`: find "at least" permissions (not exact)
-- Prefix of `/`: find permission in either owner, group, OR other
+There are three ways to specify `-perm` mode (see the `find` [man page](https://man7.org/linux/man-pages/man1/find.1.html), perm searches:)): 
 
-From the `find` [man page](https://man7.org/linux/man-pages/man1/find.1.html), perm searches: 
+|  Prefix  | Description                                         |
+|:--------:|-----------------------------------------------------|
+|  [none]  | find exact permissions                              |
+|    -     | find "at least" permissions (not exact)             |
+|    /     | find permission in either owner, group, OR other    |
+ 
 ```
 -perm mode
  # Finds files with the EXACT match of the perm specified
