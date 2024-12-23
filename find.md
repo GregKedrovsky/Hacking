@@ -1,10 +1,18 @@
 # Find Stuff in Linux
 
 There are four basic commands in Linux to find stuff: 
-- [whereis]()
-- [which]()
-- [locate]()
-- [find]()
+- [whereis](#whereis)
+- [which](#which)
+- [locate](#locate)
+- [find](find)
+  - [Basic Syntax](#)
+  - [Search Location Shortcuts](#)
+  - [Find Files by Name](#)
+  - [Find Files by Type](#)
+  - [Find Files by Size](#)
+  - [Find Files by Owner](#)
+  - [Find Files by Perms](#)
+  - [Find Files by Timestamps](#)
 
 ## whereis
 > Searches for binary files, source files, and man pages for the specified command names.
@@ -53,22 +61,21 @@ locate python  # locates all file names that include 'python'
 ### Search Location Shortcuts
 
 
-### Expressions
-
-#### Most Common Expressions: 
-
-
-#### Find Files by Type
+### Find Files by Name
+- This is the most common expression
 
 
-#### Find Files by Size
+### Find Files by Type
 
 
-#### Find Files by Owner
+### Find Files by Size
 
 
-#### Find Files by Perms
+### Find Files by Owner
 
 
-#### Find Files by Timestamps
+### Find Files by Perms
+
+
+### Find Files by Timestamps
 
