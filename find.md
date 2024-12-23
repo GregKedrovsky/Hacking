@@ -77,16 +77,7 @@ If you get a bunch of garbage on the screen, send `stderr` (by its file descript
 find /path/to/search/ -name searchTerm 2>/dev/null
 ```
 
-#### First Argument: Location
-
-The first argument after the `find` command is the location from which you wwant to search.
-- Although you may specify a specific directory, you can use a metacharacter to serve as a substitute.
-- The three metacharacters that work with this command include:
-  - Period (`.`): Specifies the current and all nested folders.
-  - Forward Slash (`/`): Specifies the entire filesystem.
-  - Tilde (`~`): Specifies the active user's home directory.
-
-#### Example
+#### Example:
 ```
 find . -type f -size 1033c ! -executable -exec cat {} \;
 ```
@@ -96,13 +87,26 @@ find . -type f -size 1033c ! -executable -exec cat {} \;
   - The command must end with a semicolon, which has to be escaped from the shell, either as `\;` or as `“;”`.
   - [Using the find -exec Command](https://www.baeldung.com/linux/find-exec-command)
 
-
 ### Search Location Shortcuts
 
+The first argument after the `find` command is the location from which you want to search.
+- Although you may specify a specific directory, you can use a metacharacter to serve as a substitute.
+- The three metacharacters that work with this command include:
+  - Period (`.`): Specifies the current and all nested folders.
+  - Forward Slash (`/`): Specifies the entire filesystem.
+  - Tilde (`~`): Specifies the active user's home directory.
+- `find` is ***recursive*** by default.
 
 ### Find by Name
-- This is the most common expression
+> This is the most common "expression" (expressions specify how we want to match what we are looking for).
 
+`-name` : searches for the name you provide of a file, directory, or link
+```
+find / -name file.txt    # specify exact name
+find / -name 'file1*'    # use search patterns
+find / -name '*.txt'     # use search patterns for extentions
+find / -iname 'FILE.txt  # use iname for a case-INsensitive search
+```
 
 ### Find by Type
 
