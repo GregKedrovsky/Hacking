@@ -131,11 +131,96 @@ find . -type f -name '*.txt' # find only/all files named with txt extension
 
 ### Find by Size
 
+Use the `-size` expression.
+- All units are rounded up (this is tricky!), for example, 1M = 1048576c but:
+- `-size -1M` will find only empty files (because anything less that 1 is 0, therefore this will match only those files less than 1, which is 0M).
+- `-size -1048576c` will find files from 0 to 1,048,575 bytes (i.e. 0 to one byte below 1M).
+
+#### Suffix: 
+| Suffix | Description                 |
+|:------:|-----------------------------|
+|   b    | blocks (512 bytes), default |
+|   c    | bytes                       |
+|   k    | kilobytes                   |
+|   M    | Megabytes                   |
+|   G    | Gigabytes                   |
+
+#### Prefix
+|  Prefix | Description  |
+|:-------:|--------------|
+|    +    | greater than |
+|    -    | less than    |
+
+#### Examples:
+```
+find . -type f -size +50c  # find all files larger than 50 bytes
+find . -type f -size 510c  # find all files exactly 510 byes
+```
 
 ### Find by Owner
 
+Use the `-user` expression and provide the username or user ID (uid). Example:
+```
+find . -type f -user greg
+```
 
 ### Find by Perms
+
+Use the `-perm` expression. 
+
+### perm mode
+
+There are three ways to specify `-perm` mode: 
+- No prefix: find exact permissions
+- Prefix of `-`: find "at least" permissions (not exact)
+- Prefix of `/`: find permission in either owner, group, OR other
+
+From the `find` [man page](https://man7.org/linux/man-pages/man1/find.1.html), perm searches: 
+```
+-perm mode
+ # Finds files with the EXACT match of the perm specified
+ # '-perm g=w' or '-perm 0020' would find files that ONLY have the group write permission on and no others.
+
+-perm -mode
+ # Finds files with ALL of the perms specified.
+ # '-perm -664' would find files that have AT LEAST ALL those perms (e.g., 0777 would be found).
+ # '-perm -220' would find files writable by BOTH owner and group.
+
+-perm /mode
+ # Finds files with ANY of the perms specified.
+ # '-perm /222' would find files writable by somebody (owner, group, AND/OR other).
+ # '-perm /220' would find files writable by EITHER owner or group or BOTH.
+```
+
+#### Examples:
+
+```
+find . -type f -perm 664   # find files with exactly 644 perms in current dir and all subdirs
+find . -type f -perm -664  # find files with "at least" 644 perms (and more)
+find . -type f -perm /222  # find files writeable by somebody (owner, group, OR other)
+find . -type f -perm /220  # find files writeable by EITHER owner OR group (but no one else)
+find . -type f -perm -220  # find files writeable by BOTH owner AND group (but no one else)
+
+find / -perm /4000 -type f -exec ls -ld {} \; 2>/dev/null
+ # This will find files with the SUID bit set.
+ # -l long listing format
+ # -d list directory names, not contents
+```
+
+
+#### Find SUID Files
+
+```
+find / -perm /4000  # find SUID files (ANY with SUID set)
+find / -perm /2000  # find SGID files (ANY with SGID set)
+find / -perm /6000  # find (ANY file with ) both SUID and SGID files
+
+# Example Implementations:
+find / -perm -u=s -type f 2>/dev/null        # find files with AT LEAST the SUID set
+find / -perm -04000 -type f -ls 2>/dev/null  # find files with AT LEAST the SUID set
+```
+
+Resource: [Permission Bits](https://www.gnu.org/software/libc/manual/html_node/Permission-Bits.html)
 
 
 ### Find by Timestamps
