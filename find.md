@@ -110,6 +110,24 @@ find / -iname 'FILE.txt  # use iname for a case-INsensitive search
 
 ### Find by Type
 
+Use the `-type` expression. The most common is `f` for "file" but the others are just as easy:
+
+|  Type  | Description       |
+|:------:|-------------------|
+|   f    | regular file      |
+|   d    | directory         |
+|   l    | symbolic link     |
+|   c    | character device  |
+|   b    | block device      |
+|   p    | named pipe (FIFO) |
+|   s    | socket            |
+
+#### Examples:
+```
+find . -type d               # find only/all directories, recursive
+find . -type f               # find only/all files, recursive
+find . -type f -name '*.txt' # find only/all files named with txt extension
+```
 
 ### Find by Size
 
