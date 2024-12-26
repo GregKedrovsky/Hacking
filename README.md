@@ -11,3 +11,13 @@ This is an "organize as you go" project.
 - I had no idea how to organize my notes, so I just started dumping in things I needed and needed to remember.
 - Then when I had time and inspiration, I gave it a little structure and organization.
 - Lather. Rinse. Repeat. 
+
+----
+## Robert Morris's 3 Rules
+
+The three golden rules to ensure computer security are: 
+1. do not own a computer; 
+2. do not power it on; 
+3. and do not use it.
+
+Source: Robert Morris, NSA cryptographer and computer scientist (helped develop the Unix operating system and pioneer many cybersecurity concepts and practices that are still in use today; 1932-2011).
